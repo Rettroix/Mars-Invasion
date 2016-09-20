@@ -1,9 +1,9 @@
-﻿Build started 20/09/2016 23:20:13.
-     1>Project "C:\Users\Elliot Anderson\Documents\GitHub\spaceship\spaceship\spaceship.vcxproj" on node 2 (Build target(s)).
+﻿Build started 20/09/2016 23:34:16.
+     1>Project "C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\spaceship\spaceship.vcxproj" on node 2 (Build target(s)).
      1>Link:
-         spaceship.vcxproj -> C:\Users\Elliot Anderson\Documents\GitHub\spaceship\Debug\spaceship.exe
-     1>Done Building Project "C:\Users\Elliot Anderson\Documents\GitHub\spaceship\spaceship\spaceship.vcxproj" (Build target(s)).
+         spaceship.vcxproj -> C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.exe
+     1>Done Building Project "C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\spaceship\spaceship.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.06
+Time Elapsed 00:00:00.04
