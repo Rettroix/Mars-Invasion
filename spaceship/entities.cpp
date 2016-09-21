@@ -70,7 +70,7 @@ void Spaceship::Initialise(Vector2D position)
   m_angle = 0.0f;
   m_velocity.set(0, 0);
   LoadImage(L"ship.png");
-  m_imageScale = SHIPSIZE / 64;	// 64 pixel image file
+  m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
 }
 
 

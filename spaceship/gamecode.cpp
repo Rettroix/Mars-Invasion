@@ -268,6 +268,10 @@ ErrorType Game::StartOfGame()
 
   m_objects.AddItem(pShip, true);
 
+  Building* pBuilding = new Building;
+  pBuilding->Intialise(Vector2D(0, 0), Vector2D(0, 3), 120.0f);
+
+  Game::instance.m_objects.AddItem(pBuilding, true);
 
 
 
@@ -302,10 +306,7 @@ ErrorType Game::Update()
 	// but try to do this within a game object if possible
 
   /////////////////////
-  Building* pBuilding = new Building;
-  pBuilding->Intialise(Vector2D(0, 0), Vector2D(0, 3), 120.0f);
 
-  Game::instance.m_objects.AddItem(pBuilding, true);
 
 	return SUCCESS;
 }
