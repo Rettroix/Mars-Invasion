@@ -257,6 +257,7 @@ ErrorType Game::MainMenu()
 		}
 	}
 
+
 	return SUCCESS;
 }
 
@@ -268,11 +269,12 @@ ErrorType Game::StartOfGame()
 
   m_objects.AddItem(pShip, true);
 
-  Building* pBuilding = new Building;
-  pBuilding->Intialise(Vector2D(0, 0), Vector2D(0, 3), 120.0f);
 
-  Game::instance.m_objects.AddItem(pBuilding, true);
 
+  City* pCity = new City;
+  pCity->Initialise(120.0f);
+
+  m_objects.AddItem(pCity, true);
 
 
 	return SUCCESS;

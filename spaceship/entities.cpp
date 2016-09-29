@@ -9,20 +9,23 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
+Vector2D shipPosition;
 
 //////////////////////////////////////////////////////
 //////////////building////////////////////////////////
 //////////////////////////////////////////////////////
 
-void Building::Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay)
+void Building::Initialise(Vector2D startPosition)
 {
   m_drawDepth = 5;
 
   LoadImage(L"building.png");
 
-  m_position = Vector2D(0, 500);
+  m_position = startPosition;
 
   incrementFrame = 0;
+
+  m_imageScale = 2;
 }
 
 void Building::Update(float frameTime)
@@ -59,7 +62,7 @@ Building::Building() :GameObject(BUILDING)
 // Set the object's type
 Spaceship::Spaceship() : GameObject(SPACESHIP)
 {
-
+  m_drawDepth = 6;
 }
 
 // Starting position and load the image
@@ -139,26 +142,28 @@ void Spaceship::Update(float frametime)
   m_velocity = m_velocity - FRICTION*frametime*m_velocity;
   m_position = m_position + m_velocity*frametime;
 
-  // Wrap around the screen
-  const int BORDER = 16;
-  Rectangle2D screenArea = MyDrawEngine::GetInstance()->GetViewport();
-  if (m_position.XValue + BORDER < screenArea.GetTopLeft().XValue)    // Left side
-  {
-    m_position.XValue = screenArea.GetBottomRight().XValue + BORDER;
-  }
-  if (m_position.XValue - BORDER > screenArea.GetBottomRight().XValue)    // right side
-  {
-    m_position.XValue = screenArea.GetTopLeft().XValue - BORDER;
-  }
-  if (m_position.YValue - BORDER > screenArea.GetTopLeft().YValue)    // top
-  {
-    m_position.YValue = screenArea.GetBottomRight().YValue - BORDER;
-  }
-  if (m_position.YValue + BORDER < screenArea.GetBottomRight().YValue)    // bottom
-  {
-    m_position.YValue = screenArea.GetTopLeft().YValue + BORDER;
-  }
+  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300, 0));
 
+  // Wrap around the screen
+  //const int BORDER = 16;
+  //Rectangle2D screenArea = MyDrawEngine::GetInstance()->GetViewport();
+  //if (m_position.XValue + BORDER < screenArea.GetTopLeft().XValue)    // Left side
+  //{
+  //  m_position.XValue = screenArea.GetBottomRight().XValue + BORDER;
+  //}
+  //if (m_position.XValue - BORDER > screenArea.GetBottomRight().XValue)    // right side
+  //{
+  //  m_position.XValue = screenArea.GetTopLeft().XValue - BORDER;
+  //}
+  //if (m_position.YValue - BORDER > screenArea.GetTopLeft().YValue)    // top
+  //{
+  //  m_position.YValue = screenArea.GetBottomRight().YValue - BORDER;
+  //}
+  //if (m_position.YValue + BORDER < screenArea.GetBottomRight().YValue)    // bottom
+  //{
+  //  m_position.YValue = screenArea.GetTopLeft().YValue + BORDER;
+  //}
+  shipPosition = m_position;
 }
 
 IShape2D& Spaceship::GetCollisionShape()
@@ -185,4 +190,160 @@ void Spaceship::Explode()
 //  Game::instance.m_objects.AddItem(pExp, false);
 
  // g_soundFX.StopThrust();			// In case it is playing
+}
+
+///////////////////////////////////////////////////
+//===============City================================
+///////////////////////////////////////////////////
+
+void City::Initialise(float timeDelay)
+{
+  //LoadImage(L"BG.png");
+  m_imageScale = 9;
+  for (int i = -50; i < 50; i++)
+  {
+    Building* pBuilding = new Building;
+    pBuilding->Initialise(Vector2D(i*300, -470));
+
+    Game::instance.m_objects.AddItem(pBuilding, false);
+  }
+
+  for (int i = -50; i < 50; i++)
+  {
+    BuildingForeground* pBuildingForeground = new BuildingForeground;
+    pBuildingForeground->Initialise(Vector2D(i * 1000, -470));
+
+    Game::instance.m_objects.AddItem(pBuildingForeground, false);
+  }
+
+  for (int i = -50; i < 50; i++)
+  {
+    BuildingBackground* pBuildingBackground = new BuildingBackground;
+    pBuildingBackground->Initialise(Vector2D(i * 4000, 0));
+
+    Game::instance.m_objects.AddItem(pBuildingBackground, false);
+  }
+
+
+}
+
+
+void City::Update(float frameTime)
+{
+  
+
+
+  
+}
+
+IShape2D& City::GetCollisionShape()
+{
+  m_collider.PlaceAt(m_position, 96);
+  return m_collider;
+
+
+}
+
+
+void City::ProcessCollision(GameObject& other)
+{
+  //nothing
+
+}
+
+City::City() :GameObject(LEVEL)
+{
+
+}
+
+//////////////////////////////////////////////////////
+//////////////BuildingForeground////////////////////////////////
+//////////////////////////////////////////////////////
+
+void BuildingForeground::Initialise(Vector2D startPosition)
+{
+  m_drawDepth = 8;
+
+  LoadImage(L"building.png");
+
+  m_position = startPosition;
+
+  incrementFrame = 0;
+  initialPosition = m_position;
+  m_imageScale = 3;
+}
+
+void BuildingForeground::Update(float frameTime)
+{
+  m_imageNumber = 0;
+  
+  m_position = initialPosition + Vector2D(Vector2D(shipPosition).XValue*0.5, 0);
+  incrementFrame+= 0.025 *frameTime;
+
+}
+
+IShape2D& BuildingForeground::GetCollisionShape()
+{
+  m_collider.PlaceAt(m_position, 96);
+  return m_collider;
+
+
+}
+
+
+void BuildingForeground::ProcessCollision(GameObject& other)
+{
+  //nothing
+
+}
+
+BuildingForeground::BuildingForeground() :GameObject(BUILDING)
+{
+
+}
+
+//////////////////////////////////////////////////////
+//////////////BuildingBackground////////////////////////////////
+//////////////////////////////////////////////////////
+
+void BuildingBackground::Initialise(Vector2D startPosition)
+{
+  m_drawDepth = 1;
+
+  LoadImage(L"city.png");
+
+  m_position = startPosition;
+
+  incrementFrame = 0;
+  initialPosition = m_position;
+  m_imageScale = 9;
+}
+
+void BuildingBackground::Update(float frameTime)
+{
+  m_imageNumber = 0;
+
+  m_position = initialPosition - Vector2D(Vector2D(shipPosition).XValue*0.5, 0);
+  incrementFrame += 0.025 *frameTime;
+
+}
+
+IShape2D& BuildingBackground::GetCollisionShape()
+{
+  m_collider.PlaceAt(m_position, 96);
+  return m_collider;
+
+
+}
+
+
+void BuildingBackground::ProcessCollision(GameObject& other)
+{
+  //nothing
+
+}
+
+BuildingBackground::BuildingBackground() :GameObject(BUILDING)
+{
+
 }

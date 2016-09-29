@@ -121,5 +121,11 @@
     <Image Include="building.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="BG.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="city.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

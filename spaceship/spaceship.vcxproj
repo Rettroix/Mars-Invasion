@@ -118,7 +118,9 @@
     <ClInclude Include="vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="BG.png" />
     <Image Include="building.png" />
+    <Image Include="city.png" />
     <Image Include="ship.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
