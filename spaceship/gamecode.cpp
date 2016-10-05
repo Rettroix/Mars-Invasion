@@ -265,7 +265,7 @@ ErrorType Game::StartOfGame()
 {
 	// Code to set up your game
   Spaceship* pShip = new Spaceship;
-  pShip->Initialise(Vector2D(0, 0));
+  pShip->Initialise(Vector2D(0, 500));
 
   m_objects.AddItem(pShip, true);
 
@@ -275,6 +275,11 @@ ErrorType Game::StartOfGame()
   pCity->Initialise(120.0f);
 
   m_objects.AddItem(pCity, true);
+
+  userInterface* puserInterface = new userInterface;
+  puserInterface->Intialise(Vector2D(0.0f, 0.0f), Vector2D(0, 3), 120.0f);
+
+  Game::instance.m_objects.AddItem(puserInterface, true);
 
 
 	return SUCCESS;
@@ -288,7 +293,7 @@ ErrorType Game::Update()
 
   MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 
-
+  
 
 	// Garbage collect any objects. Possibly slow
 	m_objects.DeleteInactiveItems();

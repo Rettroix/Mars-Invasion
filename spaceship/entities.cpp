@@ -9,7 +9,10 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
-Vector2D shipPosition;
+const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
+
+globalstuffs global;
+
 
 //////////////////////////////////////////////////////
 //////////////building////////////////////////////////
@@ -26,6 +29,7 @@ void Building::Initialise(Vector2D startPosition)
   incrementFrame = 0;
 
   m_imageScale = 2;
+  
 }
 
 void Building::Update(float frameTime)
@@ -103,6 +107,8 @@ void Spaceship::Update(float frametime)
     Vector2D acc;
     acc.setBearing(m_angle, ACCELERATION);
     m_velocity = m_velocity + acc*frametime;
+    m_fuel--;
+    global.fuel = m_fuel;
 
     // Add a fire trail for thrust effect
    // Explosion* pExp = new Explosion;
@@ -130,9 +136,10 @@ void Spaceship::Update(float frametime)
     pos = pos + m_position;
     vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
     vel = vel + m_velocity;					// Include the launching platform's velocity
-    //Bullet* pBullet = new Bullet;
-    //pBullet->Initialise(pos, vel);			// Intialise
-    //Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
+    
+    Bullet* pBullet = new Bullet;
+    pBullet->Initialise(pos, vel);			// Intialise
+    Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
     //g_soundFX.PlayZap();					// PLay zap sound effect
   }
   m_shootDelay -= frametime;					// Cool down the gun so it can shoot again.
@@ -144,26 +151,11 @@ void Spaceship::Update(float frametime)
 
   MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300, 0));
 
-  // Wrap around the screen
-  //const int BORDER = 16;
-  //Rectangle2D screenArea = MyDrawEngine::GetInstance()->GetViewport();
-  //if (m_position.XValue + BORDER < screenArea.GetTopLeft().XValue)    // Left side
-  //{
-  //  m_position.XValue = screenArea.GetBottomRight().XValue + BORDER;
-  //}
-  //if (m_position.XValue - BORDER > screenArea.GetBottomRight().XValue)    // right side
-  //{
-  //  m_position.XValue = screenArea.GetTopLeft().XValue - BORDER;
-  //}
-  //if (m_position.YValue - BORDER > screenArea.GetTopLeft().YValue)    // top
-  //{
-  //  m_position.YValue = screenArea.GetBottomRight().YValue - BORDER;
-  //}
-  //if (m_position.YValue + BORDER < screenArea.GetBottomRight().YValue)    // bottom
-  //{
-  //  m_position.YValue = screenArea.GetTopLeft().YValue + BORDER;
-  //}
-  shipPosition = m_position;
+
+  global.shipPosition = m_position;
+  m_position = m_position - GRAVITY *frametime;
+
+  
 }
 
 IShape2D& Spaceship::GetCollisionShape()
@@ -277,7 +269,7 @@ void BuildingForeground::Update(float frameTime)
 {
   m_imageNumber = 0;
   
-  m_position = initialPosition + Vector2D(Vector2D(shipPosition).XValue*0.5, 0);
+  m_position = initialPosition + Vector2D(Vector2D(global.shipPosition).XValue*0.5, 0);
   incrementFrame+= 0.025 *frameTime;
 
 }
@@ -303,7 +295,7 @@ BuildingForeground::BuildingForeground() :GameObject(BUILDING)
 }
 
 //////////////////////////////////////////////////////
-//////////////BuildingBackground////////////////////////////////
+//////////////BuildingBackground//////////////////////
 //////////////////////////////////////////////////////
 
 void BuildingBackground::Initialise(Vector2D startPosition)
@@ -323,7 +315,7 @@ void BuildingBackground::Update(float frameTime)
 {
   m_imageNumber = 0;
 
-  m_position = initialPosition - Vector2D(Vector2D(shipPosition).XValue*0.5, 0);
+  m_position = initialPosition - Vector2D(Vector2D(global.shipPosition).XValue*0.5, 0);
   incrementFrame += 0.025 *frameTime;
 
 }
@@ -344,6 +336,103 @@ void BuildingBackground::ProcessCollision(GameObject& other)
 }
 
 BuildingBackground::BuildingBackground() :GameObject(BUILDING)
+{
+
+}
+
+Bullet::Bullet() : GameObject(BULLET)
+{
+
+}
+
+void Bullet::Initialise(Vector2D position, Vector2D velocity)
+{
+  m_position = position;
+  m_velocity = velocity;
+  m_timer = 2.0;
+  LoadImage(L"ship.png");
+  m_imageScale = SHIPSIZE / 16;
+  m_drawDepth = 6;
+}
+
+void Bullet::Update(float frametime)
+{
+  m_timer -= frametime;
+  m_position = m_position + m_velocity*frametime;
+
+
+  if (m_timer <= 0)
+    Deactivate();
+}
+
+IShape2D& Bullet::GetCollisionShape()
+{
+  m_collider = m_position;
+  return m_collider;
+}
+
+void Bullet::ProcessCollision(GameObject& other)
+{
+  //if (other.GetType() == ASTEROID)
+ // {
+   // Deactivate();
+
+    // Send message that a bullet has died
+    // (The fragment class will need to know)
+    //Event evt;
+    //evt.position = m_position;
+    //evt.pSource = this;
+    //evt.type = EVENT_OBJECTDESTROYED;
+
+    //Game::instance.NotifyEvent(evt);
+  //}
+
+
+
+}
+
+
+//////////////////////////////////////////////
+/////////UserInterface///////////////////////
+/////////////////////////////////////////////
+void userInterface::Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay)
+{
+  m_drawDepth = 5;
+
+
+
+
+}
+
+void userInterface::Update(float frameTime)
+{
+
+
+}
+
+IShape2D& userInterface::GetCollisionShape()
+{
+
+  return m_collider;
+}
+
+void userInterface::Draw()
+{
+  MyDrawEngine::GetInstance()->WriteText(200, 200, L"Fuel=", MyDrawEngine::WHITE);
+  MyDrawEngine::GetInstance()->WriteInt(350, 200, global.fuel, MyDrawEngine::WHITE);
+
+  //MyDrawEngine::GetInstance()->WriteText(700, 200, L"Lives:", MyDrawEngine::WHITE);
+  //MyDrawEngine::GetInstance()->WriteInt(700, 220, lives, MyDrawEngine::WHITE);
+
+}
+void userInterface::ProcessCollision(GameObject& other)
+{
+  //nothing
+}
+
+
+
+userInterface::userInterface() :GameObject(UI)
 {
 
 }

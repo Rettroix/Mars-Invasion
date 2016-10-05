@@ -6,6 +6,11 @@
 
 // Create your game entity classes here
 
+const struct globalstuffs
+{
+  Vector2D shipPosition;
+  float fuel;
+};
 
 
 class Building : public GameObject
@@ -36,6 +41,8 @@ private:
   Circle2D m_collider;		// Used for collision
   float m_shootDelay;       // Time in seconds before ship can shoot again
   bool m_thrusting;			// Whether ship is currently thrusting
+  float m_fuel;
+  
 public:
   Spaceship();
   void Initialise(Vector2D position);		// Sets to the starting position
@@ -104,3 +111,41 @@ public:
   void ProcessCollision(GameObject& other);
   BuildingBackground();
 };
+
+class Bullet : public GameObject
+{
+private:
+  Vector2D m_velocity;
+  Point2D m_collider;
+  float m_timer;  // Lifetime
+
+public:
+  Bullet();
+  void Initialise(Vector2D position, Vector2D velocity);
+  void Update(float frametime);
+  IShape2D& GetCollisionShape();
+  void ProcessCollision(GameObject& other);
+  
+};
+
+class userInterface : public GameObject
+{
+private:
+  Vector2D m_velocity;
+  float m_time;
+  Circle2D m_circle;
+  Circle2D m_collider;
+  float m_fuel;
+
+public:
+
+  void Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay);
+
+  void Update(float frameTime);
+  IShape2D& GetCollisionShape();
+  void Draw();
+  void ProcessCollision(GameObject& other);
+  void addFuel(float fuel);
+  userInterface();
+};
+
