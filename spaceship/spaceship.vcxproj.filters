@@ -127,5 +127,17 @@
     <Image Include="city.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="buildingblur.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

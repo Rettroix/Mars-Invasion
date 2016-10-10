@@ -120,6 +120,10 @@
   <ItemGroup>
     <Image Include="BG.png" />
     <Image Include="building.png" />
+    <Image Include="buildingblur.png" />
+    <Image Include="bullet1.png" />
+    <Image Include="bullet2.png" />
+    <Image Include="bullet3.png" />
     <Image Include="city.png" />
     <Image Include="ship.png" />
   </ItemGroup>

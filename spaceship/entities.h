@@ -41,7 +41,7 @@ private:
   Circle2D m_collider;		// Used for collision
   float m_shootDelay;       // Time in seconds before ship can shoot again
   bool m_thrusting;			// Whether ship is currently thrusting
-  float m_fuel;
+  float m_fuel;         //The ship's fuel
   
 public:
   Spaceship();
@@ -50,6 +50,7 @@ public:
   IShape2D& GetCollisionShape();			// Provides a collision area
   void ProcessCollision(GameObject& other);	// Makes ship explode if hit by an asteroid
   void Explode();							// Deactivates ship and creates an explosion
+  void fuelManagement();
 };
 
 class City : public GameObject
@@ -118,6 +119,9 @@ private:
   Vector2D m_velocity;
   Point2D m_collider;
   float m_timer;  // Lifetime
+
+  float m_animationSpeed;   // Frames of animation per second
+  float m_currentAnimation; // Current animation frame
 
 public:
   Bullet();
