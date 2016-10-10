@@ -78,7 +78,7 @@ void Spaceship::Initialise(Vector2D position)
   m_velocity.set(0, 0);
   LoadImage(L"ship.png");
   m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
-  m_fuel = 300;
+  m_fuel = 1600;
 }
 
 
@@ -114,11 +114,13 @@ void Spaceship::Update(float frametime)
       global.fuel = m_fuel;
 
       // Add a fire trail for thrust effect
-      // Explosion* pExp = new Explosion;
-      //  Vector2D flameDirection;      // The flames move
-      //flameDirection.setBearing(m_angle + 3.141f, 600);  // Out of the back of the ship
-      //pExp->Initialise(m_position, flameDirection, 68.0f, 0.3f);
-      //   Game::instance.m_objects.AddItem(pExp, false);		// Add to the engine
+      Explosion* pExp = new Explosion;
+      Vector2D flameDirection;      // The flames move
+      flameDirection.setBearing(m_angle + 3.141f, 600);  // Out of the back of the ship
+      pExp->Initialise(m_position, flameDirection, 68.0f, 2.0f);
+      Game::instance.m_objects.AddItem(pExp, false);		// Add to the engine
+
+
     }
     else	// Not thrusting
     {
@@ -268,7 +270,7 @@ void BuildingForeground::Initialise(Vector2D startPosition)
 {
   m_drawDepth = 8;
 
-  LoadImage(L"building.png");
+  LoadImage(L"buildingfore.png");
 
   m_position = startPosition;
 
@@ -362,27 +364,37 @@ void Bullet::Initialise(Vector2D position, Vector2D velocity)
   m_position = position;
   m_velocity = velocity;
   m_timer = 2.0;
-  m_animationSpeed = 1;
+  m_animationSpeed = 0;
   m_currentAnimation = 0.0f;
   LoadImage(L"bullet1.png");
   LoadImage(L"bullet2.png");
   LoadImage(L"bullet3.png");
+  LoadImage(L"bullet4.png");
+  LoadImage(L"bullet5.png");
+  LoadImage(L"bullet6.png");
   m_imageScale = SHIPSIZE / 16;
   m_drawDepth = 6;
 }
 
 void Bullet::Update(float frametime)
 {
+  m_animationSpeed = m_animationSpeed + 0.15;
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;
 
-  // Advance the animation
-  m_currentAnimation += m_animationSpeed* frametime;
+  if (m_animationSpeed >= 5)
+  {
+    m_animationSpeed = 5;
+    m_imageNumber = 5;
+  }
+  else
+  {
+    m_imageNumber = m_animationSpeed;
+  }
+  
+}
 
-  m_imageNumber = int(m_currentAnimation);
-
-
-IShape2D& Bullet::GetCollisionShape()
+  IShape2D& Bullet::GetCollisionShape()
 {
   m_collider = m_position;
   return m_collider;
@@ -414,7 +426,7 @@ void Bullet::ProcessCollision(GameObject& other)
 /////////////////////////////////////////////
 void userInterface::Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay)
 {
-  m_drawDepth = 5;
+  m_drawDepth = 7;
 
 
 
@@ -452,4 +464,62 @@ void userInterface::ProcessCollision(GameObject& other)
 userInterface::userInterface() :GameObject(UI)
 {
 
+}
+
+//////////////////////////////////////////////
+/////////Explosion///////////////////////
+/////////////////////////////////////////////
+
+Explosion::Explosion() : GameObject(EXPLOSION)
+{
+
+}
+
+void Explosion::Initialise(Vector2D position, Vector2D velocity, float animationSpeed, float scale)
+{
+  m_drawDepth = 6;
+  m_velocity = velocity;
+  m_position = position;
+  m_animationSpeed = 0;
+  m_currentAnimation = 0.0f;
+  m_imageScale = scale;       // Part of the superclass
+
+  // Loading a sequence of images for animation
+  LoadImage(L"explosion1.bmp");
+  LoadImage(L"explosion2.bmp");
+  LoadImage(L"explosion3.bmp");
+  LoadImage(L"explosion4.bmp");
+  LoadImage(L"explosion5.bmp");
+  LoadImage(L"explosion6.bmp");
+  LoadImage(L"explosion7.bmp");
+  LoadImage(L"explosion8.bmp");
+}
+
+void Explosion::Update(float frametime)
+{
+  m_animationSpeed = m_animationSpeed + 0.6;
+  
+  m_position = m_position + m_velocity*frametime;
+
+  if (m_animationSpeed >= 7)
+  {
+    m_animationSpeed = 7;
+    m_imageNumber = 7;
+  }
+  else
+  {
+    m_imageNumber = m_animationSpeed;
+  }
+
+}
+
+IShape2D& Explosion::GetCollisionShape()
+{
+  m_collider.PlaceAt(m_position, 32.0f* m_imageScale);
+  return m_collider;
+}
+
+void Explosion::ProcessCollision(GameObject& other)
+{
+  // No-op
 }

@@ -139,5 +139,44 @@
     <Image Include="bullet3.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="bullet4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="explosion1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="buildingforeground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="buildingfore.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
