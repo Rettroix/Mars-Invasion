@@ -6,10 +6,12 @@
 
 // Create your game entity classes here
 
-const struct globalstuffs
+struct globalstuffs
 {
   Vector2D shipPosition;
   float fuel;
+  float shipAngle;
+  float value[20];
 };
 
 
@@ -59,6 +61,9 @@ private:
   Circle2D m_circle;
   Circle2D m_collider;
   float incrementFrame;
+  int spawnedBuildings[10];
+  int shipXValue;
+  float fship;
 
 public:
 
@@ -125,7 +130,7 @@ private:
 
 public:
   Bullet();
-  void Initialise(Vector2D position, Vector2D velocity);
+  void Initialise(Vector2D position, Vector2D velocity, float angl);
   void Update(float frametime);
   IShape2D& GetCollisionShape();
   void ProcessCollision(GameObject& other);

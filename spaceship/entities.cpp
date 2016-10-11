@@ -89,7 +89,7 @@ void Spaceship::Update(float frametime)
   // Get input and set acceleration
   MyInputs* pInputs = MyInputs::GetInstance();
   pInputs->SampleKeyboard();
-
+  global.shipAngle = m_angle;
   if (m_fuel > 0)
   {
     if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
@@ -143,7 +143,7 @@ void Spaceship::Update(float frametime)
       vel = vel + m_velocity;					// Include the launching platform's velocity
 
       Bullet* pBullet = new Bullet;
-      pBullet->Initialise(pos, vel);			// Intialise
+      pBullet->Initialise(pos, vel, m_angle);			// Intialise
       Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
       //g_soundFX.PlayZap();					// PLay zap sound effect
     }
@@ -206,15 +206,16 @@ void City::Initialise(float timeDelay)
 {
   //LoadImage(L"BG.png");
   m_imageScale = 9;
-  for (int i = -50; i < 50; i++)
-  {
-    Building* pBuilding = new Building;
-    pBuilding->Initialise(Vector2D(i*300, -470));
+  //for (int i = -10; i < 10; i++)
+  //{
+  //  Building* pBuilding = new Building;
+  //  pBuilding->Initialise(Vector2D(i*300, -470));
 
-    Game::instance.m_objects.AddItem(pBuilding, false);
-  }
+  //  Game::instance.m_objects.AddItem(pBuilding, false);
+  //}
 
-  for (int i = -50; i < 50; i++)
+
+  for (int i = -10; i < 10; i++)
   {
     BuildingForeground* pBuildingForeground = new BuildingForeground;
     pBuildingForeground->Initialise(Vector2D(i * 1000, -470));
@@ -222,7 +223,7 @@ void City::Initialise(float timeDelay)
     Game::instance.m_objects.AddItem(pBuildingForeground, false);
   }
 
-  for (int i = -50; i < 50; i++)
+  for (int i = -10; i < 10; i++)
   {
     BuildingBackground* pBuildingBackground = new BuildingBackground;
     pBuildingBackground->Initialise(Vector2D(i * 4000, 0));
@@ -236,7 +237,17 @@ void City::Initialise(float timeDelay)
 
 void City::Update(float frameTime)
 {
-  
+  //shipXValue = global.shipPosition.XValue;
+  //fship = global.shipPosition.XValue;
+  //global.value[0] = shipXValue;
+
+  //if (shipXValue % 30 == 0)
+  //{
+  //  Building* pBuilding = new Building;
+  //  pBuilding->Initialise(Vector2D(shipXValue+1600, -470));
+
+  //  Game::instance.m_objects.AddItem(pBuilding, false);
+  //}
 
 
   
@@ -359,7 +370,7 @@ Bullet::Bullet() : GameObject(BULLET)
 
 }
 
-void Bullet::Initialise(Vector2D position, Vector2D velocity)
+void Bullet::Initialise(Vector2D position, Vector2D velocity, float angl)
 {
   m_position = position;
   m_velocity = velocity;
@@ -374,6 +385,7 @@ void Bullet::Initialise(Vector2D position, Vector2D velocity)
   LoadImage(L"bullet6.png");
   m_imageScale = SHIPSIZE / 16;
   m_drawDepth = 6;
+  m_angle = angl - 1.4;
 }
 
 void Bullet::Update(float frametime)
@@ -381,7 +393,7 @@ void Bullet::Update(float frametime)
   m_animationSpeed = m_animationSpeed + 0.15;
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;
-
+  
   if (m_animationSpeed >= 5)
   {
     m_animationSpeed = 5;
@@ -427,7 +439,7 @@ void Bullet::ProcessCollision(GameObject& other)
 void userInterface::Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay)
 {
   m_drawDepth = 7;
-
+  
 
 
 
@@ -451,7 +463,7 @@ void userInterface::Draw()
   MyDrawEngine::GetInstance()->WriteInt(350, 200, global.fuel, MyDrawEngine::WHITE);
 
   //MyDrawEngine::GetInstance()->WriteText(700, 200, L"Lives:", MyDrawEngine::WHITE);
-  //MyDrawEngine::GetInstance()->WriteInt(700, 220, lives, MyDrawEngine::WHITE);
+  /*MyDrawEngine::GetInstance()->WriteDouble(700, 220, global.value[0], MyDrawEngine::WHITE);*/
 
 }
 void userInterface::ProcessCollision(GameObject& other)
@@ -505,6 +517,7 @@ void Explosion::Update(float frametime)
   {
     m_animationSpeed = 7;
     m_imageNumber = 7;
+    m_active = false;
   }
   else
   {
