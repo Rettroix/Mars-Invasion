@@ -19,6 +19,9 @@
 #include "shapes.h"
 #include "ObjectManager.h"
 #include "entities.h"
+#include "Spaceship.h"
+
+int incre;
 
 ErrorType Game::Main()
 // Called repeatedly - the game loop
@@ -264,23 +267,17 @@ ErrorType Game::MainMenu()
 ErrorType Game::StartOfGame()
 {
 	// Code to set up your game
+  incre = 0;
+
+
+
   Spaceship* pShip = new Spaceship;
   pShip->Initialise(Vector2D(0, 500));
-
   m_objects.AddItem(pShip, true);
 
-
-
   City* pCity = new City;
-  pCity->Initialise(120.0f);
-
+  pCity->Initialise(pShip);
   m_objects.AddItem(pCity, true);
-
-  userInterface* puserInterface = new userInterface;
-  puserInterface->Intialise(Vector2D(0.0f, 0.0f), Vector2D(0, 3), 120.0f);
-
-  Game::instance.m_objects.AddItem(puserInterface, true);
-
 
 	return SUCCESS;
 }
@@ -314,7 +311,8 @@ ErrorType Game::Update()
 
   /////////////////////
 
-
+  
+  
 	return SUCCESS;
 }
 
