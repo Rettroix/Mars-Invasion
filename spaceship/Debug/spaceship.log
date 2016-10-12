@@ -1,20 +1,18 @@
-﻿Build started 11/10/2016 20:59:09.
+﻿Build started 12/10/2016 17:17:00.
      1>Project "C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\spaceship\spaceship.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Spaceship.cpp entities.cpp gamecode.cpp
-         gamecode.cpp
-         entities.cpp
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(41): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(50): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(58): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(134): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(139): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(150): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(258): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(270): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
          Spaceship.cpp
+         entities.cpp
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(43): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(52): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(60): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(136): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(141): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\entities.cpp(152): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+         gamecode.cpp
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.lib" /MACHINE:X86 Debug\Building.obj
          Debug\BuildingBackground.obj
@@ -22,6 +20,7 @@
          Debug\camera.obj
          Debug\entities.obj
          Debug\ErrorLogger.obj
+         Debug\Explosion.obj
          Debug\gamecode.obj
          Debug\GameObject.obj
          Debug\gametimer.obj
@@ -33,6 +32,7 @@
          Debug\Shapes.obj
          Debug\Spaceship.obj
          Debug\stuff.obj
+         Debug\userInterface.obj
          Debug\vector2D.obj
          Debug\wincode.obj
          spaceship.vcxproj -> C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.exe
@@ -40,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.35
+Time Elapsed 00:00:01.92

@@ -3,7 +3,7 @@
 #include "gamecode.h"
 #include "myinputs.h"
 #include "Building.h"
-
+#include "Explosion.h"
 
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
@@ -31,7 +31,7 @@ void Spaceship::Initialise(Vector2D position)
   m_angle = 0.0f;
   m_velocity.set(0, 0);
   LoadImage(L"ship.png");
-  m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
+  //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
   m_fuel = 1600;
 }
 

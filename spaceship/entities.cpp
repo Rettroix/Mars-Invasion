@@ -3,7 +3,7 @@
 #include "myinputs.h"
 #include "BuildingForeground.h"
 #include "BuildingBackground.h"
-
+#include "Explosion.h"
 
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
@@ -32,12 +32,12 @@ void City::Initialise(Spaceship *player)
   m_imageScale = 9;
 
   userInterface* puserInterface = new userInterface;
-  puserInterface->Intialise(Vector2D(0.0f, 0.0f), Vector2D(0, 3), 120.0f);
+  puserInterface->Intialise(m_pPlayer);
 
   Game::instance.m_objects.AddItem(puserInterface, true);
 
 
-  for (int i = -10; i < 10; i++)
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
     Building* pBuilding = new Building;
     pBuilding->Initialise(Vector2D(i*300, -470), m_pPlayer);
@@ -45,8 +45,8 @@ void City::Initialise(Spaceship *player)
     Game::instance.m_objects.AddItem(pBuilding, false);
   }
 
-
-  for (int i = -10; i < 10; i++)
+   
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
     BuildingForeground* pBuildingForeground = new BuildingForeground;
     pBuildingForeground->Initialise(Vector2D(i * 1000, -470), m_pPlayer);
@@ -54,7 +54,7 @@ void City::Initialise(Spaceship *player)
     Game::instance.m_objects.AddItem(pBuildingForeground, false);
   }
 
-  for (int i = -10; i < 10; i++)
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
     BuildingBackground* pBuildingBackground = new BuildingBackground;
     pBuildingBackground->Initialise(Vector2D(i * 4000, 0), m_pPlayer);
@@ -181,106 +181,3 @@ void Bullet::ProcessCollision(GameObject& other)
 }
 
 
-//////////////////////////////////////////////
-/////////UserInterface///////////////////////
-/////////////////////////////////////////////
-void userInterface::Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay)
-{
-  m_drawDepth = 7;
-  
-
-
-
-}
-
-void userInterface::Update(float frameTime)
-{
-
-
-}
-
-IShape2D& userInterface::GetCollisionShape()
-{
-
-  return m_collider;
-}
-
-void userInterface::Draw()
-{
-  MyDrawEngine::GetInstance()->WriteText(200, 200, L"Fuel=", MyDrawEngine::WHITE);
-  MyDrawEngine::GetInstance()->WriteInt(350, 200, 6, MyDrawEngine::WHITE);
-
-  //MyDrawEngine::GetInstance()->WriteText(700, 200, L"Lives:", MyDrawEngine::WHITE);
-  /*MyDrawEngine::GetInstance()->WriteDouble(700, 220, global.value[0], MyDrawEngine::WHITE);*/
-
-}
-void userInterface::ProcessCollision(GameObject& other)
-{
-  //nothing
-}
-
-
-
-userInterface::userInterface() :GameObject(UI)
-{
-
-}
-
-//////////////////////////////////////////////
-/////////Explosion///////////////////////
-/////////////////////////////////////////////
-
-Explosion::Explosion() : GameObject(EXPLOSION)
-{
-
-}
-
-void Explosion::Initialise(Vector2D position, Vector2D velocity, float animationSpeed, float scale)
-{
-  m_drawDepth = 6;
-  m_velocity = velocity;
-  m_position = position;
-  m_animationSpeed = 0;
-  m_currentAnimation = 0.0f;
-  m_imageScale = scale;       // Part of the superclass
-
-  // Loading a sequence of images for animation
-  LoadImage(L"explosion1.bmp");
-  LoadImage(L"explosion2.bmp");
-  LoadImage(L"explosion3.bmp");
-  LoadImage(L"explosion4.bmp");
-  LoadImage(L"explosion5.bmp");
-  LoadImage(L"explosion6.bmp");
-  LoadImage(L"explosion7.bmp");
-  LoadImage(L"explosion8.bmp");
-}
-
-void Explosion::Update(float frametime)
-{
-  m_animationSpeed = m_animationSpeed + 0.6;
-  
-  m_position = m_position + m_velocity*frametime;
-
-  if (m_animationSpeed >= 7)
-  {
-    m_animationSpeed = 7;
-    m_imageNumber = 7;
-    m_active = false;
-  }
-  else
-  {
-    m_imageNumber = m_animationSpeed;
-  }
-
-}
-
-IShape2D& Explosion::GetCollisionShape()
-{
-  m_collider.PlaceAt(m_position, 32.0f* m_imageScale);
-  return m_collider;
-}
-
-void Explosion::ProcessCollision(GameObject& other)
-{
-  // No-op
-}

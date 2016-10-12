@@ -35,6 +35,13 @@ IShape2D& BuildingForeground::GetCollisionShape()
 
 }
 
+Vector2D BuildingForeground::getInitialPosition()
+{
+  return initialPosition;
+
+
+}
+
 
 void BuildingForeground::ProcessCollision(GameObject& other)
 {

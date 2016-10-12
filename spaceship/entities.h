@@ -5,8 +5,9 @@
 #include "GameObject.h"
 #include "Spaceship.h"
 #include "Building.h"
+#include "userInterface.h"
 // Create your game entity classes here
-
+const int NUMBER_OF_BUILDINGS = 20;
 
 
 
@@ -23,6 +24,7 @@ private:
   int shipXValue;
   float fship;
   Spaceship *m_pPlayer;
+  Building *m_pBuildings[NUMBER_OF_BUILDINGS];
 
 public:
 
@@ -59,41 +61,4 @@ public:
   
 };
 
-class userInterface : public GameObject
-{
-private:
-  Vector2D m_velocity;
-  float m_time;
-  Circle2D m_circle;
-  Circle2D m_collider;
-  float m_fuel;
-
-public:
-
-  void Intialise(Vector2D startPosition, Vector2D startVelocity, float timeDelay);
-
-  void Update(float frameTime);
-  IShape2D& GetCollisionShape();
-  void Draw();
-  void ProcessCollision(GameObject& other);
-  void addFuel(float fuel);
-  userInterface();
-};
-
-class Explosion : public GameObject
-{
-private:
-  Vector2D m_velocity;    // Note that my explosions move.  
-  Circle2D m_collider;
-  float m_animationSpeed;   // Frames of animation per second
-  float m_currentAnimation; // Current animation frame
-public:
-  Explosion();
-
-  // Sets starting conditions
-  void Initialise(Vector2D position, Vector2D velocity, float animationSpeed, float scale);
-  void Update(float frametime);		// Movement and animation
-  IShape2D& GetCollisionShape();	// Returns a circle for collision check
-  void ProcessCollision(GameObject& other);		// needed by engine, but not used
-};
 

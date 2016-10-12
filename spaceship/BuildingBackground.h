@@ -25,5 +25,7 @@ public:
 
   void ProcessCollision(GameObject& other);
 
+  Vector2D getInitialPosition();
+
   BuildingBackground();
 };

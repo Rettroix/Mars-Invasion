@@ -15,14 +15,14 @@ private:
   float incrementFrame;
   Vector2D initialPosition;
   Spaceship *m_pPlayer;
-
+  
 public:
 
   void Initialise(Vector2D startPosition, Spaceship *player);
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
-
+  Vector2D getInitialPosition();
   void ProcessCollision(GameObject& other);
   BuildingForeground();
 };
