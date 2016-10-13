@@ -21,7 +21,7 @@ void Building::Initialise(Vector2D startPosition, Spaceship *player)
 void Building::Update(float frameTime)
 {
   m_imageNumber = 0;
-
+  
 
 
 }
@@ -39,6 +39,16 @@ void Building::ProcessCollision(GameObject& other)
 {
   //nothing
 
+}
+
+void Building::changePosition(Vector2D pos)
+{
+  m_position = m_position + pos;
+}
+
+Vector2D Building::getPosition()
+{
+  return m_position;
 }
 
 Building::Building() :GameObject(BUILDING)

@@ -25,6 +25,9 @@ private:
   float fship;
   Spaceship *m_pPlayer;
   Building *m_pBuildings[NUMBER_OF_BUILDINGS];
+  int furthestLeft; //Building furthest to the left
+  int furthestRight; //Building furthesrt to the right
+  int lastIndex;
 
 public:
 

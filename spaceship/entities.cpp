@@ -30,19 +30,33 @@ void City::Initialise(Spaceship *player)
   //LoadImage(L"BG.png");
   m_pPlayer = player;
   m_imageScale = 9;
-
+  lastIndex = -(NUMBER_OF_BUILDINGS / 2); //Make last index equal the first value at first
   userInterface* puserInterface = new userInterface;
   puserInterface->Intialise(m_pPlayer);
-
+  furthestLeft = -(NUMBER_OF_BUILDINGS / 2);
   Game::instance.m_objects.AddItem(puserInterface, true);
 
 
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    Building* pBuilding = new Building;
-    pBuilding->Initialise(Vector2D(i*300, -470), m_pPlayer);
+    m_pBuildings[i] = new Building;
+    m_pBuildings[i]->Initialise(Vector2D(i * 300, -470), m_pPlayer);    
+    Game::instance.m_objects.AddItem(m_pBuildings[i], false);
 
-    Game::instance.m_objects.AddItem(pBuilding, false);
+    if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i]->getPosition().XValue) //If the last indexed building is further left than current building
+    {
+      
+      furthestLeft = furthestLeft; //Then the last index building is further left
+    }
+
+    else
+    {
+      furthestLeft = i; //Then the furthest left is current building
+
+    }
+    
+
+    lastIndex = i; //The last index is set to current loop
   }
 
    
@@ -79,9 +93,27 @@ void City::Update(float frameTime)
 
   //  Game::instance.m_objects.AddItem(pBuilding, false);
   //}
+  //lastIndex = -10;
+  //for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  //{
+  //  if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i]->getPosition().XValue) //If the last indexed building is further left than current building
+  //  {
+
+  //    furthestLeft = furthestLeft; //Then the last index building is further left
+  //  }
+
+  //  else
+  //  {
+  //    furthestLeft = i; //Then the furthest left is current building
+
+  //  }
 
 
-  
+  //  lastIndex = i; //The last index is set to current loop
+  //}
+  //m_pBuildings[furthestLeft]->changePosition(Vector2D(5, 0));
+  //MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
+
 }
 
 IShape2D& City::GetCollisionShape()
