@@ -10,6 +10,25 @@ Vector2D::Vector2D(float x, float y): XValue(x), YValue(y)
 {
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
 Vector2D::Vector2D(const Vector2D& copyVector)
 {
 	XValue=copyVector.XValue;

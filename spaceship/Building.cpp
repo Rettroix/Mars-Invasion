@@ -4,7 +4,7 @@
 //Buildings are the main objects which you can land atop of
 
 
-void Building::Initialise(Vector2D startPosition, Spaceship *player)
+void Building::Initialise(Vector2D startPosition)
 {
   m_drawDepth = 5;
 
@@ -43,7 +43,7 @@ void Building::ProcessCollision(GameObject& other)
 
 void Building::changePosition(Vector2D pos)
 {
-  m_position = m_position + pos;
+  m_position =  pos;
 }
 
 Vector2D Building::getPosition()

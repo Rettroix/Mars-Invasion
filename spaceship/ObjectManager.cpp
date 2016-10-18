@@ -131,8 +131,12 @@ void ObjectManager::DeleteAllObjects()
 
 	for( ;it!=m_allObjectList.end();++it)
 	{
-		delete *it;
+
+    delete *it;
 	}
+
+
+
 
 	m_allObjectList.clear();
 	m_colliderList.clear();

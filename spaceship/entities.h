@@ -6,6 +6,8 @@
 #include "Spaceship.h"
 #include "Building.h"
 #include "userInterface.h"
+#include "BuildingForeground.h"
+#include "BuildingBackground.h"
 // Create your game entity classes here
 const int NUMBER_OF_BUILDINGS = 20;
 
@@ -25,8 +27,11 @@ private:
   float fship;
   Spaceship *m_pPlayer;
   Building *m_pBuildings[NUMBER_OF_BUILDINGS];
+  BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];
+  BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];
   int furthestLeft; //Building furthest to the left
-  int furthestRight; //Building furthesrt to the right
+  int furthestRight; //Building furthest to the right
+  int middle;
   int lastIndex;
 
 public:

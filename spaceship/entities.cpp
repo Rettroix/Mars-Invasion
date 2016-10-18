@@ -30,50 +30,68 @@ void City::Initialise(Spaceship *player)
   //LoadImage(L"BG.png");
   m_pPlayer = player;
   m_imageScale = 9;
-  lastIndex = -(NUMBER_OF_BUILDINGS / 2); //Make last index equal the first value at first
+  lastIndex = 0; //Make last index equal the first value at first
   userInterface* puserInterface = new userInterface;
   puserInterface->Intialise(m_pPlayer);
-  furthestLeft = -(NUMBER_OF_BUILDINGS / 2);
+  furthestLeft = 0;
   Game::instance.m_objects.AddItem(puserInterface, true);
 
 
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    m_pBuildings[i] = new Building;
-    m_pBuildings[i]->Initialise(Vector2D(i * 300, -470), m_pPlayer);    
-    Game::instance.m_objects.AddItem(m_pBuildings[i], false);
+    m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
+    m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 300, -470));
+    Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
-    if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i]->getPosition().XValue) //If the last indexed building is further left than current building
+    if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) //If the last indexed building is further left than current building
     {
-      
-      furthestLeft = furthestLeft; //Then the last index building is further left
+      if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[furthestLeft]->getPosition().XValue)
+      {
+        furthestLeft = lastIndex; //Then the last index building is further left
+      }
+      else
+      {
+        furthestLeft = furthestLeft;
+      }
+
     }
 
     else
     {
-      furthestLeft = i; //Then the furthest left is current building
+      furthestLeft = i + (NUMBER_OF_BUILDINGS / 2); //Then the furthest left is current building
 
     }
-    
 
-    lastIndex = i; //The last index is set to current loop
+    if (furthestLeft == 0)
+    {
+      furthestRight = 20;
+    }
+
+    else
+    {
+      furthestRight = furthestLeft - 1;
+    }
+
+
+    lastIndex = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
   }
 
    
-  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS/2); i++)  
   {
-    BuildingForeground* pBuildingForeground = new BuildingForeground;
-    pBuildingForeground->Initialise(Vector2D(i * 1000, -470), m_pPlayer);
+    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
+    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 1000, -470), m_pPlayer);
 
-    Game::instance.m_objects.AddItem(pBuildingForeground, false);
+    Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
   }
 
+
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    BuildingBackground* pBuildingBackground = new BuildingBackground;
-    pBuildingBackground->Initialise(Vector2D(i * 4000, 0), m_pPlayer);
+    m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS/2)] = new BuildingBackground;
+    m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, 0), m_pPlayer);
 
-    Game::instance.m_objects.AddItem(pBuildingBackground, false);
+    Game::instance.m_objects.AddItem(m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
   }
 
 
@@ -86,33 +104,56 @@ void City::Update(float frameTime)
   //fship = global.shipPosition.XValue;
   //global.value[0] = shipXValue;
 
-  //if (shipXValue % 30 == 0)
-  //{
-  //  Building* pBuilding = new Building;
-  //  pBuilding->Initialise(Vector2D(shipXValue+1600, -470));
 
-  //  Game::instance.m_objects.AddItem(pBuilding, false);
-  //}
-  //lastIndex = -10;
-  //for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
-  //{
-  //  if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i]->getPosition().XValue) //If the last indexed building is further left than current building
-  //  {
+  lastIndex = 0;
+  furthestLeft = 0;
+  
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  {
 
-  //    furthestLeft = furthestLeft; //Then the last index building is further left
-  //  }
+    if (m_pBuildings[lastIndex]->getPosition().XValue < m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) //If the last indexed building is further left than current building
+    {
+      if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[furthestLeft]->getPosition().XValue)
+      {
+        furthestLeft = lastIndex; //Then the last index building is further left
+      }
+      else
+      {
+        furthestLeft = furthestLeft;
+      }
+      
+    }
 
-  //  else
-  //  {
-  //    furthestLeft = i; //Then the furthest left is current building
+    else
+    {
+      furthestLeft = i + (NUMBER_OF_BUILDINGS / 2); //Then the furthest left is current building
 
-  //  }
+    }
 
 
-  //  lastIndex = i; //The last index is set to current loop
-  //}
-  //m_pBuildings[furthestLeft]->changePosition(Vector2D(5, 0));
-  //MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
+    lastIndex = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
+
+  }
+  if (furthestLeft == 0)
+  {
+    furthestRight = 19;
+    
+  }
+
+  else
+  {
+    furthestRight = furthestLeft - 1;
+  }
+
+  middle = (m_pBuildings[furthestLeft]->getPosition().XValue + m_pBuildings[furthestRight]->getPosition().XValue)/2;
+
+  if (m_pPlayer->getPosition().XValue > middle)
+  {
+    m_pBuildings[furthestLeft]->changePosition(m_pBuildings[furthestRight]->getPosition() + Vector2D(300, 0));
+  }
+  
+  MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
+  
 
 }
 

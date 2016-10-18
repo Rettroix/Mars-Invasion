@@ -17,7 +17,7 @@ private:
 
 public:
 
-  void Initialise(Vector2D startPosition, Spaceship *player);
+  void Initialise(Vector2D startPosition);
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
