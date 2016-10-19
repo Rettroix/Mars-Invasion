@@ -151,6 +151,11 @@ void City::Update(float frameTime)
   {
     m_pBuildings[furthestLeft]->changePosition(m_pBuildings[furthestRight]->getPosition() + Vector2D(300, 0));
   }
+
+  if (m_pPlayer->getPosition().XValue < middle)
+  {
+    m_pBuildings[furthestRight]->changePosition(m_pBuildings[furthestLeft]->getPosition() - Vector2D(300, 0));
+  }
   
   MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
   
