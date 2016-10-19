@@ -220,5 +220,8 @@
     <Image Include="buildingfore.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="building1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

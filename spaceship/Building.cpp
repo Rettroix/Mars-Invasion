@@ -8,7 +8,7 @@ void Building::Initialise(Vector2D startPosition)
 {
   m_drawDepth = 5;
 
-  LoadImage(L"building.png");
+  LoadImage(L"building1.png");
 
   m_position = startPosition;
 

@@ -132,6 +132,7 @@
   <ItemGroup>
     <Image Include="BG.png" />
     <Image Include="building.png" />
+    <Image Include="building1.png" />
     <Image Include="buildingblur.png" />
     <Image Include="buildingfore.png" />
     <Image Include="buildingforeground.png" />
