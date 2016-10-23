@@ -1,0 +1,3 @@
+#pragma once
+
+enum class BuildingType { BUILDING0, BUILDING1, BUILDING2, BUILDING3, BUILDING4,FUELBUILDING, HOUSE };

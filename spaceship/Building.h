@@ -4,6 +4,7 @@
 #include "mysoundengine.h"
 #include "GameObject.h"
 #include "Spaceship.h"
+#include "BuildingTypes.h"
 
 class Building : public GameObject
 {
@@ -13,11 +14,11 @@ private:
   Circle2D m_circle;
   Circle2D m_collider;
   float incrementFrame;
-  
+  BuildingType currentBuilding = BuildingType::BUILDING0;
 
 public:
 
-  void Initialise(Vector2D startPosition);
+  void Initialise(Vector2D startPosition, BuildingType spawnBuilding);
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();

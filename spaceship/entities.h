@@ -8,6 +8,10 @@
 #include "userInterface.h"
 #include "BuildingForeground.h"
 #include "BuildingBackground.h"
+#include "BuildingTypes.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
+
 // Create your game entity classes here
 const int NUMBER_OF_BUILDINGS = 20;
 
@@ -33,6 +37,9 @@ private:
   int furthestRight; //Building furthest to the right
   int middle;
   int lastIndex;
+
+  BuildingType selectedBuilding = BuildingType::BUILDING0;
+  int randomBuilding;
 
 public:
 

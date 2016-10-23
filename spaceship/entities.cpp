@@ -27,6 +27,7 @@ const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
 
 void City::Initialise(Spaceship *player)
 {
+  srand(time(NULL));
   //LoadImage(L"BG.png");
   m_pPlayer = player;
   m_imageScale = 9;
@@ -36,11 +37,13 @@ void City::Initialise(Spaceship *player)
   furthestLeft = 0;
   Game::instance.m_objects.AddItem(puserInterface, true);
 
-
+  
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
+    selectedBuilding = static_cast<BuildingType>(rand() % 6);
+
     m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-    m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 300, -470));
+    m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 300, -470), selectedBuilding);
     Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
     if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) //If the last indexed building is further left than current building

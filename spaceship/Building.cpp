@@ -1,16 +1,67 @@
 #include "Building.h"
-
+#include "BuildingTypes.h"
 
 //Buildings are the main objects which you can land atop of
 
 
-void Building::Initialise(Vector2D startPosition)
+void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding)
 {
+  currentBuilding = spawnBuilding;
   m_drawDepth = 5;
+  switch (currentBuilding)
+  {
+  case BuildingType::BUILDING0:
+  {
+    LoadImage(L"building.png");
+    m_position = startPosition - Vector2D(0, 20);
+  }  
+  break;
 
-  LoadImage(L"building1.png");
+  case BuildingType::BUILDING1:
+  {
+    LoadImage(L"building1.png");
+    m_position = startPosition + Vector2D(0, 0);
+  }
+  break;
 
-  m_position = startPosition;
+  case BuildingType::BUILDING2:
+  {
+    LoadImage(L"building2.png");
+    m_position = startPosition + Vector2D(0, 0);
+  }
+  break;
+
+  case BuildingType::BUILDING3:
+  {
+    LoadImage(L"building3.png");
+    m_position = startPosition + Vector2D(0, 0);
+  }
+  break;
+  
+  case BuildingType::BUILDING4:
+  {
+    LoadImage(L"building4.png");
+    m_position = startPosition + Vector2D(0, 0);
+  }
+  break;
+
+  case BuildingType::FUELBUILDING:
+  {
+    LoadImage(L"fuelbuilding.png");
+    m_position = startPosition + Vector2D(0, 0);
+  }
+  break;
+
+  case BuildingType::HOUSE:
+  {
+    LoadImage(L"house.png");
+    m_position = startPosition + Vector2D(0, 0);
+  }
+  break;
+
+
+  }
+
 
   incrementFrame = 0;
 

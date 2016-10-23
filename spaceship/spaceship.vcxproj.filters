@@ -155,6 +155,9 @@
     <ClInclude Include="entities.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="BuildingTypes.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="ship.png">
@@ -221,6 +224,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="building1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="fuelbuilding.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="house.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="building2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="building3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="building4.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
