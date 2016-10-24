@@ -12,8 +12,8 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
-const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
-
+//const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
+int globalframetime;
 //////////////////////////////////////////////////
 ////////////////spaceship/////////////////////////
 /////////////////////////////////////////////////
@@ -38,7 +38,7 @@ void Spaceship::Initialise(Vector2D position)
 
 void Spaceship::Update(float frametime)
 {
-
+  globalframetime = frametime;
 
   // Get input and set acceleration
   MyInputs* pInputs = MyInputs::GetInstance();
@@ -115,7 +115,7 @@ void Spaceship::Update(float frametime)
 
 
   //global.shipPosition = m_position;
-  m_position = m_position - GRAVITY *frametime;
+  m_position = m_position - gravity *frametime;
 
 
 }
@@ -159,7 +159,10 @@ void Spaceship::Explode()
 
 void Spaceship::HitObject(GameObject &other)
 {
-  m_position = m_position + GRAVITY;
+  m_velocity = Vector2D(0,0);
+  gravity = Vector2D(0.0f, 0.0f);
+  //m_position = m_position + m_velocity*globalframetime;
+  //m_position = m_position - GRAVITY *globalframetime;
 
 
 }

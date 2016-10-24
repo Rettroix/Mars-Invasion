@@ -16,7 +16,7 @@ private:
   float m_fuel;         //The ship's fuel
   bool m_landed;
   float m_health;
-
+  Vector2D gravity = Vector2D(0.0f, 400.0f);
 public:
   Spaceship();
   void Initialise(Vector2D position);		// Sets to the starting position
