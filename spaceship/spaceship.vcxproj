@@ -157,6 +157,7 @@
     <Image Include="explosion8.bmp" />
     <Image Include="fuelbuilding.png" />
     <Image Include="house.png" />
+    <Image Include="othercity.png" />
     <Image Include="ship.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

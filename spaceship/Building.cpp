@@ -12,29 +12,32 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding)
   {
   case BuildingType::BUILDING0:
   {
+    
     LoadImage(L"building.png");
-    m_position = startPosition - Vector2D(0, 20);
+    m_position = startPosition;
   }  
   break;
 
   case BuildingType::BUILDING1:
   {
     LoadImage(L"building1.png");
-    m_position = startPosition + Vector2D(0, 0);
+    m_position = startPosition;
   }
   break;
 
   case BuildingType::BUILDING2:
   {
     LoadImage(L"building2.png");
-    m_position = startPosition + Vector2D(0, 0);
+    m_position = startPosition;
   }
   break;
 
   case BuildingType::BUILDING3:
   {
+    
     LoadImage(L"building3.png");
-    m_position = startPosition + Vector2D(0, 0);
+    m_position = startPosition;
+    
   }
   break;
   
@@ -55,7 +58,7 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding)
   case BuildingType::HOUSE:
   {
     LoadImage(L"house.png");
-    m_position = startPosition + Vector2D(0, 0);
+    m_position = startPosition + Vector2D(0, -500);
   }
   break;
 

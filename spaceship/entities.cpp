@@ -40,10 +40,10 @@ void City::Initialise(Spaceship *player)
   
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    selectedBuilding = static_cast<BuildingType>(rand() % 6);
+    selectedBuilding = static_cast<BuildingType>(rand() % 6 +1);
 
     m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-    m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 300, -470), selectedBuilding);
+    m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
     Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
     if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) //If the last indexed building is further left than current building
@@ -83,7 +83,7 @@ void City::Initialise(Spaceship *player)
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS/2); i++)  
   {
     m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
-    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 1000, -470), m_pPlayer);
+    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
 
     Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
   }
@@ -152,12 +152,12 @@ void City::Update(float frameTime)
 
   if (m_pPlayer->getPosition().XValue > middle)
   {
-    m_pBuildings[furthestLeft]->changePosition(m_pBuildings[furthestRight]->getPosition() + Vector2D(300, 0));
+    m_pBuildings[furthestLeft]->changePosition(m_pBuildings[furthestRight]->getPosition() + Vector2D(700, 0));
   }
 
   if (m_pPlayer->getPosition().XValue < middle)
   {
-    m_pBuildings[furthestRight]->changePosition(m_pBuildings[furthestLeft]->getPosition() - Vector2D(300, 0));
+    m_pBuildings[furthestRight]->changePosition(m_pBuildings[furthestLeft]->getPosition() - Vector2D(700, 0));
   }
   
   MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);

@@ -9,7 +9,7 @@ void BuildingForeground::Initialise(Vector2D startPosition, Spaceship *player)
   m_pPlayer = player;
   m_drawDepth = 8;
 
-  LoadImage(L"buildingfore.png");
+  LoadImage(L"building4.png");
 
   m_position = startPosition;
 

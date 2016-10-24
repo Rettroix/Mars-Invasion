@@ -241,5 +241,8 @@
     <Image Include="building4.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="othercity.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

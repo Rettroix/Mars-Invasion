@@ -9,13 +9,13 @@ void BuildingBackground::Initialise(Vector2D startPosition, Spaceship *player)
   m_pPlayer = player; //Stores a pointer to the player
   m_drawDepth = 1; //Buildings are in the background thus have a low draw depth
 
-  LoadImage(L"city.png"); //The image for the background
+  LoadImage(L"othercity.png"); //The image for the background
 
   m_position = startPosition; //m_position becomes the specified starting position
 
   incrementFrame = 0; //uneeded
   initialPosition = m_position; //Stores the original position for paralax scrolling
-  m_imageScale = 9; //scales image up since it needs to be big
+  m_imageScale = 4; //scales image up since it needs to be big
 }
 
 void BuildingBackground::Update(float frameTime)
