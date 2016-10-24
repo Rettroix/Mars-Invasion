@@ -24,6 +24,7 @@ protected:
 	bool m_active;				// Indicates if the object is still in use. If set to false, the object will be deleted by the objectManager.
 	std::vector<PictureIndex> m_images;		// Indices of the pictures loaded using LoadPicture. If a picture is not loaded, this will be 0
 	Vector2D m_position;		// Position of the object
+  Vector2D m_objectSize;
 	float m_imageScale;			// Scale of the loaded image. If the scale is <1, the obect will be drawn smaller than the image
 	float m_angle;				// Angle of rotation of the image. 0 is upright. Angle in radians clockwise
 	int m_imageNumber;			// Index of the current image in m_images;
@@ -65,6 +66,11 @@ public:
 	// Returns the depth of drawing. Lower numbers are drawn first.
 	int GetDrawDepth() const;
 
+  // Returns objects position
+  Vector2D GetPosition() const;
+
+  //Returns Object dimensions
+  Vector2D GetSize() const;
 	// Used to handle the result of any collision
 	virtual void ProcessCollision(GameObject& other)=0;
 

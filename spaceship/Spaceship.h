@@ -8,11 +8,14 @@
 class Spaceship : public GameObject
 {
 private:
+  Circle2D collisionShape;
   Vector2D m_velocity;		// Velocity of the ship
   Circle2D m_collider;		// Used for collision
   float m_shootDelay;       // Time in seconds before ship can shoot again
   bool m_thrusting;			// Whether ship is currently thrusting
   float m_fuel;         //The ship's fuel
+  bool m_landed;
+  float m_health;
 
 public:
   Spaceship();
@@ -23,6 +26,7 @@ public:
   void Explode();							// Deactivates ship and creates an explosion
   void fuelManagement();
   float getFuel();
+  void HitObject(GameObject &other);
   float getAngle();
   Vector2D& getPosition();
 };

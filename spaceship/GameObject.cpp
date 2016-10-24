@@ -28,6 +28,16 @@ void GameObject::HandleEvent(Event evt)
 	// no-op
 }
 
+Vector2D GameObject::GetPosition() const
+{
+  return m_position;
+}
+
+Vector2D GameObject::GetSize() const
+{
+  return m_objectSize;
+}
+
 ObjectType GameObject::GetType() const
 {
 	return TYPE;

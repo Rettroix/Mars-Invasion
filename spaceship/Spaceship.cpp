@@ -123,12 +123,23 @@ void Spaceship::Update(float frametime)
 IShape2D& Spaceship::GetCollisionShape()
 {
   // Place at the centre of the ship and slightly smaller than the image
-  m_collider.PlaceAt(m_position, SHIPSIZE / 2 - 2);
-  return m_collider;
+  collisionShape.PlaceAt(m_position, 70);
+  return collisionShape;
 }
 
 void Spaceship::ProcessCollision(GameObject& other)
 {
+  m_fuel--;
+  HitObject(other);
+  if (other.GetType() == BUILDING)
+  {
+    HitObject(other);
+    m_fuel--;
+  }
+  else if (other.GetType() == BULLET)
+  {
+    m_health--;
+  }
   //if (other.GetType() == ASTEROID)
   //  Explode();
 }
@@ -146,6 +157,12 @@ void Spaceship::Explode()
   // g_soundFX.StopThrust();			// In case it is playing
 }
 
+void Spaceship::HitObject(GameObject &other)
+{
+  m_position = m_position + GRAVITY;
+
+
+}
 float Spaceship::getFuel()
 {
   return m_fuel;
