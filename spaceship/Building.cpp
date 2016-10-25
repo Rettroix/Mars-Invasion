@@ -7,7 +7,7 @@
 void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding)
 {
   currentBuilding = spawnBuilding;
-  m_drawDepth = 5;
+  m_drawDepth = 8;
   switch (currentBuilding)
   {
   case BuildingType::BUILDING0:
@@ -38,7 +38,7 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding)
   case BuildingType::FUELBUILDING:
     LoadImage(L"fuelbuilding.png");
     m_position = startPosition + Vector2D(0, -300);
-    m_objectSize = Vector2D(167, 284)*m_imageScale;
+    m_objectSize = Vector2D(167, 150)*m_imageScale;
     break;
   case BuildingType::HOUSE:
     LoadImage(L"house.png");
@@ -68,9 +68,8 @@ void Building::Update(float frameTime)
 void Building::Draw()
 {
   GameObject::Draw();
-  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  //pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
-  pTheDrawEngine->FillRect(collisionShape, 65525);
+  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->FillRect(collisionShape, 65525);
 
 }
 IShape2D& Building::GetCollisionShape()

@@ -9,6 +9,7 @@
 #include "BuildingForeground.h"
 #include "BuildingBackground.h"
 #include "BuildingTypes.h"
+#include "collisionShaper.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
@@ -33,6 +34,10 @@ private:
   Building *m_pBuildings[NUMBER_OF_BUILDINGS];
   BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];
   BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];
+  CollisionShaper *pCollision[NUMBER_OF_BUILDINGS];
+  CollisionShaper *pCollisionTop[NUMBER_OF_BUILDINGS];
+  CollisionShaper *pCollisionRight[NUMBER_OF_BUILDINGS];
+  
   int furthestLeft; //Building furthest to the left
   int furthestRight; //Building furthest to the right
   int middle;

@@ -84,6 +84,9 @@
     <ClCompile Include="entities.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="collisionShaper.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -156,6 +159,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="BuildingTypes.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="collisionShaper.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

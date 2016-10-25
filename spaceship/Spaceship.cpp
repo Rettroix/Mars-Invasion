@@ -33,6 +33,7 @@ void Spaceship::Initialise(Vector2D position)
   m_angle = 0.0f;
   m_velocity.set(0, 0);
   m_objectSize = Vector2D(256, 256)*m_imageScale;
+  m_acceleration = 5000.0f;
   LoadImage(L"ship.png");
   //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
   m_fuel = 100000;
@@ -46,6 +47,7 @@ void Spaceship::Update(float frametime)
   MyInputs* pInputs = MyInputs::GetInstance();
   pInputs->SampleKeyboard();
   //global.shipAngle = m_angle;
+  thrustChange();
   if (m_fuel > 0)
   {
     if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
@@ -65,7 +67,7 @@ void Spaceship::Update(float frametime)
       }
       m_thrusting = true;			// Remember we are thrusting
       Vector2D acc;
-      acc.setBearing(m_angle, ACCELERATION);
+      acc.setBearing(m_angle, m_acceleration);
       m_velocity = m_velocity + acc*frametime;
       m_fuel--;
       //global.fuel = m_fuel;
@@ -128,8 +130,8 @@ void Spaceship::Update(float frametime)
 void Spaceship::Draw()
 {
   GameObject::Draw();
-  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
+  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
 
 }
 
@@ -176,9 +178,18 @@ void Spaceship::Explode()
 
 void Spaceship::HitObject(GameObject &other)
 {
+  //Building *pOtherBuilding = dynamic_cast<Building*> (&other);
+
+  //Vector2D normal = collisionShape.CollisionNormal(pOtherBuilding->GetShape());
+  //normal = normal.unitVector();
+
   isLanded = true;
   m_fuel--;
-  m_position.YValue = other.GetPosition().YValue + (other.GetSize().YValue/2) + (GetSize().YValue/2)+130;
+
+  m_position.YValue = other.GetPosition().YValue + 100;
+
+
+
   //m_position = m_position + m_velocity*globalframetime;
   //m_position = m_position - GRAVITY *globalframetime;
 
@@ -202,5 +213,38 @@ Vector2D& Spaceship::getPosition()
 void Spaceship::fuelManagement()
 {
 
+
+}
+
+void Spaceship::thrustChange()
+{
+  if (!m_thrusting || isLanded)
+  {
+    thrustTime = 0;
+  }
+  else
+  {
+    thrustTime++;
+  }
+
+  if (thrustTime < 10)
+  {
+    m_acceleration = 5000.0f;
+  }
+
+  if (thrustTime > 10)
+  {
+    m_acceleration = 2000.0f;
+  }
+
+  if (thrustTime > 200)
+  {
+    m_acceleration = 1000.0f * (thrustTime / 100);
+  }
+
+  if (thrustTime > 500)
+  {
+    m_acceleration = 5000.0f;
+  }
 
 }

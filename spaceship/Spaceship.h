@@ -19,6 +19,9 @@ private:
   Vector2D gravity = Vector2D(0.0f, 400.0f);
   bool isLanded;
   float m_friction;
+  float m_acceleration;
+
+  int thrustTime;
 public:
   Spaceship();
   void Initialise(Vector2D position);		// Sets to the starting position
@@ -31,5 +34,6 @@ public:
   float getFuel();
   void HitObject(GameObject &other);
   float getAngle();
+  void thrustChange();
   Vector2D& getPosition();
 };
