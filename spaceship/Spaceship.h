@@ -17,10 +17,13 @@ private:
   bool m_landed;
   float m_health;
   Vector2D gravity = Vector2D(0.0f, 400.0f);
+  bool isLanded;
+  float m_friction;
 public:
   Spaceship();
   void Initialise(Vector2D position);		// Sets to the starting position
   void Update(float frametime);			// Handle input, shooting and movement
+  void Draw();
   IShape2D& GetCollisionShape();			// Provides a collision area
   void ProcessCollision(GameObject& other);	// Makes ship explode if hit by an asteroid
   void Explode();							// Deactivates ship and creates an explosion

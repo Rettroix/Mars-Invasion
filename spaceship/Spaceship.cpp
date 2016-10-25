@@ -7,13 +7,13 @@
 
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
-const float ACCELERATION = 1600.0f; // Units per second^2
+const float ACCELERATION = 5000.0f; // Units per second^2
 const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
-int globalframetime;
+
 //////////////////////////////////////////////////
 ////////////////spaceship/////////////////////////
 /////////////////////////////////////////////////
@@ -26,10 +26,13 @@ Spaceship::Spaceship() : GameObject(SPACESHIP)
 // Starting position and load the image
 void Spaceship::Initialise(Vector2D position)
 {
+  m_friction = 1.5f;
+  isLanded = false;
   m_position = position;
   m_shootDelay = 0.0f;
   m_angle = 0.0f;
   m_velocity.set(0, 0);
+  m_objectSize = Vector2D(256, 256)*m_imageScale;
   LoadImage(L"ship.png");
   //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
   m_fuel = 100000;
@@ -38,7 +41,6 @@ void Spaceship::Initialise(Vector2D position)
 
 void Spaceship::Update(float frametime)
 {
-  globalframetime = frametime;
 
   // Get input and set acceleration
   MyInputs* pInputs = MyInputs::GetInstance();
@@ -56,6 +58,7 @@ void Spaceship::Update(float frametime)
     }
     if (pInputs->KeyPressed(DIK_UP))    // Thrust
     {
+      isLanded = false;
       if (!m_thrusting)		// If not thrusting last frame
       {
         // g_soundFX.StartThrust();	// Start the thrust sound
@@ -108,15 +111,25 @@ void Spaceship::Update(float frametime)
 
   }
   // Process movement
-  m_velocity = m_velocity - FRICTION*frametime*m_velocity;
+  m_velocity = m_velocity - m_friction*frametime*m_velocity;
   m_position = m_position + m_velocity*frametime;
 
   MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300, 0));
 
 
   //global.shipPosition = m_position;
-  m_position = m_position - gravity *frametime;
+  if (!isLanded)
+  {
+    m_position = m_position - gravity *frametime;
+  }
 
+}
+
+void Spaceship::Draw()
+{
+  GameObject::Draw();
+  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
 
 }
 
@@ -129,14 +142,18 @@ IShape2D& Spaceship::GetCollisionShape()
 
 void Spaceship::ProcessCollision(GameObject& other)
 {
-  m_fuel--;
-  HitObject(other);
+  //m_fuel--;
+  //HitObject(other);
   if (other.GetType() == BUILDING)
   {
+
     HitObject(other);
-    m_fuel--;
+    m_velocity = Vector2D(0.0f, 0.0f);
+    m_angle = 0;
   }
-  else if (other.GetType() == BULLET)
+
+
+  if (other.GetType() == BULLET)
   {
     m_health--;
   }
@@ -159,8 +176,9 @@ void Spaceship::Explode()
 
 void Spaceship::HitObject(GameObject &other)
 {
-  m_velocity = Vector2D(0,0);
-  gravity = Vector2D(0.0f, 0.0f);
+  isLanded = true;
+  m_fuel--;
+  m_position.YValue = other.GetPosition().YValue + (other.GetSize().YValue/2) + (GetSize().YValue/2)+130;
   //m_position = m_position + m_velocity*globalframetime;
   //m_position = m_position - GRAVITY *globalframetime;
 

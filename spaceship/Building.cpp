@@ -59,28 +59,31 @@ void Building::Update(float frameTime)
 
 
   m_imageNumber = 0;
-  collisionShape.PlaceAt(m_position.YValue + (m_objectSize.YValue), m_position.XValue - (m_objectSize.XValue), m_position.YValue - (m_objectSize.YValue), m_position.XValue + (m_objectSize.XValue));
-
+  //collisionShape.PlaceAt(m_position.YValue + (m_objectSize.YValue), m_position.XValue - (m_objectSize.XValue), m_position.YValue - (m_objectSize.YValue), m_position.XValue + (m_objectSize.XValue));
+  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->FillRect(collisionShape, 65525);
 
 }
 
-//void Building::Draw()
-//{
-//
-//  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-//  //pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
-//  pTheDrawEngine->FillRect(collisionShape, 65525);
-//
-//}
+void Building::Draw()
+{
+  GameObject::Draw();
+  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
+  pTheDrawEngine->FillRect(collisionShape, 65525);
+
+}
 IShape2D& Building::GetCollisionShape()
 {
   collisionShape.PlaceAt(m_position.YValue + (m_objectSize.YValue), m_position.XValue - (m_objectSize.XValue), m_position.YValue - (m_objectSize.YValue), m_position.XValue + (m_objectSize.XValue));
+
   return collisionShape;
 }
 
 
 void Building::ProcessCollision(GameObject& other)
 {
+
   //nothing
 
 }

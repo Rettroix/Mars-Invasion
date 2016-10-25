@@ -18,7 +18,7 @@ private:
 public:
 
   void Initialise(Vector2D startPosition, BuildingType spawnBuilding);
-  /*void Draw();*/
+  void Draw();
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
   void changePosition(Vector2D pos); // Change position of the building
