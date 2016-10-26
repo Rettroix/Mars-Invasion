@@ -32,5 +32,6 @@ public:
   IShape2D& GetCollisionShape();
   float GetTop();
   void ProcessCollision(GameObject& other);
+  Segment2D GetShape();
   CollisionShaper();
 };

@@ -24,8 +24,9 @@ public:
   IShape2D& GetCollisionShape();
 
   void ProcessCollision(GameObject& other);
-
+  void changeInitialPosition(Vector2D pos);
   Vector2D getInitialPosition();
+  Vector2D getPosition();
 
   BuildingBackground();
 };

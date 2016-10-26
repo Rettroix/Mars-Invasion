@@ -37,10 +37,59 @@ void City::Initialise(Spaceship *player)
   furthestLeft = 0;
   Game::instance.m_objects.AddItem(puserInterface, true);
 
+  spawnBuilding();
   
+  spawnBG();
+   
+  //for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS/2); i++)  
+  //{
+  //  m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
+  //  m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
+
+  //  Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
+  //}
+
+
+
+
+
+}
+
+
+void City::Update(float frameTime)
+{
+
+  updateBuildings();
+
+  updateBuildingsBG();
+
+}
+
+IShape2D& City::GetCollisionShape()
+{
+  m_collider.PlaceAt(m_position, 96);
+  return m_collider;
+
+
+}
+
+
+void City::ProcessCollision(GameObject& other)
+{
+  //nothing
+
+}
+
+void City::addShipPosition(Vector2D pos)
+{
+  shipsPosition = pos;
+}
+
+void City::spawnBuilding()
+{
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    selectedBuilding = static_cast<BuildingType>(rand() % 6 +1);
+    selectedBuilding = static_cast<BuildingType>(rand() % 6 + 1);
 
     if (selectedBuilding == BuildingType::BUILDING1)
     {
@@ -55,9 +104,9 @@ void City::Initialise(Spaceship *player)
       Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, BUILDING);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, BUILDING);
+      Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
       pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
@@ -102,13 +151,88 @@ void City::Initialise(Spaceship *player)
       Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -230, -260, -230, BUILDING);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -230, -260, -230, BUILDING);
+      Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
       pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
       pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -230, BUILDING);
+      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+
+    }
+
+    else if (selectedBuilding == BuildingType::BUILDING4)
+    {
+      //building4
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
+
+      //colision left side
+      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -450, BUILDINGSIDE);
+      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      //colision top
+      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -450, -260, -300, BUILDING);
+      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      //colision right
+      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -300, BUILDING);
+      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+
+    }
+
+    else if (selectedBuilding == BuildingType::HOUSE)
+    {
+      //HOUSE
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
+
+      //colision left side
+      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -100, BUILDINGSIDE);
+      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      //colision top
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, BUILDING);
+      Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      //colision right
+      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -100, BUILDING);
+      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+
+    }
+
+    else if (selectedBuilding == BuildingType::FUELBUILDING)
+    {
+      //HOUSE
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
+
+      //colision left side
+      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -100, BUILDINGSIDE);
+      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      //colision top
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, BUILDING);
+      Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      //colision right
+      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
+      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -100, BUILDING);
       Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
 
@@ -155,38 +279,61 @@ void City::Initialise(Spaceship *player)
     lastIndex = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
   }
 
-   
-  //for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS/2); i++)  
-  //{
-  //  m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
-  //  m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
+}
 
-  //  Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-  //}
-
-
+void City::spawnBG()
+{
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS/2)] = new BuildingBackground;
+    
+    
+    m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingBackground;
     m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, 0), m_pPlayer);
+    Game::instance.m_objects.AddItem(m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
-    Game::instance.m_objects.AddItem(m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
+    
+
+
+    if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) //If the last indexed building is further left than current building
+    {
+      if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue)
+      {
+        furthestLeftBG = lastIndexBG; //Then the last index building is further left
+      }
+      else
+      {
+        furthestLeftBG = furthestLeftBG;
+      }
+
+    }
+
+    else
+    {
+      furthestLeftBG = i + (NUMBER_OF_BUILDINGS / 2); //Then the furthest left is current building
+
+    }
+
+    if (furthestLeftBG == 0)
+    {
+      furthestRightBG = 20;
+    }
+
+    else
+    {
+      furthestRightBG = furthestLeftBG - 1;
+    }
+
+
+    lastIndexBG = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
   }
-
 
 }
 
-
-void City::Update(float frameTime)
+void City::updateBuildings()
 {
-  //shipXValue = global.shipPosition.XValue;
-  //fship = global.shipPosition.XValue;
-  //global.value[0] = shipXValue;
-
-
   lastIndex = 0;
   furthestLeft = 0;
-  
+
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
 
@@ -200,7 +347,7 @@ void City::Update(float frameTime)
       {
         furthestLeft = furthestLeft;
       }
-      
+
     }
 
     else
@@ -216,7 +363,7 @@ void City::Update(float frameTime)
   if (furthestLeft == 0)
   {
     furthestRight = 19;
-    
+
   }
 
   else
@@ -224,7 +371,7 @@ void City::Update(float frameTime)
     furthestRight = furthestLeft - 1;
   }
 
-  middle = (m_pBuildings[furthestLeft]->getPosition().XValue + m_pBuildings[furthestRight]->getPosition().XValue)/2;
+  middle = (m_pBuildings[furthestLeft]->getPosition().XValue + m_pBuildings[furthestRight]->getPosition().XValue) / 2;
 
   if (m_pPlayer->getPosition().XValue > middle)
   {
@@ -235,31 +382,69 @@ void City::Update(float frameTime)
   {
     m_pBuildings[furthestRight]->changePosition(Vector2D((m_pBuildings[furthestLeft]->getPosition().XValue), (m_pBuildings[furthestRight]->getPosition().YValue)) - Vector2D(700, 0));
   }
-  
+
   MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
-  
 
 }
 
-IShape2D& City::GetCollisionShape()
+
+void City::updateBuildingsBG()
 {
-  m_collider.PlaceAt(m_position, 96);
-  return m_collider;
+  lastIndexBG = 0;
+  furthestLeftBG = 0;
+
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  {
+
+    if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue < m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) //If the last indexed building is further left than current building
+    {
+      if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue)
+      {
+        furthestLeftBG = lastIndexBG; //Then the last index building is further left
+      }
+      else
+      {
+        furthestLeftBG = furthestLeftBG;
+      }
+
+    }
+
+    else
+    {
+      furthestLeftBG = i + (NUMBER_OF_BUILDINGS / 2); //Then the furthest left is current building
+
+    }
+
+
+    lastIndexBG = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
+
+  }
+  if (furthestLeftBG == 0)
+  {
+    furthestRightBG = 19;
+
+  }
+
+  else
+  {
+    furthestRightBG = furthestLeftBG - 1;
+  }
+
+  middleBG = (m_pBackgroundBuildings[furthestLeftBG]->getPosition().XValue + m_pBackgroundBuildings[furthestRightBG]->getPosition().XValue) / 2;
+
+  if (m_pPlayer->getPosition().XValue > middleBG)
+  {
+    m_pBackgroundBuildings[furthestLeftBG]->changeInitialPosition(Vector2D((m_pBackgroundBuildings[furthestRightBG]->getInitialPosition().XValue), (m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().YValue)) + Vector2D(4000, 0));
+  }
+
+  if (m_pPlayer->getPosition().XValue < middleBG)
+  {
+    m_pBackgroundBuildings[furthestRightBG]->changeInitialPosition(Vector2D((m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue), (m_pBackgroundBuildings[furthestRightBG]->getInitialPosition().YValue)) - Vector2D(4000, 0));
+  }
 
 
 }
 
-
-void City::ProcessCollision(GameObject& other)
-{
-  //nothing
-
-}
-
-void City::addShipPosition(Vector2D pos)
-{
-  shipsPosition = pos;
-}
 
 City::City() :GameObject(LEVEL)
 {

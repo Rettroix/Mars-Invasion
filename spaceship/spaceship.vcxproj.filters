@@ -87,6 +87,9 @@
     <ClCompile Include="collisionShaper.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="lander.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="collisionShaper.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="lander.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

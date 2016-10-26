@@ -16,7 +16,7 @@ private:
   float m_fuel;         //The ship's fuel
   bool m_landed;
   float m_health;
-  Vector2D gravity = Vector2D(0.0f, 400.0f);
+  Vector2D gravity = Vector2D(0.0f, 1000.0f);
   bool isLanded;
   float m_friction;
   float m_acceleration;
@@ -32,7 +32,8 @@ public:
   void Explode();							// Deactivates ship and creates an explosion
   void fuelManagement();
   float getFuel();
-  void HitObject(GameObject &other);
+  void Bounce(GameObject &other);
+  void Land(GameObject &other);
   float getAngle();
   void thrustChange();
   Vector2D& getPosition();

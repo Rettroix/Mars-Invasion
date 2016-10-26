@@ -94,6 +94,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
     <ClCompile Include="KeyboardBuffer.cpp" />
+    <ClCompile Include="lander.cpp" />
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="GamepadClass.h" />
     <ClInclude Include="gametimer.h" />
     <ClInclude Include="KeyboardBuffer.h" />
+    <ClInclude Include="lander.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />
     <ClInclude Include="mysoundengine.h" />

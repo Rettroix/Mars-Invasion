@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Lander.h"
 #include "GameObject.h"
 #include "mysoundengine.h"
 #include "GameObject.h"
@@ -37,18 +38,28 @@ private:
   CollisionShaper *pCollision[NUMBER_OF_BUILDINGS];
   CollisionShaper *pCollisionTop[NUMBER_OF_BUILDINGS];
   CollisionShaper *pCollisionRight[NUMBER_OF_BUILDINGS];
+  Lander *pLander[NUMBER_OF_BUILDINGS];
   
   int furthestLeft; //Building furthest to the left
   int furthestRight; //Building furthest to the right
   int middle;
   int lastIndex;
 
+  int furthestLeftBG; //Building furthest to the left
+  int furthestRightBG; //Building furthest to the right
+  int middleBG;
+  int lastIndexBG;
+
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
 
 public:
-
+  
   void Initialise(Spaceship *player);
+  void spawnBuilding();
+  void spawnBG();
+  void updateBuildings();
+  void updateBuildingsBG();
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();

@@ -43,6 +43,7 @@ void Spaceship::Initialise(Vector2D position)
 void Spaceship::Update(float frametime)
 {
 
+
   // Get input and set acceleration
   MyInputs* pInputs = MyInputs::GetInstance();
   pInputs->SampleKeyboard();
@@ -76,7 +77,7 @@ void Spaceship::Update(float frametime)
       Explosion* pExp = new Explosion;
       Vector2D flameDirection;      // The flames move
       flameDirection.setBearing(m_angle + 3.141f, 600);  // Out of the back of the ship
-      pExp->Initialise(m_position, flameDirection, 68.0f, 2.0f);
+      pExp->Initialise(m_position, flameDirection, 68.0f, 1.0f);
       Game::instance.m_objects.AddItem(pExp, false);		// Add to the engine
 
 
@@ -112,6 +113,14 @@ void Spaceship::Update(float frametime)
 
 
   }
+
+  //for landing
+
+  if (!isLanded)
+  {
+    m_velocity = m_velocity - gravity *frametime;
+  }
+
   // Process movement
   m_velocity = m_velocity - m_friction*frametime*m_velocity;
   m_position = m_position + m_velocity*frametime;
@@ -119,11 +128,7 @@ void Spaceship::Update(float frametime)
   MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300, 0));
 
 
-  //global.shipPosition = m_position;
-  if (!isLanded)
-  {
-    m_position = m_position - gravity *frametime;
-  }
+
 
 }
 
@@ -146,14 +151,23 @@ void Spaceship::ProcessCollision(GameObject& other)
 {
   //m_fuel--;
   //HitObject(other);
-  if (other.GetType() == BUILDING)
+  if (other.GetType() == COLLIDER)
   {
 
-    HitObject(other);
+    Bounce(other);
+
+    //m_velocity = Vector2D(0.0f, 0.0f);
+    //m_angle = 0;
+  }
+
+  if (other.GetType() == LANDER)
+  {
+
+    Land(other);
+
     m_velocity = Vector2D(0.0f, 0.0f);
     m_angle = 0;
   }
-
 
   if (other.GetType() == BULLET)
   {
@@ -176,18 +190,21 @@ void Spaceship::Explode()
   // g_soundFX.StopThrust();			// In case it is playing
 }
 
-void Spaceship::HitObject(GameObject &other)
+void Spaceship::Bounce(GameObject &other)
 {
-  //Building *pOtherBuilding = dynamic_cast<Building*> (&other);
+  CollisionShaper *pOtherBuilding = dynamic_cast<CollisionShaper*> (&other);
 
-  //Vector2D normal = collisionShape.CollisionNormal(pOtherBuilding->GetShape());
-  //normal = normal.unitVector();
+  Vector2D normal = collisionShape.CollisionNormal(pOtherBuilding->GetShape());
+  normal = normal.unitVector();
 
-  isLanded = true;
-  m_fuel--;
+  ////landing collision
+  //isLanded = true;
+  //m_fuel--;
 
-  m_position.YValue = other.GetPosition().YValue + 100;
+  //m_position.YValue = other.GetPosition().YValue + 100;
 
+  m_velocity = m_velocity - (2*normal*m_velocity)*normal;
+  m_health--;
 
 
   //m_position = m_position + m_velocity*globalframetime;
@@ -195,6 +212,20 @@ void Spaceship::HitObject(GameObject &other)
 
 
 }
+
+void Spaceship::Land(GameObject &other)
+{
+
+
+  //landing collision
+  isLanded = true;
+  m_fuel--;
+
+  m_position.YValue = other.GetPosition().YValue + 100;
+
+
+}
+
 float Spaceship::getFuel()
 {
   return m_fuel;

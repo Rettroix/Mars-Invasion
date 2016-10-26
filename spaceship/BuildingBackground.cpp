@@ -35,11 +35,20 @@ IShape2D& BuildingBackground::GetCollisionShape()
 
 }
 
+void BuildingBackground::changeInitialPosition(Vector2D pos)
+{
+  initialPosition = pos;
+}
 
 void BuildingBackground::ProcessCollision(GameObject& other)
 {
   //nothing
 
+}
+
+Vector2D BuildingBackground::getPosition()
+{
+  return m_position;
 }
 
 Vector2D BuildingBackground::getInitialPosition()

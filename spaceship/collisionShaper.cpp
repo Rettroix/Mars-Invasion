@@ -12,7 +12,7 @@ void CollisionShaper::Initialise(Building *pBuilding, float pos1, float pos2, fl
   position3 = pos3;
   position4 = pos4;
   selectedType = coltype;
-  m_drawDepth = 8;
+  m_drawDepth = 2;
 
 }
 
@@ -33,9 +33,9 @@ IShape2D& CollisionShaper::GetCollisionShape()
 void CollisionShaper::Draw()
 {
   
-  GameObject::Draw();
-  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
+  //GameObject::Draw();
+  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
 
 }
 
@@ -50,7 +50,12 @@ void CollisionShaper::ProcessCollision(GameObject& other)
 
 }
 
-CollisionShaper::CollisionShaper() :GameObject(BUILDING)
+CollisionShaper::CollisionShaper() :GameObject(COLLIDER)
 {
 
+}
+
+Segment2D CollisionShaper::GetShape()
+{
+  return collisionShape;
 }
