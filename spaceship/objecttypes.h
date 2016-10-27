@@ -7,4 +7,6 @@
 
 enum ObjectType{UNKNOWN, SPACESHIP, PING, BUILDING, LEVEL, BULLET, UI, EXPLOSION, BUILDINGSIDE, COLLIDER, LANDER};
 
-enum class CollisionType{LANDER, FUELANDER};
+enum class CollisionType{BOUNCE, LANDER, FUELANDER};
+
+enum class CollisionPosition{ LEFT, TOP, RIGHT };

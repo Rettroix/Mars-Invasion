@@ -12,7 +12,7 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
-const int FUEL = 500;
+const int FUEL = 9000;
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
 
 //////////////////////////////////////////////////
@@ -152,16 +152,18 @@ IShape2D& Spaceship::GetCollisionShape()
 
 void Spaceship::ProcessCollision(GameObject& other)
 {
+  Lander *pOtherBuilding = dynamic_cast<Lander*> (&other);
   //m_fuel--;
   //HitObject(other);
-  if (other.GetType() == COLLIDER)
+  if (pOtherBuilding->getCollisionReaction() == CollisionType::BOUNCE)
   {
+    
     if (m_acceleration >= 3000)
     {
       Explode();
     }
     else
-    {
+    {//bounce
       Bounce(other);
 
 
@@ -172,7 +174,7 @@ void Spaceship::ProcessCollision(GameObject& other)
     //m_angle = 0;
   }
 
-  if (other.GetType() == LANDER)
+  if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER)
   {
     if (m_acceleration >= 3000)
     {
@@ -210,9 +212,9 @@ void Spaceship::Explode()
 
 void Spaceship::Bounce(GameObject &other)
 {
-  CollisionShaper *pOtherBuilding = dynamic_cast<CollisionShaper*> (&other);
+  Lander *pOtherBuildingTwo = dynamic_cast<Lander*> (&other);
 
-  Vector2D normal = collisionShape.CollisionNormal(pOtherBuilding->GetShape());
+  Vector2D normal = collisionShape.CollisionNormal(pOtherBuildingTwo->GetShape());
   normal = normal.unitVector();
 
   ////landing collision

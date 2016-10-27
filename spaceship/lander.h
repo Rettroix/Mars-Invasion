@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include "Spaceship.h"
 #include "Building.h"
+#include "BuildingTypes.h"
+
 
 class Lander : public GameObject
 {
@@ -23,15 +25,19 @@ private:
   float position3;
   float position4;
   int selectedType;
-  CollisionType collisionType;
+  CollisionType collisionReaction;
+  CollisionPosition currentPosition;
 public:
 
-  void Initialise(Building *pBuilding, float pos1, float pos2, float pos3, float pos4, int coltype);
+  void Initialise(Building *pBuilding, float pos1, float pos2, float pos3, float pos4, int coltype, CollisionPosition colpos, CollisionType colReac);
   void Draw();
+  void becomeBuilding();
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
   float GetTop();
   int GetColType();
+  CollisionType getCollisionReaction();
+  void ChangePositions(float pos1, float pos2, float pos3, float pos4, int coltype);
   void ProcessCollision(GameObject& other);
   Segment2D GetShape();
   Lander();

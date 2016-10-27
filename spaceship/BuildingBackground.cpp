@@ -9,7 +9,7 @@ void BuildingBackground::Initialise(Vector2D startPosition, Spaceship *player)
   m_pPlayer = player; //Stores a pointer to the player
   m_drawDepth = 1; //Buildings are in the background thus have a low draw depth
 
-  LoadImage(L"othercity.png"); //The image for the background
+  //LoadImage(L"othercity.png"); //The image for the background
 
   m_position = startPosition; //m_position becomes the specified starting position
 

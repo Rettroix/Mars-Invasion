@@ -13,17 +13,20 @@ private:
   Vector2D m_velocity;
   float m_time;
   float incrementFrame;
+  Vector2D positionStart;
   BuildingType currentBuilding = BuildingType::BUILDING0;
 
 public:
 
   void Initialise(Vector2D startPosition, BuildingType spawnBuilding);
+  void changeBuilding(BuildingType spawnBuilding);
   void Draw();
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
   void changePosition(Vector2D pos); // Change position of the building
   Vector2D getPosition(); //Get the position of the building
   void ProcessCollision(GameObject& other);
+  BuildingType getBuildingType();
   //IShape2D& GetCollisionShape();
   Rectangle2D GetShape();
   Building();

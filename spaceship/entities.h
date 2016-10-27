@@ -24,7 +24,9 @@ const int NUMBER_OF_BUILDINGS = 20;
 
 class City : public GameObject
 {
-private:    
+private:   
+  int changeDelay;
+
   Circle2D m_circle;
   Circle2D m_collider;
   float incrementFrame;
@@ -36,12 +38,11 @@ private:
   Building *m_pBuildings[NUMBER_OF_BUILDINGS];
   BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];
   BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];
-  CollisionShaper *pCollision[NUMBER_OF_BUILDINGS];
-  CollisionShaper *pCollisionTop[NUMBER_OF_BUILDINGS];
-  CollisionShaper *pCollisionRight[NUMBER_OF_BUILDINGS];
+  Lander *pCollision[NUMBER_OF_BUILDINGS];
+  Lander *pCollisionTop[NUMBER_OF_BUILDINGS];
+  Lander *pCollisionRight[NUMBER_OF_BUILDINGS];
 
   FuelBox *pFuelBox[NUMBER_OF_BUILDINGS];
-  Lander *pLander[NUMBER_OF_BUILDINGS];
   
   int furthestLeft; //Building furthest to the left
   int furthestRight; //Building furthest to the right
