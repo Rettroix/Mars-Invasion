@@ -50,6 +50,11 @@ void Lander::ProcessCollision(GameObject& other)
 
 }
 
+int Lander::GetColType()
+{
+  return selectedType;
+}
+
 Lander::Lander() :GameObject(LANDER)
 {
 

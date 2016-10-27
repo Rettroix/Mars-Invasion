@@ -23,7 +23,7 @@ private:
   float position3;
   float position4;
   int selectedType;
-
+  CollisionType collisionType;
 public:
 
   void Initialise(Building *pBuilding, float pos1, float pos2, float pos3, float pos4, int coltype);
@@ -31,6 +31,7 @@ public:
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
   float GetTop();
+  int GetColType();
   void ProcessCollision(GameObject& other);
   Segment2D GetShape();
   Lander();

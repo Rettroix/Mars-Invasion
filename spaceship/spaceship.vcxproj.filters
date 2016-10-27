@@ -90,6 +90,9 @@
     <ClCompile Include="lander.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="FuelBox.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -168,6 +171,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="lander.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="FuelBox.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -254,6 +260,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="othercity.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="crate.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="invisible.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

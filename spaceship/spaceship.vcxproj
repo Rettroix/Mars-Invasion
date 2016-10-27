@@ -90,6 +90,7 @@
     <ClCompile Include="entities.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="FuelBox.cpp" />
     <ClCompile Include="gamecode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="errortype.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="Explosion.h" />
+    <ClInclude Include="FuelBox.h" />
     <ClInclude Include="gamecode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamepadClass.h" />
@@ -151,6 +153,7 @@
     <Image Include="bullet5.png" />
     <Image Include="bullet6.png" />
     <Image Include="city.png" />
+    <Image Include="crate.png" />
     <Image Include="explosion1.bmp" />
     <Image Include="explosion2.bmp" />
     <Image Include="explosion3.bmp" />
@@ -161,6 +164,7 @@
     <Image Include="explosion8.bmp" />
     <Image Include="fuelbuilding.png" />
     <Image Include="house.png" />
+    <Image Include="invisible.png" />
     <Image Include="othercity.png" />
     <Image Include="ship.png" />
   </ItemGroup>

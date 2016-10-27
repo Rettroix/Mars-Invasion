@@ -11,6 +11,7 @@
 #include "BuildingBackground.h"
 #include "BuildingTypes.h"
 #include "collisionShaper.h"
+#include "FuelBox.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
@@ -38,6 +39,8 @@ private:
   CollisionShaper *pCollision[NUMBER_OF_BUILDINGS];
   CollisionShaper *pCollisionTop[NUMBER_OF_BUILDINGS];
   CollisionShaper *pCollisionRight[NUMBER_OF_BUILDINGS];
+
+  FuelBox *pFuelBox[NUMBER_OF_BUILDINGS];
   Lander *pLander[NUMBER_OF_BUILDINGS];
   
   int furthestLeft; //Building furthest to the left

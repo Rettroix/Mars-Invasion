@@ -5,6 +5,8 @@
 #include "BuildingBackground.h"
 #include "Explosion.h"
 
+
+
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
 const float ACCELERATION = 1600.0f; // Units per second^2
@@ -105,7 +107,7 @@ void City::spawnBuilding()
 
       //colision top
       pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, BUILDING);
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, 0);
       Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
@@ -127,7 +129,7 @@ void City::spawnBuilding()
 
       //colision top
       pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -200, -260, -500, BUILDING);
+      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -200, -260, -500, 0);
       Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
@@ -152,7 +154,7 @@ void City::spawnBuilding()
 
       //colision top
       pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -230, -260, -230, BUILDING);
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -230, -260, -230, 0);
       Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
@@ -177,7 +179,7 @@ void City::spawnBuilding()
 
       //colision top
       pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -450, -260, -300, BUILDING);
+      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -450, -260, -300, 0);
       Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
@@ -202,7 +204,7 @@ void City::spawnBuilding()
 
       //colision top
       pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, BUILDING);
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, 0);
       Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
@@ -220,6 +222,12 @@ void City::spawnBuilding()
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
+      //fuel box
+      pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)] = new FuelBox;
+      pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470) + Vector2D(0, -10));
+      Game::instance.m_objects.AddItem(pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)], false);
+
+
       //colision left side
       pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new CollisionShaper;
       pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -100, BUILDINGSIDE);
@@ -227,7 +235,7 @@ void City::spawnBuilding()
 
       //colision top
       pLander[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, BUILDING);
+      pLander[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, 1);
       Game::instance.m_objects.AddItem(pLander[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
       //colision right
@@ -245,8 +253,8 @@ void City::spawnBuilding()
 
     }
 
-
-    if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) //If the last indexed building is further left than current building
+    // If the last indexed building is further left than current building
+    if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) 
     {
       if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[furthestLeft]->getPosition().XValue)
       {
@@ -298,7 +306,7 @@ void City::spawnBG()
     {
       if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue)
       {
-        furthestLeftBG = lastIndexBG; //Then the last index building is further left
+        furthestLeftBG = lastIndexBG; //Then the last index building is further left 
       }
       else
       {

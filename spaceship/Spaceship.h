@@ -35,6 +35,8 @@ public:
   void Bounce(GameObject &other);
   void Land(GameObject &other);
   float getAngle();
+  Vector2D getVelocity();
+  float getAcceleration();
   void thrustChange();
   Vector2D& getPosition();
 };

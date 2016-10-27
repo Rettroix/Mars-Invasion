@@ -12,6 +12,7 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
+const int FUEL = 500;
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
 
 //////////////////////////////////////////////////
@@ -35,8 +36,9 @@ void Spaceship::Initialise(Vector2D position)
   m_objectSize = Vector2D(256, 256)*m_imageScale;
   m_acceleration = 5000.0f;
   LoadImage(L"ship.png");
+  LoadImage(L"invisible.bmp");
   //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
-  m_fuel = 100000;
+  m_fuel = 500;
 }
 
 
@@ -88,6 +90,7 @@ void Spaceship::Update(float frametime)
       {
         //g_soundFX.StopThrust();	// Stop the thrust sound
       }
+      m_acceleration = 2000;
       m_thrusting = false;			// Remember we are thrusting
     }
 
@@ -153,18 +156,32 @@ void Spaceship::ProcessCollision(GameObject& other)
   //HitObject(other);
   if (other.GetType() == COLLIDER)
   {
+    if (m_acceleration >= 3000)
+    {
+      Explode();
+    }
+    else
+    {
+      Bounce(other);
 
-    Bounce(other);
 
+    }
+
+    
     //m_velocity = Vector2D(0.0f, 0.0f);
     //m_angle = 0;
   }
 
   if (other.GetType() == LANDER)
   {
-
-    Land(other);
-
+    if (m_acceleration >= 3000)
+    {
+      Explode();
+    }
+    else
+    {
+      Land(other);
+    }
     m_velocity = Vector2D(0.0f, 0.0f);
     m_angle = 0;
   }
@@ -179,13 +196,14 @@ void Spaceship::ProcessCollision(GameObject& other)
 
 void Spaceship::Explode()
 {
-  Deactivate();
-  //  Explosion* pExp = new Explosion;
+  //Deactivate();
+  m_imageNumber = 1;
+  Explosion* pExp = new Explosion;
   //  g_soundFX.PlayExplosion();
 
-  // pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
+  pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
 
-  //  Game::instance.m_objects.AddItem(pExp, false);
+  Game::instance.m_objects.AddItem(pExp, false);
 
   // g_soundFX.StopThrust();			// In case it is playing
 }
@@ -215,11 +233,15 @@ void Spaceship::Bounce(GameObject &other)
 
 void Spaceship::Land(GameObject &other)
 {
-
+  Lander *pOtherLander = dynamic_cast<Lander*> (&other);
+  if (pOtherLander->GetColType() == 1)
+  {
+    m_fuel = FUEL;
+  }
 
   //landing collision
   isLanded = true;
-  m_fuel--;
+  
 
   m_position.YValue = other.GetPosition().YValue + 100;
 
@@ -234,6 +256,16 @@ float Spaceship::getFuel()
 float Spaceship::getAngle()
 {
   return m_angle;
+}
+
+float Spaceship::getAcceleration()
+{
+  return m_acceleration;
+}
+
+Vector2D Spaceship::getVelocity()
+{
+  return m_velocity;
 }
 
 Vector2D& Spaceship::getPosition()
