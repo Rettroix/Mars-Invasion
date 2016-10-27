@@ -37,7 +37,6 @@ public:
   float GetTop();
   int GetColType();
   CollisionType getCollisionReaction();
-  void ChangePositions(float pos1, float pos2, float pos3, float pos4, int coltype);
   void ProcessCollision(GameObject& other);
   Segment2D GetShape();
   Lander();

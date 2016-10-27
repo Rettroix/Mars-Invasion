@@ -152,41 +152,47 @@ IShape2D& Spaceship::GetCollisionShape()
 
 void Spaceship::ProcessCollision(GameObject& other)
 {
-  Lander *pOtherBuilding = dynamic_cast<Lander*> (&other);
+  if (other.GetType() == LANDER)
+  {
+    Lander *pOtherBuilding = dynamic_cast<Lander*> (&other);
+
+    if (pOtherBuilding->getCollisionReaction() == CollisionType::BOUNCE)
+    {
+
+      if (m_acceleration >= 3000)
+      {
+        Explode();
+      }
+      else
+      {//bounce
+        Bounce(other);
+      }
+
+
+      //m_velocity = Vector2D(0.0f, 0.0f);
+      //m_angle = 0;
+    }
+
+    if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER)
+    {
+      if (m_acceleration >= 3000)
+      {
+        Explode();
+      }
+      else
+      {
+        Land(other);
+      }
+      m_velocity = Vector2D(0.0f, 0.0f);
+      m_angle = 0;
+    }
+
+  }
   //m_fuel--;
   //HitObject(other);
-  if (pOtherBuilding->getCollisionReaction() == CollisionType::BOUNCE)
-  {
-    
-    if (m_acceleration >= 3000)
-    {
-      Explode();
-    }
-    else
-    {//bounce
-      Bounce(other);
 
 
-    }
 
-    
-    //m_velocity = Vector2D(0.0f, 0.0f);
-    //m_angle = 0;
-  }
-
-  if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER)
-  {
-    if (m_acceleration >= 3000)
-    {
-      Explode();
-    }
-    else
-    {
-      Land(other);
-    }
-    m_velocity = Vector2D(0.0f, 0.0f);
-    m_angle = 0;
-  }
 
   if (other.GetType() == BULLET)
   {

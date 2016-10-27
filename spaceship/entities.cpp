@@ -222,10 +222,10 @@ void City::spawnBuilding()
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
-      //fuel box
-      pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)] = new FuelBox;
-      pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470) + Vector2D(0, -10));
-      Game::instance.m_objects.AddItem(pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)], false);
+      ////fuel box
+      //pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)] = new FuelBox;
+      //pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470) + Vector2D(0, -10));
+      //Game::instance.m_objects.AddItem(pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
 
       //colision left side
@@ -384,16 +384,17 @@ void City::updateBuildings()
 
   //if time is ready furthest left building changes
 
-  m_pBuildings[furthestLeft]->changeBuilding(selectedBuilding);
 
   if (m_pPlayer->getPosition().XValue > middle)
   {
     m_pBuildings[furthestLeft]->changePosition(Vector2D((m_pBuildings[furthestRight]->getPosition().XValue), (m_pBuildings[furthestLeft]->getPosition().YValue)) + Vector2D(700, 0));
+    //m_pBuildings[furthestLeft]->changeBuilding(selectedBuilding);
   }
 
   if (m_pPlayer->getPosition().XValue < middle)
   {
     m_pBuildings[furthestRight]->changePosition(Vector2D((m_pBuildings[furthestLeft]->getPosition().XValue), (m_pBuildings[furthestRight]->getPosition().YValue)) - Vector2D(700, 0));
+    m_pBuildings[furthestRight]->changeBuilding(selectedBuilding);
   }
 
 

@@ -14,7 +14,7 @@ void Lander::Initialise(Building *pBuilding, float pos1, float pos2, float pos3,
   position3 = pos3;
   position4 = pos4;
   selectedType = coltype;
-  m_drawDepth = 12;
+  m_drawDepth = 2;
   collisionShape.PlaceAt(Vector2D(m_pBuilding->getPosition().XValue - position1, m_pBuilding->getPosition().YValue - position2), Vector2D(m_pBuilding->getPosition().XValue - position3, m_pBuilding->getPosition().YValue - position4));
 
 }
@@ -37,9 +37,9 @@ IShape2D& Lander::GetCollisionShape()
 void Lander::Draw()
 {
 
-  GameObject::Draw();
-  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
+  //GameObject::Draw();
+  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
 
 }
 
@@ -54,15 +54,7 @@ void Lander::ProcessCollision(GameObject& other)
 
 }
 
-void Lander::ChangePositions(float pos1, float pos2, float pos3, float pos4, int coltype)
-{
-  position1 = pos1;
-  position2 = pos2;
-  position3 = pos3;
-  position4 = pos4;
-  selectedType = coltype;
 
-}
 
 int Lander::GetColType()
 {
@@ -98,6 +90,7 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -500;
       selectedType = 0;
+      collisionReaction = CollisionType::LANDER;
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING2)
@@ -107,6 +100,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -500;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING3)
@@ -116,6 +111,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -230;
       selectedType = 0;
+      collisionReaction = CollisionType::LANDER;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING4)
@@ -125,6 +122,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -300;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::HOUSE)
@@ -134,6 +133,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -100;
       selectedType = 0;
+      collisionReaction = CollisionType::LANDER;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::FUELBUILDING)
@@ -143,6 +144,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -100;
       selectedType = 1;
+      collisionReaction = CollisionType::LANDER;
+
     }
   }
 
@@ -157,6 +160,8 @@ void Lander::becomeBuilding()
       position3 = 260;
       position4 = -500;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING2)
@@ -166,6 +171,8 @@ void Lander::becomeBuilding()
       position3 = 260;
       position4 = -200;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING3)
@@ -175,6 +182,8 @@ void Lander::becomeBuilding()
       position3 = 260;
       position4 = -230;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING4)
@@ -184,6 +193,8 @@ void Lander::becomeBuilding()
       position3 = 260;
       position4 = -450;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::HOUSE)
@@ -193,6 +204,8 @@ void Lander::becomeBuilding()
       position3 = 260;
       position4 = -100;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::FUELBUILDING)
@@ -202,6 +215,8 @@ void Lander::becomeBuilding()
       position3 = 260;
       position4 = -100;
       selectedType = 1;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
   }
   //used for right collisions
@@ -215,6 +230,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -500;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING2)
@@ -224,6 +241,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -500;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING3)
@@ -233,6 +252,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -230;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::BUILDING4)
@@ -242,6 +263,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -300;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::HOUSE)
@@ -251,6 +274,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -100;
       selectedType = 0;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
 
     else if (m_pBuilding->getBuildingType() == BuildingType::FUELBUILDING)
@@ -260,6 +285,8 @@ void Lander::becomeBuilding()
       position3 = -260;
       position4 = -100;
       selectedType = 1;
+      collisionReaction = CollisionType::BOUNCE;
+
     }
   }
 
