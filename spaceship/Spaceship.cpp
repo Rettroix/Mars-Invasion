@@ -9,10 +9,11 @@ const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
 const float ACCELERATION = 5000.0f; // Units per second^2
 const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
-const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
+const float SHOOTDELAY = 0.25f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
 const int FUEL = 9000;
+const float RESPAWNTIME = 3.0f;
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
 
 //////////////////////////////////////////////////
@@ -27,6 +28,8 @@ Spaceship::Spaceship() : GameObject(SPACESHIP)
 // Starting position and load the image
 void Spaceship::Initialise(Vector2D position)
 {
+  m_respawnTime = RESPAWNTIME;
+  m_respawnCounting = false;
   m_friction = 1.5f;
   isLanded = false;
   m_position = position;
@@ -38,20 +41,41 @@ void Spaceship::Initialise(Vector2D position)
   LoadImage(L"ship.png");
   LoadImage(L"invisible.bmp");
   //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
-  m_fuel = 500;
+  m_fuel = FUEL;
+  m_lives = 3;
 }
 
 
 void Spaceship::Update(float frametime)
 {
 
+  m_frameTime = frametime;
+
+  //explode
+  if (m_respawnCounting == true)
+  {
+    gravity = Vector2D(0.0f, 0.0f);
+    m_position = m_position;
+    m_respawnTime -= m_frameTime;
+  }
+
+  //respawning
+  if (m_respawnTime < 0)
+  {
+    gravity = Vector2D(0.0f, 1000.0f);
+    m_imageNumber = 0;
+    m_respawnTime = RESPAWNTIME;
+    m_position = Vector2D(m_position.XValue - 600, 400);
+    m_fuel = FUEL;
+    m_respawnCounting = false;
+  }
 
   // Get input and set acceleration
   MyInputs* pInputs = MyInputs::GetInstance();
   pInputs->SampleKeyboard();
   //global.shipAngle = m_angle;
   thrustChange();
-  if (m_fuel > 0)
+  if (m_fuel > 0 && !m_respawnCounting)
   {
     if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
     {
@@ -128,7 +152,7 @@ void Spaceship::Update(float frametime)
   m_velocity = m_velocity - m_friction*frametime*m_velocity;
   m_position = m_position + m_velocity*frametime;
 
-  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300, 0));
+  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300,0 - m_position.YValue + 20));
 
 
 
@@ -152,7 +176,7 @@ IShape2D& Spaceship::GetCollisionShape()
 
 void Spaceship::ProcessCollision(GameObject& other)
 {
-  if (other.GetType() == LANDER)
+  if (other.GetType() == LANDER && !m_respawnCounting)
   {
     Lander *pOtherBuilding = dynamic_cast<Lander*> (&other);
 
@@ -173,7 +197,7 @@ void Spaceship::ProcessCollision(GameObject& other)
       //m_angle = 0;
     }
 
-    if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER)
+    if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER &&!m_respawnCounting)
     {
       if (m_acceleration >= 3000)
       {
@@ -212,6 +236,8 @@ void Spaceship::Explode()
   pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
 
   Game::instance.m_objects.AddItem(pExp, false);
+
+  m_respawnCounting = true;
 
   // g_soundFX.StopThrust();			// In case it is playing
 }

@@ -268,5 +268,8 @@
     <Image Include="invisible.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="ground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

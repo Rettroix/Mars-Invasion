@@ -14,7 +14,7 @@ void BuildingBackground::Initialise(Vector2D startPosition, Spaceship *player)
   m_position = startPosition; //m_position becomes the specified starting position
 
   incrementFrame = 0; //uneeded
-  initialPosition = m_position; //Stores the original position for paralax scrolling
+  initialPosition = m_position + Vector2D(0, +1000); //Stores the original position for paralax scrolling
   m_imageScale = 4; //scales image up since it needs to be big
 }
 

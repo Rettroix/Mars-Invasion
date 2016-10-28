@@ -21,6 +21,11 @@ private:
   float m_friction;
   float m_acceleration;
 
+  int m_lives;
+  float m_respawnTime;
+  bool m_respawnCounting;
+  float m_frameTime;
+
   int thrustTime;
 public:
   Spaceship();

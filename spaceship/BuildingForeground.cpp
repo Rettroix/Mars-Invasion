@@ -7,22 +7,22 @@
 void BuildingForeground::Initialise(Vector2D startPosition, Spaceship *player)
 {
   m_pPlayer = player;
-  m_drawDepth = 8;
+  m_drawDepth = 12;
 
-  LoadImage(L"building4.png");
+  LoadImage(L"ground.png");
 
   m_position = startPosition;
 
   incrementFrame = 0;
   initialPosition = m_position;
-  m_imageScale = 3;
+  m_imageScale = 4;
 }
 
 void BuildingForeground::Update(float frameTime)
 {
   m_imageNumber = 0;
 
-  m_position = initialPosition + Vector2D(m_pPlayer->getPosition().XValue*0.5, 0);
+  m_position = initialPosition + Vector2D(m_pPlayer->getPosition().XValue*0.25, 535);
   incrementFrame += 0.025 *frameTime;
 
 }
