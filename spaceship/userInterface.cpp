@@ -29,7 +29,7 @@ void userInterface::Draw()
   MyDrawEngine::GetInstance()->WriteText(200, 200, L"Fuel=", MyDrawEngine::WHITE);
   MyDrawEngine::GetInstance()->WriteInt(350, 200, m_pPlayer->getFuel(), MyDrawEngine::WHITE);
 
-  MyDrawEngine::GetInstance()->WriteDouble(1000, 200, m_pPlayer->getAcceleration(), MyDrawEngine::WHITE);
+  MyDrawEngine::GetInstance()->WriteDouble(1000, 200, m_pPlayer->getPosition().YValue, MyDrawEngine::WHITE);
   //MyDrawEngine::GetInstance()->WriteText(700, 200, L"Lives:", MyDrawEngine::WHITE);
   /*MyDrawEngine::GetInstance()->WriteDouble(700, 220, global.value[0], MyDrawEngine::WHITE);*/
 

@@ -8,7 +8,9 @@
 class BuildingForeground : public GameObject
 {
 private:
+  Segment2D collisionShape;
   Vector2D m_velocity;
+  void Draw();
   float m_time;
   Circle2D m_circle;
   Circle2D m_collider;

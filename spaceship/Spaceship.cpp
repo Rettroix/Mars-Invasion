@@ -85,7 +85,7 @@ void Spaceship::Update(float frametime)
     {
       m_angle += TURNSPEED *frametime;
     }
-    if (pInputs->KeyPressed(DIK_UP))    // Thrust
+    if (pInputs->KeyPressed(DIK_UP) && m_position.YValue < 1200)    // Thrust
     {
       isLanded = false;
       if (!m_thrusting)		// If not thrusting last frame
