@@ -29,7 +29,7 @@ void BuildingForeground::Update(float frameTime)
 
 IShape2D& BuildingForeground::GetCollisionShape()
 {
-  collisionShape.PlaceAt(Vector2D(m_position.XValue - 1000, 0), Vector2D(m_position.XValue + 1000, 0));
+  collisionShape.PlaceAt(Vector2D(m_position.XValue - 2000, -1020), Vector2D(m_position.XValue + 2000, -1020));
   return collisionShape;
 
 
@@ -39,9 +39,14 @@ void BuildingForeground::Draw()
 {
 
   GameObject::Draw();
-  MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
+  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
+  //pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
 
+}
+
+Vector2D BuildingForeground::getPosition()
+{
+  return m_position;
 }
 
 Vector2D BuildingForeground::getInitialPosition()
@@ -51,13 +56,17 @@ Vector2D BuildingForeground::getInitialPosition()
 
 }
 
+void BuildingForeground::changeInitialPosition(Vector2D pos)
+{
+  initialPosition = pos;
+}
+
 
 void BuildingForeground::ProcessCollision(GameObject& other)
 {
 
 }
 
-BuildingForeground::BuildingForeground() :GameObject(BUILDING)
+BuildingForeground::BuildingForeground() :GameObject(FLOOR)
 {
-
 }

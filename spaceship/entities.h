@@ -49,10 +49,15 @@ private:
   int middle;
   int lastIndex;
 
-  int furthestLeftBG; //Building furthest to the left
-  int furthestRightBG; //Building furthest to the right
+  int furthestLeftBG; //Building furthest to the left BG
+  int furthestRightBG; //Building furthest to the right BG
   int middleBG;
   int lastIndexBG;
+
+  int furthestLeftFG; //Building furthest to the left FG
+  int furthestRightFG; //Building furthest to the right FG
+  int middleFG;
+  int lastIndexFG;
 
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
@@ -62,8 +67,11 @@ public:
   void Initialise(Spaceship *player);
   void spawnBuilding();
   void spawnBG();
+  void spawnFG();
+
   void updateBuildings();
   void updateBuildingsBG();
+  void updateBuildingsFG();
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();

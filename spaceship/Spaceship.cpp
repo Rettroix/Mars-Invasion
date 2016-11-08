@@ -222,6 +222,26 @@ void Spaceship::ProcessCollision(GameObject& other)
   {
     m_health--;
   }
+
+  if (other.GetType() == FLOOR && !m_respawnCounting)
+  {
+    if (m_acceleration >= 3000)
+    {
+      Explode();
+    }
+
+    else
+    {
+      isLanded = true;
+
+
+      m_position.YValue = other.GetPosition().YValue - 1020;
+    }
+
+    m_velocity = Vector2D(0.0f, 0.0f);
+    m_angle = 0;
+    
+  }
   //if (other.GetType() == ASTEROID)
   //  Explode();
 }
@@ -249,11 +269,7 @@ void Spaceship::Bounce(GameObject &other)
   Vector2D normal = collisionShape.CollisionNormal(pOtherBuildingTwo->GetShape());
   normal = normal.unitVector();
 
-  ////landing collision
-  //isLanded = true;
-  //m_fuel--;
 
-  //m_position.YValue = other.GetPosition().YValue + 100;
 
   m_velocity = m_velocity - (2*normal*m_velocity)*normal;
   m_health--;

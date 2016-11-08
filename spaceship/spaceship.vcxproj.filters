@@ -93,6 +93,9 @@
     <ClCompile Include="FuelBox.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyShip.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -174,6 +177,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="FuelBox.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyShip.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -87,6 +87,7 @@
     <ClCompile Include="BuildingForeground.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisionShaper.cpp" />
+    <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="entities.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Explosion.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="BuildingTypes.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisionShaper.h" />
+    <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="entities.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="errortype.h" />

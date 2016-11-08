@@ -43,13 +43,7 @@ void City::Initialise(Spaceship *player)
   
   spawnBG();
    
-  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS/2); i++)  
-  {
-    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
-    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
-
-    Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-  }
+  spawnFG();
 
 
 
@@ -64,6 +58,8 @@ void City::Update(float frameTime)
   updateBuildings();
 
   updateBuildingsBG();
+  updateBuildingsFG();
+
   
 }
 
@@ -337,6 +333,55 @@ void City::spawnBG()
 
 }
 
+void City::spawnFG()
+{
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  {
+
+
+    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
+    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
+
+    Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+
+
+
+    if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue <= m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) //If the last indexed building is further left than current building
+    {
+      if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue <= m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().XValue)
+      {
+        furthestLeftFG = lastIndexFG; //Then the last index building is further left 
+      }
+      else
+      {
+        furthestLeftFG = furthestLeftFG;
+      }
+
+    }
+
+    else
+    {
+      furthestLeftFG = i + (NUMBER_OF_BUILDINGS / 2); //Then the furthest left is current building
+
+    }
+
+    if (furthestLeftFG == 0)
+    {
+      furthestRightFG = 20;
+    }
+
+    else
+    {
+      furthestRightFG = furthestLeftFG - 1;
+    }
+
+
+    lastIndexFG = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
+  }
+
+}
+
 void City::updateBuildings()
 {
   selectedBuilding = static_cast<BuildingType>(rand() % 6 + 1);
@@ -457,6 +502,64 @@ void City::updateBuildingsBG()
   if (m_pPlayer->getPosition().XValue < middleBG)
   {
     m_pBackgroundBuildings[furthestRightBG]->changeInitialPosition(Vector2D((m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue), (m_pBackgroundBuildings[furthestRightBG]->getInitialPosition().YValue)) - Vector2D(4000, 0));
+  }
+
+
+}
+
+
+void City::updateBuildingsFG()
+{
+  lastIndexFG = 0;
+  furthestLeftFG = 0;
+
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  {
+
+    if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue < m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) //If the last indexed building is further left than current building
+    {
+      if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue <= m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().XValue)
+      {
+        furthestLeftFG = lastIndexFG; //Then the last index building is further left
+      }
+      else
+      {
+        furthestLeftBG = furthestLeftBG;
+      }
+
+    }
+
+    else
+    {
+      furthestLeftFG = i + (NUMBER_OF_BUILDINGS / 2); //Then the furthest left is current building
+
+    }
+
+
+    lastIndexFG = i + (NUMBER_OF_BUILDINGS / 2); //The last index is set to current loop
+
+  }
+  if (furthestLeftFG == 0)
+  {
+    furthestRightFG = 19;
+
+  }
+
+  else
+  {
+    furthestRightFG = furthestLeftFG - 1;
+  }
+
+  middleFG = (m_pForegroundBuildings[furthestLeftFG]->getPosition().XValue + m_pForegroundBuildings[furthestRightFG]->getPosition().XValue) / 2;
+
+  if (m_pPlayer->getPosition().XValue > middleFG)
+  {
+    m_pForegroundBuildings[furthestLeftFG]->changeInitialPosition(Vector2D((m_pForegroundBuildings[furthestRightFG]->getInitialPosition().XValue), (m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().YValue)) + Vector2D(4000, 0));
+  }
+
+  if (m_pPlayer->getPosition().XValue < middleFG)
+  {
+    m_pForegroundBuildings[furthestRightFG]->changeInitialPosition(Vector2D((m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().XValue), (m_pForegroundBuildings[furthestRightFG]->getInitialPosition().YValue)) - Vector2D(4000, 0));
   }
 
 
