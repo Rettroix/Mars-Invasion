@@ -146,6 +146,11 @@ void Spaceship::Update(float frametime)
   if (!isLanded)
   {
     m_velocity = m_velocity - gravity *frametime;
+    
+  }
+  else
+  {
+    RotateTo(0);
   }
 
   // Process movement
@@ -208,7 +213,7 @@ void Spaceship::ProcessCollision(GameObject& other)
         Land(other);
       }
       m_velocity = Vector2D(0.0f, 0.0f);
-      m_angle = 0;
+      
     }
 
   }
@@ -360,4 +365,25 @@ void Spaceship::thrustChange()
     m_acceleration = 5000.0f;
   }
 
+}
+
+void Spaceship::RotateTo(float angle)
+{
+  // Rotate to the given angle
+
+  if (abs(m_angle) - abs(angle) < 0.05 && abs(m_angle) - abs(angle) > -0.05)
+  {
+    m_angle = angle;
+  }
+  else
+  {
+    if (m_angle > angle)
+    {
+      m_angle -= 0.1f;
+    }
+    else if (m_angle < angle)
+    {
+      m_angle += 0.1f;
+    }
+  }
 }

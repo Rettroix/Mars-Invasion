@@ -22,7 +22,7 @@ void BuildingForeground::Update(float frameTime)
 {
   m_imageNumber = 0;
 
-  m_position = initialPosition + Vector2D(m_pPlayer->getPosition().XValue*0.25, 535);
+  m_position = initialPosition + Vector2D(m_pPlayer->getPosition().XValue*-2, 535);
   incrementFrame += 0.025 *frameTime;
 
 }

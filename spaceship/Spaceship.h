@@ -43,5 +43,6 @@ public:
   Vector2D getVelocity();
   float getAcceleration();
   void thrustChange();
+  void RotateTo(float angle);
   Vector2D& getPosition();
 };

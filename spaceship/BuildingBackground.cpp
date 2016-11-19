@@ -22,7 +22,7 @@ void BuildingBackground::Update(float frameTime)
 {
   m_imageNumber = 0;
 
-  m_position = initialPosition - Vector2D(m_pPlayer->getPosition().XValue*0.5, 0); //The position is always the initial position minus the player's position times the value needed for scrolling
+  m_position = initialPosition - Vector2D(m_pPlayer->getPosition().XValue*0.2, 0); //The position is always the initial position minus the player's position times the value needed for scrolling
   incrementFrame += 0.025 *frameTime;
 
 }
