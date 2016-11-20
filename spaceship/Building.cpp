@@ -1,11 +1,14 @@
 #include "Building.h"
 #include "BuildingTypes.h"
-
+#include "EnemyOne.h"
+#include "Missile.h"
+#include "gamecode.h"
 //Buildings are the main objects which you can land atop of
 
 
-void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding)
+void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Spaceship *player)
 {
+  m_pPlayer = player; //Stores a pointer to the player
   positionStart = startPosition;
   currentBuilding = spawnBuilding;
   m_drawDepth = 8;
@@ -128,6 +131,7 @@ void Building::changeBuilding(BuildingType spawnBuilding)
     m_imageNumber = 1;
     m_position = positionStart;
     m_objectSize = Vector2D(167, 284)*m_imageScale;
+    //spawnEnemyOne();
     break;
   case BuildingType::BUILDING2:
     m_imageNumber = 2;
@@ -158,6 +162,17 @@ void Building::changeBuilding(BuildingType spawnBuilding)
 
 
 }
+
+void Building::spawnEnemyOne()
+{
+  Missile* pMissile = new Missile;
+  pMissile->Initialise(positionStart, m_pPlayer);
+  Game::instance.m_objects.AddItem(pMissile, true);
+  EnemyOne* pEnemyOne = new EnemyOne;
+  pEnemyOne->Initialise(positionStart, m_pPlayer, pMissile);
+  Game::instance.m_objects.AddItem(pEnemyOne, true);
+}
+
 
 Rectangle2D Building::GetShape()
 {

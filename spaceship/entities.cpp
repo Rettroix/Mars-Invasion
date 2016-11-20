@@ -4,7 +4,8 @@
 #include "BuildingForeground.h"
 #include "BuildingBackground.h"
 #include "Explosion.h"
-
+#include "missile.h"
+#include "EnemyOne.h"
 
 
 const float BULLETSPEED = 800.0f;
@@ -29,6 +30,8 @@ const int CHANGEDELAY = 25;
 
 void City::Initialise(Spaceship *player)
 {
+  enemyOneCoolDown = 0;
+
   srand(time(NULL));
   //LoadImage(L"BG.png");
   m_pPlayer = player;
@@ -54,12 +57,28 @@ void City::Initialise(Spaceship *player)
 
 void City::Update(float frameTime)
 {
+  enemyOneCoolDown -= 1;
+
   changeDelay = changeDelay - 1;
   updateBuildings();
 
   updateBuildingsBG();
   updateBuildingsFG();
 
+  if (enemyOneCoolDown < 0 && rand() % 100 == 7)
+  {
+    enemyOneCoolDown = 100;
+    Missile* pMissile = new Missile;
+    pMissile->Initialise(m_pPlayer->GetPosition() + Vector2D(2000,0), m_pPlayer);
+    Game::instance.m_objects.AddItem(pMissile, true);
+
+
+    EnemyOne* pEnemyOne = new EnemyOne;
+    pEnemyOne->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, pMissile);
+    Game::instance.m_objects.AddItem(pEnemyOne, true);
+
+
+  }
   
 }
 
@@ -92,8 +111,17 @@ void City::spawnBuilding()
     if (selectedBuilding == BuildingType::BUILDING1)
     {
       //building1
+      //Missile* pMissile = new Missile;
+      //pMissile->Initialise(Vector2D(i * 700, -470), m_pPlayer);
+      //Game::instance.m_objects.AddItem(pMissile, true);
+
+      //
+      //EnemyOne* pEnemyOne = new EnemyOne;
+      //pEnemyOne->Initialise(Vector2D(i * 700, -470), m_pPlayer, pMissile);
+      //Game::instance.m_objects.AddItem(pEnemyOne, true);
+
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
       //colision left side
@@ -115,7 +143,7 @@ void City::spawnBuilding()
     {
       //building2
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
       //colision left side
@@ -140,7 +168,7 @@ void City::spawnBuilding()
     {
       //building3
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
       //colision left side
@@ -165,7 +193,7 @@ void City::spawnBuilding()
     {
       //building4
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
       //colision left side
@@ -190,7 +218,7 @@ void City::spawnBuilding()
     {
       //HOUSE
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
       //colision left side
@@ -215,7 +243,7 @@ void City::spawnBuilding()
     {
       //HOUSE
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
       ////fuel box
@@ -244,7 +272,7 @@ void City::spawnBuilding()
     else
     {
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding);
+      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
     }
@@ -612,6 +640,13 @@ void Bullet::Update(float frametime)
   else
   {
     m_imageNumber = m_animationSpeed;
+  }
+
+  if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue + 2000 < m_position.XValue ||
+    MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue - 2000 > m_position.XValue ||
+    m_position.YValue > 2000)
+  {
+    Deactivate();
   }
   
 }

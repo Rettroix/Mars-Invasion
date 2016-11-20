@@ -96,6 +96,12 @@
     <ClCompile Include="EnemyShip.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="missile.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyOne.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -180,6 +186,12 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="EnemyShip.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="missile.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyOne.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -275,6 +287,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="ground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="enemy_missile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Enemy1.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

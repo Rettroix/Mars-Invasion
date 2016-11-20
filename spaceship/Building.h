@@ -15,13 +15,15 @@ private:
   float incrementFrame;
   Vector2D positionStart;
   BuildingType currentBuilding = BuildingType::BUILDING0;
+  Spaceship *m_pPlayer;
 
 public:
 
-  void Initialise(Vector2D startPosition, BuildingType spawnBuilding);
+  void Initialise(Vector2D startPosition, BuildingType spawnBuilding, Spaceship *player);
   void changeBuilding(BuildingType spawnBuilding);
   void Draw();
   void Update(float frameTime);
+  void spawnEnemyOne();
   IShape2D& GetCollisionShape();
   void changePosition(Vector2D pos); // Change position of the building
   Vector2D getPosition(); //Get the position of the building

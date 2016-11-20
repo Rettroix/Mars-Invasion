@@ -47,6 +47,8 @@ public:
 	// Places the centre of the camera to the specified position
 	void PlaceAt(Vector2D worldPosition);
 
+  Vector2D returnPosition();
+
 	// Sets the camera zoom
 	void SetZoom(float zoom);
 };

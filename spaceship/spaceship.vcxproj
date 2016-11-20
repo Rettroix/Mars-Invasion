@@ -87,6 +87,7 @@
     <ClCompile Include="BuildingForeground.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisionShaper.cpp" />
+    <ClCompile Include="EnemyOne.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="entities.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
@@ -97,6 +98,7 @@
     <ClCompile Include="gametimer.cpp" />
     <ClCompile Include="KeyboardBuffer.cpp" />
     <ClCompile Include="lander.cpp" />
+    <ClCompile Include="missile.cpp" />
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
@@ -115,6 +117,7 @@
     <ClInclude Include="BuildingTypes.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisionShaper.h" />
+    <ClInclude Include="EnemyOne.h" />
     <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="entities.h" />
     <ClInclude Include="ErrorLogger.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="gametimer.h" />
     <ClInclude Include="KeyboardBuffer.h" />
     <ClInclude Include="lander.h" />
+    <ClInclude Include="missile.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />
     <ClInclude Include="mysoundengine.h" />
@@ -156,6 +160,8 @@
     <Image Include="bullet6.png" />
     <Image Include="city.png" />
     <Image Include="crate.png" />
+    <Image Include="Enemy1.png" />
+    <Image Include="enemy_missile.png" />
     <Image Include="explosion1.bmp" />
     <Image Include="explosion2.bmp" />
     <Image Include="explosion3.bmp" />

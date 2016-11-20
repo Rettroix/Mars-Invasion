@@ -73,6 +73,12 @@ void Camera::PlaceAt(Vector2D worldPosition)
 	m_worldPosition = worldPosition;
 }
 
+Vector2D Camera::returnPosition() 
+{
+
+  return m_worldPosition;
+}
+
 void Camera::SetZoom(float zoom)
 {
 	m_zoom = zoom;

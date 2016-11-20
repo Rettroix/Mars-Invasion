@@ -4,6 +4,8 @@
 #include "myinputs.h"
 #include "Building.h"
 #include "Explosion.h"
+#include "missile.h"
+#include "EnemyOne.h"
 
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
@@ -28,6 +30,9 @@ Spaceship::Spaceship() : GameObject(SPACESHIP)
 // Starting position and load the image
 void Spaceship::Initialise(Vector2D position)
 {
+  srand(time(NULL));
+
+
   m_respawnTime = RESPAWNTIME;
   m_respawnCounting = false;
   m_friction = 1.5f;
@@ -49,7 +54,10 @@ void Spaceship::Initialise(Vector2D position)
 void Spaceship::Update(float frametime)
 {
 
+    
   m_frameTime = frametime;
+ 
+  m_position.XValue;
 
   //explode
   if (m_respawnCounting == true)
@@ -97,7 +105,7 @@ void Spaceship::Update(float frametime)
       acc.setBearing(m_angle, m_acceleration);
       m_velocity = m_velocity + acc*frametime;
       m_fuel--;
-      //global.fuel = m_fuel;
+      
 
       // Add a fire trail for thrust effect
       Explosion* pExp = new Explosion;

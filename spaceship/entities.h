@@ -59,6 +59,8 @@ private:
   int middleFG;
   int lastIndexFG;
 
+  int enemyOneCoolDown;
+
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
 
