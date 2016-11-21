@@ -40,5 +40,7 @@ public:
   float getAngle();
   void changeInitialPosition(Vector2D pos);
   void RotateTo(float angle);
+  void Explode();
+
   EnemyOne();
 };

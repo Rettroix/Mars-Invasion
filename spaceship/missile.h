@@ -38,6 +38,7 @@ public:
   Vector2D getPosition();
   void changeInitialPosition(Vector2D pos);
   float getAngle();
+  void Explode();
   float getRotationToPlayer();
   Missile();
 };

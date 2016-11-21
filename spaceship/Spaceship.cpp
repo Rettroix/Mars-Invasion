@@ -14,7 +14,7 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.25f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
-const int FUEL = 9000;
+const int FUEL = 1000;
 const float RESPAWNTIME = 3.0f;
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
 

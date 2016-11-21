@@ -1,4 +1,6 @@
 #include "missile.h"
+#include "Explosion.h"
+#include "gamecode.h"
 
 //////////////////////////////////////////////////////
 //////////////missile////////////////////////////////
@@ -105,6 +107,12 @@ void Missile::changeInitialPosition(Vector2D pos)
 
 void Missile::ProcessCollision(GameObject& other)
 {
+  if (other.GetType() == BULLET)
+  {
+    Explode();
+    Deactivate();
+
+  }
 
 }
 
@@ -118,6 +126,22 @@ float Missile::getRotationToPlayer()
   return rotationToPlayer;
 }
 
-Missile::Missile() :GameObject(BULLET)
+void Missile::Explode()
+{
+  //Deactivate();
+  m_imageNumber = 1;
+  Explosion* pExp = new Explosion;
+  //  g_soundFX.PlayExplosion();
+
+  pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
+
+  Game::instance.m_objects.AddItem(pExp, false);
+
+  
+
+  // g_soundFX.StopThrust();			// In case it is playing
+}
+
+Missile::Missile() :GameObject(ENEMY)
 {
 }

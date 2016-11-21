@@ -1,7 +1,8 @@
 #include "EnemyOne.h"
-
+#include "Explosion.h"
+#include "gamecode.h"
 //////////////////////////////////////////////////////
-//////////////missile////////////////////////////////
+//////////////Enemy One////////////////////////////////
 //////////////////////////////////////////////////////
 
 void EnemyOne::Initialise(Vector2D startPosition, Spaceship *player, Missile *missile)
@@ -54,7 +55,7 @@ void EnemyOne::Draw()
   GameObject::Draw();
   MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
   //pTheDrawEngine->DrawLine(sensor.GetStart(), sensor.GetEnd(), 65525);
-  pTheDrawEngine->FillCircle(m_position, 70, 65525);
+  //pTheDrawEngine->FillCircle(m_position, 70, 65525);
 }
 
 Vector2D EnemyOne::getPosition()
@@ -77,7 +78,12 @@ void EnemyOne::changeInitialPosition(Vector2D pos)
 
 void EnemyOne::ProcessCollision(GameObject& other)
 {
-
+  if (other.GetType() == BULLET)
+  {
+    Explode();
+    Deactivate();
+  }
+  
 }
 
 
@@ -105,6 +111,22 @@ void EnemyOne::RotateTo(float angle)
 float EnemyOne::getAngle()
 {
   return m_angle;
+}
+
+void EnemyOne::Explode()
+{
+  //Deactivate();
+  m_imageNumber = 1;
+  Explosion* pExp = new Explosion;
+  //  g_soundFX.PlayExplosion();
+
+  pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
+
+  Game::instance.m_objects.AddItem(pExp, false);
+
+  
+
+  // g_soundFX.StopThrust();			// In case it is playing
 }
 
 EnemyOne::EnemyOne() :GameObject(ENEMY)
