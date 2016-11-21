@@ -1,4 +1,6 @@
 #include "userInterface.h"
+#include "gamecode.h"
+#include "BulletUI.h"
 
 //////////////////////////////////////////////
 /////////UserInterface///////////////////////
@@ -8,7 +10,9 @@ void userInterface::Intialise(Spaceship *player)
   m_drawDepth = 7;
   m_pPlayer = player;
 
-
+  BulletUI* pBulletUI = new BulletUI;
+  pBulletUI->Initialise(m_pPlayer);
+  Game::instance.m_objects.AddItem(pBulletUI, true);
 
 }
 

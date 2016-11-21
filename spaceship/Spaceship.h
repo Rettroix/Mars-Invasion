@@ -21,7 +21,7 @@ private:
   float m_friction;
   float m_acceleration;
 
-
+  int bullets;
   int enemyOneCoolDown;
   int m_lives;
   float m_respawnTime;
@@ -46,5 +46,7 @@ public:
   float getAcceleration();
   void thrustChange();
   void RotateTo(float angle);
+  int getMaxBullets();
+  int getBullets();
   Vector2D& getPosition();
 };

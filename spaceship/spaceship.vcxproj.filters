@@ -102,6 +102,9 @@
     <ClCompile Include="EnemyOne.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="BulletUI.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -192,6 +195,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="EnemyOne.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletUI.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -293,6 +299,33 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Enemy1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIbullets9.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

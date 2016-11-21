@@ -85,6 +85,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildingBackground.cpp" />
     <ClCompile Include="BuildingForeground.cpp" />
+    <ClCompile Include="BulletUI.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisionShaper.cpp" />
     <ClCompile Include="EnemyOne.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="BuildingBackground.h" />
     <ClInclude Include="BuildingForeground.h" />
     <ClInclude Include="BuildingTypes.h" />
+    <ClInclude Include="BulletUI.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisionShaper.h" />
     <ClInclude Include="EnemyOne.h" />
@@ -176,6 +178,15 @@
     <Image Include="invisible.png" />
     <Image Include="othercity.png" />
     <Image Include="ship.png" />
+    <Image Include="UIbullets1.png" />
+    <Image Include="UIbullets2.png" />
+    <Image Include="UIbullets3.png" />
+    <Image Include="UIbullets4.png" />
+    <Image Include="UIbullets5.png" />
+    <Image Include="UIbullets6.png" />
+    <Image Include="UIbullets7.png" />
+    <Image Include="UIbullets8.png" />
+    <Image Include="UIbullets9.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

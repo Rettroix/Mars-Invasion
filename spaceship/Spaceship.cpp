@@ -7,6 +7,7 @@
 #include "missile.h"
 #include "EnemyOne.h"
 
+const int MAXBULLETS = 50;
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
 const float ACCELERATION = 5000.0f; // Units per second^2
@@ -32,7 +33,7 @@ void Spaceship::Initialise(Vector2D position)
 {
   srand(time(NULL));
 
-
+  bullets = MAXBULLETS;
   m_respawnTime = RESPAWNTIME;
   m_respawnCounting = false;
   m_friction = 1.5f;
@@ -127,8 +128,9 @@ void Spaceship::Update(float frametime)
     }
 
     // Handle shooting
-    if (pInputs->KeyPressed(DIK_SPACE) && m_shootDelay<0)    // Shoot
+    if (pInputs->KeyPressed(DIK_SPACE) && m_shootDelay<0 && bullets > 0)    // Shoot
     {
+      bullets--;
       m_shootDelay = SHOOTDELAY;				// Makes it wait before it can shoot again
       Vector2D pos;
       Vector2D vel;
@@ -336,6 +338,15 @@ Vector2D& Spaceship::getPosition()
   return m_position;
 }
 
+int Spaceship::getMaxBullets()
+{
+  return MAXBULLETS;
+}
+
+int Spaceship::getBullets()
+{
+  return bullets;
+}
 void Spaceship::fuelManagement()
 {
 
