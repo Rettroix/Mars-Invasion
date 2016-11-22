@@ -56,6 +56,6 @@ public:
   float getHealth();
   int getScore();
   bool isGameOver();
-
+  void addScore(int ammount);
   Vector2D& getPosition();
 };

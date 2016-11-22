@@ -632,6 +632,7 @@ void Bullet::Update(float frametime)
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;
   
+  //m_position = m_position + Vector2D(0, -20);
   if (m_animationSpeed >= 5)
   {
     m_animationSpeed = 5;

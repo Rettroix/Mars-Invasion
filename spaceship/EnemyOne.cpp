@@ -80,10 +80,12 @@ void EnemyOne::ProcessCollision(GameObject& other)
 {
   if (other.GetType() == BULLET)
   {
+   
+
     Explode();
     Deactivate();
   }
-  
+
 }
 
 

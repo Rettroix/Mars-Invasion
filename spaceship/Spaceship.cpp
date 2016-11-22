@@ -143,7 +143,7 @@ void Spaceship::Update(float frametime)
       pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
       pos = pos + m_position;
       vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
-      vel = vel + m_velocity;					// Include the launching platform's velocity
+      vel = vel + Vector2D(0, -20);					// Include the launching platform's velocity
 
       Bullet* pBullet = new Bullet;
       pBullet->Initialise(pos, vel, m_angle, this);			// Intialise
@@ -437,4 +437,11 @@ void Spaceship::RotateTo(float angle)
       m_angle += 0.1f;
     }
   }
+}
+
+void Spaceship::addScore(int ammount)
+{
+  score = score + ammount;
+  
+
 }
