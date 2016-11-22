@@ -328,5 +328,59 @@
     <Image Include="UIbullets9.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="UIhealth2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIhealth1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel001.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel002.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel003.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel004.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel005.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel006.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel007.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel008.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="UIFuel009.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -608,7 +608,7 @@ Bullet::Bullet() : GameObject(BULLET)
 
 }
 
-void Bullet::Initialise(Vector2D position, Vector2D velocity, float angl)
+void Bullet::Initialise(Vector2D position, Vector2D velocity, float angl, Spaceship *m_pPlayer)
 {
   m_position = position;
   m_velocity = velocity;
@@ -659,6 +659,11 @@ void Bullet::Update(float frametime)
 
 void Bullet::ProcessCollision(GameObject& other)
 {
+  if (other.GetType() != SPACESHIP)
+  {
+    Deactivate();
+  }
+  
   //if (other.GetType() == ASTEROID)
  // {
    // Deactivate();

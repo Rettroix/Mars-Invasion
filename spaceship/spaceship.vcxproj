@@ -187,6 +187,24 @@
     <Image Include="UIbullets7.png" />
     <Image Include="UIbullets8.png" />
     <Image Include="UIbullets9.png" />
+    <Image Include="UIFuel001.png" />
+    <Image Include="UIFuel002.png" />
+    <Image Include="UIFuel003.png" />
+    <Image Include="UIFuel004.png" />
+    <Image Include="UIFuel005.png" />
+    <Image Include="UIFuel006.png" />
+    <Image Include="UIFuel007.png" />
+    <Image Include="UIFuel008.png" />
+    <Image Include="UIFuel009.png" />
+    <Image Include="UIhealth1.png" />
+    <Image Include="UIhealth2.png" />
+    <Image Include="UIhealth3.png" />
+    <Image Include="UIhealth4.png" />
+    <Image Include="UIhealth5.png" />
+    <Image Include="UIhealth6.png" />
+    <Image Include="UIhealth7.png" />
+    <Image Include="UIhealth8.png" />
+    <Image Include="UIhealth9.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,7 +7,8 @@
 #include "missile.h"
 #include "EnemyOne.h"
 
-const int MAXBULLETS = 50;
+const float MAXBULLETS = 50;
+const float MAXHEALTH = 100;
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
 const float ACCELERATION = 5000.0f; // Units per second^2
@@ -15,7 +16,7 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.25f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
-const int FUEL = 1000;
+const float MAXFUEL = 1000;
 const float RESPAWNTIME = 3.0f;
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
 
@@ -31,8 +32,9 @@ Spaceship::Spaceship() : GameObject(SPACESHIP)
 // Starting position and load the image
 void Spaceship::Initialise(Vector2D position)
 {
+  gameOver = false;
   srand(time(NULL));
-
+  score = 0;
   bullets = MAXBULLETS;
   m_respawnTime = RESPAWNTIME;
   m_respawnCounting = false;
@@ -47,14 +49,18 @@ void Spaceship::Initialise(Vector2D position)
   LoadImage(L"ship.png");
   LoadImage(L"invisible.bmp");
   //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
-  m_fuel = FUEL;
+  m_fuel = MAXFUEL;
   m_lives = 3;
+  health = MAXHEALTH;
 }
 
 
 void Spaceship::Update(float frametime)
 {
-
+  if (health <= 0)
+  {
+    gameOver = true;
+  }
     
   m_frameTime = frametime;
  
@@ -69,13 +75,13 @@ void Spaceship::Update(float frametime)
   }
 
   //respawning
-  if (m_respawnTime < 0)
+  if (m_respawnTime < 0 && !gameOver)
   {
     gravity = Vector2D(0.0f, 1000.0f);
     m_imageNumber = 0;
     m_respawnTime = RESPAWNTIME;
     m_position = Vector2D(m_position.XValue - 600, 400);
-    m_fuel = FUEL;
+    m_fuel = MAXFUEL;
     m_respawnCounting = false;
   }
 
@@ -140,7 +146,7 @@ void Spaceship::Update(float frametime)
       vel = vel + m_velocity;					// Include the launching platform's velocity
 
       Bullet* pBullet = new Bullet;
-      pBullet->Initialise(pos, vel, m_angle);			// Intialise
+      pBullet->Initialise(pos, vel, m_angle, this);			// Intialise
       Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
       //g_soundFX.PlayZap();					// PLay zap sound effect
     }
@@ -231,12 +237,12 @@ void Spaceship::ProcessCollision(GameObject& other)
   //HitObject(other);
 
 
-
-
-  if (other.GetType() == BULLET)
+  if (other.GetType() == ENEMY && !m_respawnCounting)
   {
-    m_health--;
+    Explode();
   }
+
+
 
   if (other.GetType() == FLOOR && !m_respawnCounting)
   {
@@ -263,6 +269,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
 void Spaceship::Explode()
 {
+  health=health-20;
   //Deactivate();
   m_imageNumber = 1;
   Explosion* pExp = new Explosion;
@@ -301,7 +308,7 @@ void Spaceship::Land(GameObject &other)
   Lander *pOtherLander = dynamic_cast<Lander*> (&other);
   if (pOtherLander->GetColType() == 1)
   {
-    m_fuel = FUEL;
+    m_fuel = MAXFUEL;
   }
 
   //landing collision
@@ -318,6 +325,10 @@ float Spaceship::getFuel()
   return m_fuel;
 }
 
+float Spaceship::getMaxFuel()
+{
+  return MAXFUEL;
+}
 float Spaceship::getAngle()
 {
   return m_angle;
@@ -338,15 +349,36 @@ Vector2D& Spaceship::getPosition()
   return m_position;
 }
 
-int Spaceship::getMaxBullets()
+float Spaceship::getMaxBullets()
 {
   return MAXBULLETS;
 }
 
-int Spaceship::getBullets()
+float Spaceship::getBullets()
 {
   return bullets;
 }
+
+float Spaceship::getMaxHealth()
+{
+  return MAXHEALTH;
+}
+
+float Spaceship::getHealth()
+{
+  return health;
+}
+
+int Spaceship::getScore()
+{
+  return score;
+}
+
+bool Spaceship::isGameOver()
+{
+  return gameOver;
+}
+
 void Spaceship::fuelManagement()
 {
 

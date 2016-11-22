@@ -8,6 +8,7 @@
 class Spaceship : public GameObject
 {
 private:
+  int score;
   Circle2D collisionShape;
   Vector2D m_velocity;		// Velocity of the ship
   Circle2D m_collider;		// Used for collision
@@ -20,14 +21,15 @@ private:
   bool isLanded;
   float m_friction;
   float m_acceleration;
-
-  int bullets;
+  bool gameOver;
+  float bullets;
   int enemyOneCoolDown;
   int m_lives;
   float m_respawnTime;
   bool m_respawnCounting;
   float m_frameTime;
 
+  float health;
   int thrustTime;
 public:
   Spaceship();
@@ -39,6 +41,8 @@ public:
   void Explode();							// Deactivates ship and creates an explosion
   void fuelManagement();
   float getFuel();
+  float getMaxFuel();
+
   void Bounce(GameObject &other);
   void Land(GameObject &other);
   float getAngle();
@@ -46,7 +50,12 @@ public:
   float getAcceleration();
   void thrustChange();
   void RotateTo(float angle);
-  int getMaxBullets();
-  int getBullets();
+  float getMaxBullets();
+  float getBullets();
+  float getMaxHealth();
+  float getHealth();
+  int getScore();
+  bool isGameOver();
+
   Vector2D& getPosition();
 };

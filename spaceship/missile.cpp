@@ -9,7 +9,7 @@
 void Missile::Initialise(Vector2D startPosition, Spaceship *player)
 {
   m_friction = 1.5f;
-  m_acceleration = 6000.0f;
+  m_acceleration = 4000.0f;
   m_velocity.set(0, 0);
 
   m_pPlayer = player;

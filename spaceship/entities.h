@@ -93,13 +93,14 @@ private:
   Vector2D m_velocity;
   Point2D m_collider;
   float m_timer;  // Lifetime
+  Spaceship *m_pPlayer;
 
   float m_animationSpeed;   // Frames of animation per second
   float m_currentAnimation; // Current animation frame
 
 public:
   Bullet();
-  void Initialise(Vector2D position, Vector2D velocity, float angl);
+  void Initialise(Vector2D position, Vector2D velocity, float angl, Spaceship *player);
   void Update(float frametime);
   IShape2D& GetCollisionShape();
   void ProcessCollision(GameObject& other);
