@@ -610,6 +610,7 @@ Bullet::Bullet() : GameObject(BULLET)
 
 void Bullet::Initialise(Vector2D position, Vector2D velocity, float angl, Spaceship *m_pPlayer)
 {
+  m_acceleration = 700;
   m_position = position;
   m_velocity = velocity;
   m_timer = 2.0;
@@ -628,6 +629,11 @@ void Bullet::Initialise(Vector2D position, Vector2D velocity, float angl, Spaces
 
 void Bullet::Update(float frametime)
 {
+  /*Vector2D acc;
+  acc.setBearing(m_angle, m_acceleration);
+  m_velocity = m_velocity + acc*frametime;*/
+  m_velocity = m_velocity + Vector2D(0, -20);
+
   m_animationSpeed = m_animationSpeed + 0.15;
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;

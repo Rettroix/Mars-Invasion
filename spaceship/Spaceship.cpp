@@ -9,7 +9,7 @@
 
 const float MAXBULLETS = 50;
 const float MAXHEALTH = 100;
-const float BULLETSPEED = 800.0f;
+const float BULLETSPEED = 2000.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
 const float ACCELERATION = 5000.0f; // Units per second^2
 const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
@@ -143,7 +143,7 @@ void Spaceship::Update(float frametime)
       pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
       pos = pos + m_position;
       vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
-      vel = vel + Vector2D(0, -20);					// Include the launching platform's velocity
+      //vel = vel + Vector2D(0, -20);					// Include the launching platform's velocity
 
       Bullet* pBullet = new Bullet;
       pBullet->Initialise(pos, vel, m_angle, this);			// Intialise
