@@ -25,6 +25,10 @@ private:
   float bullets;
   int enemyOneCoolDown;
   int m_lives;
+
+  float m_invinsibleTime;
+  bool m_isInvinsible;
+
   float m_respawnTime;
   bool m_respawnCounting;
   float m_frameTime;
@@ -54,6 +58,7 @@ public:
   float getBullets();
   float getMaxHealth();
   float getHealth();
+  float getSpeed();
   int getScore();
   bool isGameOver();
   void addScore(int ammount);

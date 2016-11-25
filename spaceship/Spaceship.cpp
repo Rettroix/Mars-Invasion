@@ -32,6 +32,7 @@ Spaceship::Spaceship() : GameObject(SPACESHIP)
 // Starting position and load the image
 void Spaceship::Initialise(Vector2D position)
 {
+  m_isInvinsible = false;
   gameOver = false;
   srand(time(NULL));
   score = 0;
@@ -69,6 +70,7 @@ void Spaceship::Update(float frametime)
   //explode
   if (m_respawnCounting == true)
   {
+    m_invinsibleTime = 3;
     gravity = Vector2D(0.0f, 0.0f);
     m_position = m_position;
     m_respawnTime -= m_frameTime;
@@ -83,6 +85,18 @@ void Spaceship::Update(float frametime)
     m_position = Vector2D(m_position.XValue - 600, 400);
     m_fuel = MAXFUEL;
     m_respawnCounting = false;
+    m_isInvinsible = true;
+  }
+
+  if (m_invinsibleTime > 0 && m_isInvinsible == true)
+  {
+    m_invinsibleTime -= m_frameTime;
+
+  }
+  else if (m_invinsibleTime < 0)
+  {
+    m_isInvinsible = false;
+    m_invinsibleTime = 3;
   }
 
   // Get input and set acceleration
@@ -220,7 +234,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
     if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER &&!m_respawnCounting)
     {
-      if (m_acceleration >= 3000)
+      if (getSpeed() >= 1200)
       {
         Explode();
       }
@@ -237,7 +251,7 @@ void Spaceship::ProcessCollision(GameObject& other)
   //HitObject(other);
 
 
-  if (other.GetType() == ENEMY && !m_respawnCounting)
+  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false)
   {
     Explode();
   }
@@ -246,7 +260,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
   if (other.GetType() == FLOOR && !m_respawnCounting)
   {
-    if (m_acceleration >= 3000)
+    if (getSpeed() >= 1200)
     {
       Explode();
     }
@@ -367,6 +381,11 @@ float Spaceship::getMaxHealth()
 float Spaceship::getHealth()
 {
   return health;
+}
+
+float Spaceship::getSpeed()
+{
+  return m_velocity.magnitude();
 }
 
 int Spaceship::getScore()
