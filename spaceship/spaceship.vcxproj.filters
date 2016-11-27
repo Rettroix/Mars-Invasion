@@ -105,6 +105,12 @@
     <ClCompile Include="BulletUI.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="BombUI.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="playerMissile.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -198,6 +204,12 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="BulletUI.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BombUI.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="playerMissile.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -380,6 +392,39 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="UIFuel009.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="menu1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="menu2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="menu3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="menu4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="missileBlue.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bomb_bar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bomb_bar2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bomb_bar3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bomb_bar4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bomb_bar5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bomb_bar6.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

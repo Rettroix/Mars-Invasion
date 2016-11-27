@@ -35,6 +35,8 @@ private:
 
   float health;
   int thrustTime;
+
+  int m_bombCounter;
 public:
   Spaceship();
   void Initialise(Vector2D position);		// Sets to the starting position
@@ -62,5 +64,7 @@ public:
   int getScore();
   bool isGameOver();
   void addScore(int ammount);
+  void incrementBombCounter();
+  int getBombCounter();
   Vector2D& getPosition();
 };

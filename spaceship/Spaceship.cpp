@@ -53,6 +53,8 @@ void Spaceship::Initialise(Vector2D position)
   m_fuel = MAXFUEL;
   m_lives = 3;
   health = MAXHEALTH;
+  m_transparency = 0;
+  m_bombCounter = 0;
 }
 
 
@@ -84,6 +86,7 @@ void Spaceship::Update(float frametime)
     m_respawnTime = RESPAWNTIME;
     m_position = Vector2D(m_position.XValue - 600, 400);
     m_fuel = MAXFUEL;
+    bullets = MAXBULLETS;
     m_respawnCounting = false;
     m_isInvinsible = true;
   }
@@ -91,10 +94,12 @@ void Spaceship::Update(float frametime)
   if (m_invinsibleTime > 0 && m_isInvinsible == true)
   {
     m_invinsibleTime -= m_frameTime;
+    m_transparency = 0.5;
 
   }
   else if (m_invinsibleTime < 0)
   {
+    m_transparency = 0;
     m_isInvinsible = false;
     m_invinsibleTime = 3;
   }
@@ -181,6 +186,12 @@ void Spaceship::Update(float frametime)
   else
   {
     RotateTo(0);
+  }
+
+  //Bomb Counter
+  if (m_bombCounter > 5)
+  {
+    m_bombCounter = 5;
   }
 
   // Process movement
@@ -398,6 +409,11 @@ bool Spaceship::isGameOver()
   return gameOver;
 }
 
+int Spaceship::getBombCounter()
+{
+  return m_bombCounter;
+}
+
 void Spaceship::fuelManagement()
 {
 
@@ -412,7 +428,7 @@ void Spaceship::thrustChange()
   }
   else
   {
-    thrustTime++;
+    thrustTime = thrustTime + 10;
   }
 
   if (thrustTime < 10)
@@ -462,5 +478,12 @@ void Spaceship::addScore(int ammount)
 {
   score = score + ammount;
   
+
+}
+
+void Spaceship::incrementBombCounter()
+{
+  m_bombCounter++;
+
 
 }

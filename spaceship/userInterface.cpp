@@ -1,6 +1,7 @@
 #include "userInterface.h"
 #include "gamecode.h"
 #include "BulletUI.h"
+#include "BombUI.h"
 
 //////////////////////////////////////////////
 /////////UserInterface///////////////////////
@@ -22,6 +23,9 @@ void userInterface::Intialise(Spaceship *player)
   pFuelUI->Initialise(m_pPlayer, 18, -1700, 2);
   Game::instance.m_objects.AddItem(pFuelUI, true);
 
+  BombUI* pBombUI = new BombUI;
+  pBombUI->Initialise(m_pPlayer,-1000);
+  Game::instance.m_objects.AddItem(pBombUI, true);
 }
 
 void userInterface::Update(float frameTime)
@@ -42,7 +46,7 @@ void userInterface::Draw()
   if (m_pPlayer->isGameOver() == false)
   {
     MyDrawEngine::GetInstance()->WriteText(200, 200, L"Score=", MyDrawEngine::WHITE);
-    MyDrawEngine::GetInstance()->WriteInt(350, 200, m_pPlayer->getScore(), MyDrawEngine::WHITE);
+    MyDrawEngine::GetInstance()->WriteInt(550, 200, m_pPlayer->getScore(), MyDrawEngine::WHITE);
     MyDrawEngine::GetInstance()->WriteInt(350, 400, m_pPlayer->getSpeed(), MyDrawEngine::WHITE);
 
 

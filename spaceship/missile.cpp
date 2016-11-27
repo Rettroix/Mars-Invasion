@@ -110,6 +110,7 @@ void Missile::ProcessCollision(GameObject& other)
   if (other.GetType() == BULLET)
   {
     m_pPlayer->addScore(10);
+    m_pPlayer->incrementBombCounter();
 
     Explode();
     Deactivate();

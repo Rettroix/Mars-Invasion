@@ -42,7 +42,7 @@ ErrorType MyDrawEngine::Start(HWND hwnd, bool bFullScreen)
 
 
 	// Start a default font
-	instance->AddFont(L"CrEAtoR cAmpoTYPe SmcP", 90, false, false);
+	instance->AddFont(L"Copperplate Gothic Light", 90, false, false);
 	
 	// If user has requested windowed mode
 	if(!bFullScreen)

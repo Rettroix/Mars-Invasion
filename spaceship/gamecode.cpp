@@ -194,11 +194,19 @@ ErrorType Game::PauseMenu()
 
 ErrorType Game::MainMenu()
 {
+  //m_objects.UpdateAll();
+  //m_objects.ProcessCollisions();
+  //m_objects.DrawAll();
 	// Code for a basic main menu
 	MyDrawEngine::GetInstance()->WriteText(450,220, L"Main menu", MyDrawEngine::WHITE);
 
 	const int NUMOPTIONS = 3;
 	wchar_t options[NUMOPTIONS][15] = {L"Start game", L"Go Fullscreen",L"Exit"};
+  //MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), PictureIndex(1),1.0f,0.0f,0.0f);
+  //Spaceship* pShip = new Spaceship;
+  //pShip->Initialise(Vector2D(450, 220));
+  //m_objects.AddItem(pShip, true);
+
 
 	if(MyDrawEngine::GetInstance()->IsWindowFullScreen())
 	{
@@ -260,6 +268,7 @@ ErrorType Game::MainMenu()
 		}
 	}
 
+  //m_objects.DeleteInactiveItems();
 
 	return SUCCESS;
 }

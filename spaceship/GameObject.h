@@ -30,7 +30,7 @@ protected:
 	int m_imageNumber;			// Index of the current image in m_images;
 	bool m_handleEvents;		// Whether or not to process events.
   int m_sceneNumber;      // The number of the scene that this GameObject belongs to
-
+  float m_transparency;		// Sets the transparency
 public:
 	const ObjectType TYPE;		// The type of the object. Must be set to one of the values in objecttypes.h
 

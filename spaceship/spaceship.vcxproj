@@ -82,6 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BombUI.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildingBackground.cpp" />
     <ClCompile Include="BuildingForeground.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="playerMissile.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="stuff.cpp" />
@@ -112,6 +114,7 @@
     <ClCompile Include="wincode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BombUI.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="BuildingBackground.h" />
     <ClInclude Include="BuildingForeground.h" />
@@ -139,6 +142,7 @@
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="objecttypes.h" />
+    <ClInclude Include="playerMissile.h" />
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="userInterface.h" />
@@ -146,6 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="BG.png" />
+    <Image Include="bomb_bar.png" />
+    <Image Include="bomb_bar2.png" />
+    <Image Include="bomb_bar3.png" />
+    <Image Include="bomb_bar4.png" />
+    <Image Include="bomb_bar5.png" />
+    <Image Include="bomb_bar6.png" />
     <Image Include="building.png" />
     <Image Include="building1.png" />
     <Image Include="building2.png" />
@@ -176,6 +186,11 @@
     <Image Include="ground.png" />
     <Image Include="house.png" />
     <Image Include="invisible.png" />
+    <Image Include="menu1.png" />
+    <Image Include="menu2.png" />
+    <Image Include="menu3.png" />
+    <Image Include="menu4.png" />
+    <Image Include="missileBlue.png" />
     <Image Include="othercity.png" />
     <Image Include="ship.png" />
     <Image Include="UIbullets1.png" />

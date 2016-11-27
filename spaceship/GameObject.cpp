@@ -11,7 +11,7 @@ GameObject::GameObject(ObjectType type): TYPE(type)
 	m_handleEvents = false;
 	m_drawDepth = 0;
   m_sceneNumber = 0;
-
+  m_transparency = 0;
 }
 
 int GameObject::GetDrawDepth() const
@@ -68,7 +68,7 @@ void GameObject::Draw()
 
 	if(m_imageNumber>=0 && m_imageNumber<int(m_images.size())) 
 	{
-		pDE->DrawAt( m_position, m_images[m_imageNumber], m_imageScale, -m_angle);
+    pDE->DrawAt(m_position, m_images[m_imageNumber], m_imageScale, -m_angle, m_transparency);
 	}
 	else
 	{

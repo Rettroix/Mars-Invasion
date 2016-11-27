@@ -36,10 +36,10 @@ void City::Initialise(Spaceship *player)
   //LoadImage(L"BG.png");
   m_pPlayer = player;
   m_imageScale = 9;
+  furthestLeft = 0;
   lastIndex = 0; //Make last index equal the first value at first
   userInterface* puserInterface = new userInterface;
   puserInterface->Intialise(m_pPlayer);
-  furthestLeft = 0;
   Game::instance.m_objects.AddItem(puserInterface, true);
   changeDelay = CHANGEDELAY;
   spawnBuilding();
