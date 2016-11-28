@@ -111,6 +111,9 @@
     <ClCompile Include="playerMissile.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Particles.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objecttypes.h">
@@ -210,6 +213,9 @@
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="playerMissile.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Particles.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -425,6 +431,102 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="bomb_bar6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles17.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles19.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles20.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles21.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles22.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles23.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles24.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles25.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles26.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles27.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles28.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles29.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles30.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles31.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="particles32.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "myinputs.h"
 #include "Building.h"
 #include "Explosion.h"
+#include "Particles.h"
 #include "missile.h"
 #include "EnemyOne.h"
 #include "playerMissile.h"
@@ -169,6 +170,27 @@ void Spaceship::Update(float frametime)
       Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
       //g_soundFX.PlayZap();					// PLay zap sound effect
     }
+
+    if (pInputs->KeyPressed(DIK_X))    // Shoot
+    {
+      m_bombCounter = 0;
+      Vector2D pos;
+      Vector2D vel;
+      pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
+      pos = pos + m_position;
+      vel.setBearing(0, BULLETSPEED);	// Set the velocity
+      vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+      PlayerMissile* pPlayerMissile = new PlayerMissile;
+      pPlayerMissile->Initialise(pos, vel, 0.0f, this);			// Intialise
+      Game::instance.m_objects.AddItem(pPlayerMissile, true);	// Add to the engine
+
+      //PlayerMissile* pPlayerMissile2 = new PlayerMissile;
+      //pPlayerMissile2->Initialise(pos, vel, m_angle, this);			// Intialise
+      //Game::instance.m_objects.AddItem(pPlayerMissile2, true);	// Add to the engine
+
+
+    }
     m_shootDelay -= frametime;					// Cool down the gun so it can shoot again.
 
 
@@ -303,6 +325,10 @@ void Spaceship::Explode()
   pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
 
   Game::instance.m_objects.AddItem(pExp, false);
+
+  Particles* pParticles = new Particles;
+  pParticles->Initialise(m_position, Vector2D(0, 0), 4.5f, 2.0f);
+  Game::instance.m_objects.AddItem(pParticles, false);
 
   m_respawnCounting = true;
 

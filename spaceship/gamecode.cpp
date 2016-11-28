@@ -194,6 +194,7 @@ ErrorType Game::PauseMenu()
 
 ErrorType Game::MainMenu()
 {
+  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(0,0));
 
   MyDrawEngine::GetInstance()->LoadPicture(L"menu1.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu2.png");

@@ -20,11 +20,7 @@ void PlayerMissile::Initialise(Vector2D position, Vector2D velocity, float angl,
   m_animationSpeed = 0;
   m_currentAnimation = 0.0f;
   LoadImage(L"missileBlue.png");
-  LoadImage(L"bullet2.png");
-  LoadImage(L"bullet3.png");
-  LoadImage(L"bullet4.png");
-  LoadImage(L"bullet5.png");
-  LoadImage(L"bullet6.png");
+
   m_imageScale = SHIPSIZE / 16;
   m_drawDepth = 6;
   m_angle = angl - 1.4;
@@ -37,7 +33,6 @@ void PlayerMissile::Update(float frametime)
   m_velocity = m_velocity + acc*frametime;*/
   m_velocity = m_velocity + Vector2D(0, -20);
 
-  m_animationSpeed = m_animationSpeed + 0.15;
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;
 

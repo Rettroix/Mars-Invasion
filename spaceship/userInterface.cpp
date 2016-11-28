@@ -47,7 +47,7 @@ void userInterface::Draw()
   {
     MyDrawEngine::GetInstance()->WriteText(200, 200, L"Score=", MyDrawEngine::WHITE);
     MyDrawEngine::GetInstance()->WriteInt(550, 200, m_pPlayer->getScore(), MyDrawEngine::WHITE);
-    MyDrawEngine::GetInstance()->WriteInt(350, 400, m_pPlayer->getSpeed(), MyDrawEngine::WHITE);
+    MyDrawEngine::GetInstance()->WriteInt(350, 400, m_pPlayer->getAngle(), MyDrawEngine::WHITE);
 
 
   }

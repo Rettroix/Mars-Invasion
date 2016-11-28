@@ -6,6 +6,7 @@
 #include "Explosion.h"
 #include "missile.h"
 #include "EnemyOne.h"
+#include "Particles.h"
 
 
 const float BULLETSPEED = 800.0f;
@@ -660,30 +661,22 @@ void Bullet::Update(float frametime)
 
   IShape2D& Bullet::GetCollisionShape()
 {
-  m_collider = m_position;
-  return m_collider;
+  collisionShape.PlaceAt(m_position, 70);
+  return collisionShape;
 }
 
 void Bullet::ProcessCollision(GameObject& other)
 {
   if (other.GetType() != SPACESHIP)
   {
+
+    Particles* pParticles = new Particles;
+    pParticles->Initialise(m_position, Vector2D(0, 0), 4.5f, 2.0f);
+    Game::instance.m_objects.AddItem(pParticles, false);
     Deactivate();
   }
   
-  //if (other.GetType() == ASTEROID)
- // {
-   // Deactivate();
 
-    // Send message that a bullet has died
-    // (The fragment class will need to know)
-    //Event evt;
-    //evt.position = m_position;
-    //evt.pSource = this;
-    //evt.type = EVENT_OBJECTDESTROYED;
-
-    //Game::instance.NotifyEvent(evt);
-  //}
 
 
 

@@ -91,7 +91,7 @@ class Bullet : public GameObject
 {
 private:
   Vector2D m_velocity;
-  Point2D m_collider;
+  Circle2D collisionShape;
   float m_acceleration;
   float m_timer;  // Lifetime
   Spaceship *m_pPlayer;
