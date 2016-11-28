@@ -6,7 +6,7 @@
 #include "Explosion.h"
 #include "missile.h"
 #include "EnemyOne.h"
-
+#include "playerMissile.h"
 const float MAXBULLETS = 50;
 const float MAXHEALTH = 100;
 const float BULLETSPEED = 2000.0f;
@@ -149,7 +149,7 @@ void Spaceship::Update(float frametime)
         //g_soundFX.StopThrust();	// Stop the thrust sound
       }
       m_acceleration = 2000;
-      m_thrusting = false;			// Remember we are thrusting
+      m_thrusting = false;			// Remember we are thrusting hahg gay
     }
 
     // Handle shooting
@@ -162,7 +162,7 @@ void Spaceship::Update(float frametime)
       pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
       pos = pos + m_position;
       vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
-      //vel = vel + Vector2D(0, -20);					// Include the launching platform's velocity
+      vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
 
       Bullet* pBullet = new Bullet;
       pBullet->Initialise(pos, vel, m_angle, this);			// Intialise
@@ -334,6 +334,7 @@ void Spaceship::Land(GameObject &other)
   if (pOtherLander->GetColType() == 1)
   {
     m_fuel = MAXFUEL;
+    bullets = MAXBULLETS;
   }
 
   //landing collision

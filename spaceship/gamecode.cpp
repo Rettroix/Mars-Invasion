@@ -194,15 +194,47 @@ ErrorType Game::PauseMenu()
 
 ErrorType Game::MainMenu()
 {
+
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu1.png");
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu2.png");
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu3.png");
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu4.png");
+
+  static float timer = 0.0f;
   //m_objects.UpdateAll();
   //m_objects.ProcessCollisions();
   //m_objects.DrawAll();
 	// Code for a basic main menu
-	MyDrawEngine::GetInstance()->WriteText(450,220, L"Main menu", MyDrawEngine::WHITE);
+	
 
 	const int NUMOPTIONS = 3;
 	wchar_t options[NUMOPTIONS][15] = {L"Start game", L"Go Fullscreen",L"Exit"};
-  //MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), PictureIndex(1),1.0f,0.0f,0.0f);
+  
+  if (timer < 0.5f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu1.png"), 1.8f, 0.0f, 0.0f);
+  }
+  else if (timer < 1.0f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu2.png"), 1.8f, 0.0f, 0.0f);
+  }
+  else if (timer < 1.5f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu3.png"), 1.8f, 0.0f, 0.0f);
+  }
+  else if (timer < 2.0f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu4.png"), 1.8f, 0.0f, 0.0f);
+
+  }
+  else
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu4.png"), 1.8f, 0.0f, 0.0f);
+    timer = 0.0f;
+  }
+  timer += 0.05f;
+
+  MyDrawEngine::GetInstance()->WriteText(450, 220, L"Main menu", MyDrawEngine::WHITE);
   //Spaceship* pShip = new Spaceship;
   //pShip->Initialise(Vector2D(450, 220));
   //m_objects.AddItem(pShip, true);
