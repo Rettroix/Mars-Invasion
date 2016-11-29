@@ -3,11 +3,14 @@
 #include "EnemyOne.h"
 #include "Missile.h"
 #include "gamecode.h"
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 //Buildings are the main objects which you can land atop of
 
 
 void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Spaceship *player)
 {
+
   m_pPlayer = player; //Stores a pointer to the player
   positionStart = startPosition;
   currentBuilding = spawnBuilding;
@@ -165,12 +168,7 @@ void Building::changeBuilding(BuildingType spawnBuilding)
 
 void Building::spawnEnemyOne()
 {
-  Missile* pMissile = new Missile;
-  pMissile->Initialise(positionStart, m_pPlayer);
-  Game::instance.m_objects.AddItem(pMissile, true);
-  EnemyOne* pEnemyOne = new EnemyOne;
-  pEnemyOne->Initialise(positionStart, m_pPlayer, pMissile);
-  Game::instance.m_objects.AddItem(pEnemyOne, true);
+
 }
 
 

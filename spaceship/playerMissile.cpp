@@ -16,7 +16,7 @@ void PlayerMissile::Initialise(Vector2D position, Vector2D velocity, float angl,
   m_acceleration = 700;
   m_position = position;
   m_velocity = velocity;
-  m_timer = 2.0;
+  m_timer = 0.0f;
   m_animationSpeed = 0;
   m_currentAnimation = 0.0f;
   LoadImage(L"missileBlue.png");
@@ -33,9 +33,19 @@ void PlayerMissile::Update(float frametime)
   m_velocity = m_velocity + acc*frametime;*/
   m_velocity = m_velocity + Vector2D(0, -20);
 
-  m_timer -= frametime;
+  m_currentAnimation += 1;
   m_position = m_position + m_velocity*frametime;
 
+  if (m_currentAnimation >= 13)
+  {
+    Explosion* pExp = new Explosion;
+
+    pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 40.0f);
+
+    Game::instance.m_objects.AddItem(pExp, true);
+    Deactivate();
+
+  }
   //m_position = m_position + Vector2D(0, -20);
   //if (m_animationSpeed >= 5)
   //{
@@ -49,8 +59,14 @@ void PlayerMissile::Update(float frametime)
 
   if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue + 2000 < m_position.XValue ||
     MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue - 2000 > m_position.XValue ||
-    m_position.YValue > 2000)
+    m_position.YValue > 2000 || m_position.YValue < -2000)
   {
+    Explosion* pExp = new Explosion;
+
+    pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 40.0f);
+
+    Game::instance.m_objects.AddItem(pExp, true);
+
     Deactivate();
   }
 
@@ -64,8 +80,13 @@ IShape2D& PlayerMissile::GetCollisionShape()
 
 void PlayerMissile::ProcessCollision(GameObject& other)
 {
-  if (other.GetType() != SPACESHIP)
+  if (other.GetType() == ENEMY || other.GetType() == LANDER || other.GetType() == COLLIDER)
   {
+    Explosion* pExp = new Explosion;
+
+    pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 40.0f);
+
+    Game::instance.m_objects.AddItem(pExp, true);
     Deactivate();
   }
 

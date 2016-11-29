@@ -60,6 +60,8 @@ private:
   int lastIndexFG;
 
   int enemyOneCoolDown;
+  int enemyAmmount;
+  int maxEnemyAmmount;
 
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
@@ -80,6 +82,8 @@ public:
 
   void ProcessCollision(GameObject& other);
   void addShipPosition(Vector2D pos);
+
+  void deincrementEnemyAmmount();
   City();
 };
 
@@ -101,7 +105,7 @@ private:
 
 public:
   Bullet();
-  void Initialise(Vector2D position, Vector2D velocity, float angl, Spaceship *player);
+  void Initialise(Vector2D position, Vector2D velocity, float angl);
   void Update(float frametime);
   IShape2D& GetCollisionShape();
   void ProcessCollision(GameObject& other);

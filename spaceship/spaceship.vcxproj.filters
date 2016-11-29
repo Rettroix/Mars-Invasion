@@ -529,5 +529,11 @@
     <Image Include="particles32.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="SpinEnemy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="flyer.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

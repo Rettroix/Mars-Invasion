@@ -4,6 +4,7 @@
 #include "mysoundengine.h"
 #include "GameObject.h"
 #include "Spaceship.h"
+#include "entities.h"
 
 class Missile : public GameObject
 {
@@ -17,7 +18,7 @@ private:
   float incrementFrame;
   Vector2D initialPosition;
   Spaceship *m_pPlayer;
-
+  City *m_pCity;
   float rotationToPlayer;
   float m_friction;
   float m_acceleration;
@@ -29,7 +30,7 @@ private:
 
 public:
 
-  void Initialise(Vector2D startPosition, Spaceship *player);
+  void Initialise(Vector2D startPosition, Spaceship *player, City *city);
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();

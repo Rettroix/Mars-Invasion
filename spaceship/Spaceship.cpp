@@ -61,6 +61,19 @@ void Spaceship::Initialise(Vector2D position)
 
 void Spaceship::Update(float frametime)
 {
+  if (m_angle >= 6.3)
+  {
+    m_angle = 0;
+
+  }
+
+  if (m_angle <= -6.3)
+  {
+    m_angle = 0;
+
+  }
+
+
   if (health <= 0)
   {
     gameOver = true;
@@ -166,12 +179,12 @@ void Spaceship::Update(float frametime)
       vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
 
       Bullet* pBullet = new Bullet;
-      pBullet->Initialise(pos, vel, m_angle, this);			// Intialise
+      pBullet->Initialise(pos, vel, m_angle);			// Intialise
       Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
       //g_soundFX.PlayZap();					// PLay zap sound effect
     }
 
-    if (pInputs->KeyPressed(DIK_X))    // Shoot
+    if (pInputs->KeyPressed(DIK_X) && m_bombCounter == 5 )    // Shoot
     {
       m_bombCounter = 0;
       Vector2D pos;
@@ -185,11 +198,29 @@ void Spaceship::Update(float frametime)
       pPlayerMissile->Initialise(pos, vel, 0.0f, this);			// Intialise
       Game::instance.m_objects.AddItem(pPlayerMissile, true);	// Add to the engine
 
-      //PlayerMissile* pPlayerMissile2 = new PlayerMissile;
-      //pPlayerMissile2->Initialise(pos, vel, m_angle, this);			// Intialise
-      //Game::instance.m_objects.AddItem(pPlayerMissile2, true);	// Add to the engine
+      Vector2D velTwo;
+      velTwo.setBearing(1.5f, BULLETSPEED);	// Set the velocity
+      velTwo = velTwo + Vector2D(m_velocity);					// Include the launching platform's velocity
 
+      PlayerMissile* pPlayerMissileTwo = new PlayerMissile;
+      pPlayerMissileTwo->Initialise(pos, velTwo, 1.5f, this);			// Intialise
+      Game::instance.m_objects.AddItem(pPlayerMissileTwo, true);	// Add to the engine
 
+      Vector2D velThree;
+      velThree.setBearing(3.1f, BULLETSPEED);	// Set the velocity
+      velThree = velThree + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+      PlayerMissile* pPlayerMissileThree = new PlayerMissile;
+      pPlayerMissileThree->Initialise(pos, velThree, 3.1f, this);			// Intialise
+      Game::instance.m_objects.AddItem(pPlayerMissileThree, true);	// Add to the engine
+
+      Vector2D velFour;
+      velFour.setBearing(4.7f, BULLETSPEED);	// Set the velocity
+      velFour = velFour + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+      PlayerMissile* pPlayerMissileFour = new PlayerMissile;
+      pPlayerMissileFour->Initialise(pos, velFour, 4.7f, this);			// Intialise
+      Game::instance.m_objects.AddItem(pPlayerMissileFour, true);	// Add to the engine
     }
     m_shootDelay -= frametime;					// Cool down the gun so it can shoot again.
 

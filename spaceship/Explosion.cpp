@@ -3,7 +3,7 @@
 /////////Explosion///////////////////////
 /////////////////////////////////////////////
 
-Explosion::Explosion() : GameObject(EXPLOSION)
+Explosion::Explosion() : GameObject(BULLET)
 {
 
 }

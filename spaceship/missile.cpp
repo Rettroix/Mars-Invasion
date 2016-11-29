@@ -2,16 +2,18 @@
 #include "Explosion.h"
 #include "gamecode.h"
 
+
 //////////////////////////////////////////////////////
 //////////////missile////////////////////////////////
 //////////////////////////////////////////////////////
 
-void Missile::Initialise(Vector2D startPosition, Spaceship *player)
+void Missile::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 {
   m_friction = 1.5f;
   m_acceleration = 4000.0f;
   m_velocity.set(0, 0);
 
+  m_pCity = city;
   m_pPlayer = player;
   m_drawDepth = 12;
 
@@ -33,6 +35,8 @@ void Missile::Update(float frameTime)
 
   if (m_position.XValue < m_pPlayer->GetPosition().XValue - 3000)
   {
+    m_pCity->deincrementEnemyAmmount();
+
     Deactivate();
   }
   
@@ -111,7 +115,7 @@ void Missile::ProcessCollision(GameObject& other)
   {
     m_pPlayer->addScore(10);
     m_pPlayer->incrementBombCounter();
-
+    m_pCity->deincrementEnemyAmmount();
     Explode();
     Deactivate();
 

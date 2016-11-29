@@ -45,11 +45,7 @@ void Particles::Initialise(Vector2D position, Vector2D velocity, float animation
   LoadImage(L"particles25.png");
   LoadImage(L"particles26.png");
   LoadImage(L"particles27.png");
-  LoadImage(L"particles28.png");
-  LoadImage(L"particles29.png");
-  LoadImage(L"particles30.png");
-  LoadImage(L"particles31.png");
-  LoadImage(L"particles32.png");
+
 
 
 
