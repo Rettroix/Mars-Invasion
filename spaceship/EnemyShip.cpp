@@ -2,7 +2,7 @@
 #include "Explosion.h"
 #include "gamecode.h"
 #include "entities.h"
-
+#include "EnemyBullet.h"
 const float SHOOTDELAY = 1.0f;	// Time between each spaceship bullet
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
 const float BULLETSPEED = 2000.0f;
@@ -64,9 +64,9 @@ void EnemyShip::Update(float frameTime)
     vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
     vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
 
-    Bullet* pBullet = new Bullet;
-    pBullet->Initialise(pos, -vel, m_angle);			// Intialise
-    Game::instance.m_objects.AddItem(pBullet, false);
+    EnemyBullet* pEnemyBullet = new EnemyBullet;
+    pEnemyBullet->Initialise(pos, -vel, m_angle);			// Intialise
+    Game::instance.m_objects.AddItem(pEnemyBullet, false);
 
   }
 

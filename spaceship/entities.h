@@ -3,7 +3,6 @@
 #include "Lander.h"
 #include "GameObject.h"
 #include "mysoundengine.h"
-#include "GameObject.h"
 #include "Spaceship.h"
 #include "Building.h"
 #include "userInterface.h"

@@ -124,7 +124,7 @@ void Spaceship::Update(float frametime)
   //respawning
   if (m_respawnTime < 0 && !gameOver)
   {
-    gravity = Vector2D(0.0f, 1000.0f);
+    gravity = Vector2D(0.0f, 100.0f);
     m_imageNumber = 0;
     m_respawnTime = RESPAWNTIME;
     m_position = Vector2D(m_position.XValue - 600, 400);
@@ -263,10 +263,10 @@ void Spaceship::Update(float frametime)
 
   if (!isLanded)
   {
-    m_velocity = m_velocity - gravity *frametime;
+    m_velocity = m_velocity - gravity*frametime;
     
   }
-  else
+  else if (m_damageDelay <= 0)
   {
     RotateTo(0);
   }
@@ -314,7 +314,13 @@ void Spaceship::ProcessCollision(GameObject& other)
 
       if (m_acceleration >= 3000)
       {
-        Explode();
+        m_damageDelay = 1.0f;
+        m_damage++;
+        Bounce(other);
+
+        Particles* pParticles = new Particles;
+        pParticles->Initialise(m_position, Vector2D(0, 0), 4.5f, 2.0f);
+        Game::instance.m_objects.AddItem(pParticles, false);
       }
       else
       {//bounce
@@ -328,15 +334,31 @@ void Spaceship::ProcessCollision(GameObject& other)
 
     if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER &&!m_respawnCounting)
     {
-      if (getSpeed() >= 1200)
+      if (getSpeed() >= 500)
+      {
+        m_damageDelay = 1.0f;
+        m_damage++;
+        Bounce(other);
+
+        Particles* pParticles = new Particles;
+        pParticles->Initialise(m_position, Vector2D(0, 0), 4.5f, 2.0f);
+        Game::instance.m_objects.AddItem(pParticles, false);
+      }
+      else if (getSpeed() >= 3000)
       {
         Explode();
+
       }
       else
       {
         Land(other);
       }
-      m_velocity = Vector2D(0.0f, 0.0f);
+      if (m_damageDelay <= 0)
+      {
+        m_velocity = Vector2D(0.0f, 0.0f);
+
+
+      }
       
     }
 
@@ -369,7 +391,7 @@ void Spaceship::ProcessCollision(GameObject& other)
       isLanded = true;
 
 
-      m_position.YValue = other.GetPosition().YValue - 1020;
+      m_position.YValue = other.GetPosition().YValue - 1000;
     }
 
     m_velocity = Vector2D(0.0f, 0.0f);

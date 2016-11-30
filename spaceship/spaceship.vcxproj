@@ -89,6 +89,7 @@
     <ClCompile Include="BulletUI.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisionShaper.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyOne.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="entities.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="BulletUI.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisionShaper.h" />
+    <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyOne.h" />
     <ClInclude Include="EnemyShip.h" />
     <ClInclude Include="entities.h" />

@@ -87,6 +87,12 @@ void EnemyOne::ProcessCollision(GameObject& other)
     Deactivate();
   }
 
+  if (other.GetType() == LANDER || other.GetType() == COLLIDER)
+  {
+    Explode();
+    Deactivate();
+
+  }
 }
 
 

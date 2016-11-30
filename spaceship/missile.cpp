@@ -31,10 +31,10 @@ void Missile::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 void Missile::Update(float frameTime)
 {
   m_frameTime = frameTime;
-  if (m_position.YValue < 440)
-  {
-    m_position += Vector2D(0, 50);
-  }
+  //if (m_position.YValue < 440)
+  //{
+  //  m_position += Vector2D(0, 50);
+  //}
 
   if (m_position.XValue < m_pPlayer->GetPosition().XValue - 3000)
   {
@@ -118,6 +118,14 @@ void Missile::ProcessCollision(GameObject& other)
   {
     m_pPlayer->addScore(10);
     m_pPlayer->incrementBombCounter();
+    m_pCity->deincrementEnemyAmmount();
+    Explode();
+    Deactivate();
+
+  }
+
+  if (other.GetType() == LANDER || other.GetType() == COLLIDER)
+  {
     m_pCity->deincrementEnemyAmmount();
     Explode();
     Deactivate();
