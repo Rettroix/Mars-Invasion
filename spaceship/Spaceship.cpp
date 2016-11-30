@@ -50,17 +50,24 @@ void Spaceship::Initialise(Vector2D position)
   m_acceleration = 5000.0f;
   LoadImage(L"ship.png");
   LoadImage(L"invisible.bmp");
+  LoadImage(L"ship2.png");
+  LoadImage(L"ship3.png");
+  LoadImage(L"ship4.png");
   //m_imageScale = SHIPSIZE / 16;	// 64 pixel image file
   m_fuel = MAXFUEL;
   m_lives = 3;
   health = MAXHEALTH;
   m_transparency = 0;
   m_bombCounter = 0;
+  m_damage = 0;
+  m_damageDelay = 0;
 }
 
 
 void Spaceship::Update(float frametime)
 {
+
+  m_damageDelay -= frametime;
   if (m_angle >= 6.3)
   {
     m_angle = 0;
@@ -70,9 +77,31 @@ void Spaceship::Update(float frametime)
   if (m_angle <= -6.3)
   {
     m_angle = 0;
-
   }
 
+  if (m_damage == 0)
+  {
+    m_imageNumber = 0;
+  }
+  else if (m_damage == 1)
+  {
+    m_imageNumber = 2;
+  }
+  else if (m_damage == 2)
+  {
+    m_imageNumber = 3;
+  }
+  else if (m_damage == 3)
+  {
+    m_imageNumber = 4;
+  }
+
+  if (m_damage >= 4)
+  {
+    m_damage = 0;
+
+    Explode();
+  }
 
   if (health <= 0)
   {
@@ -116,6 +145,7 @@ void Spaceship::Update(float frametime)
     m_transparency = 0;
     m_isInvinsible = false;
     m_invinsibleTime = 3;
+    m_damage = 0;
   }
 
   // Get input and set acceleration
@@ -315,9 +345,14 @@ void Spaceship::ProcessCollision(GameObject& other)
   //HitObject(other);
 
 
-  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false)
+  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0)
   {
-    Explode();
+    
+    m_damage++;
+    m_damageDelay = 1.0f;
+    Particles* pParticles = new Particles;
+    pParticles->Initialise(m_position, Vector2D(0, 0), 4.5f, 2.0f);
+    Game::instance.m_objects.AddItem(pParticles, false);
   }
 
 
@@ -347,6 +382,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
 void Spaceship::Explode()
 {
+  m_damage = -1;
   health=health-20;
   //Deactivate();
   m_imageNumber = 1;

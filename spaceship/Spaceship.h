@@ -8,6 +8,7 @@
 class Spaceship : public GameObject
 {
 private:
+  int damageDelay;
   int score;
   Circle2D collisionShape;
   Vector2D m_velocity;		// Velocity of the ship
@@ -25,6 +26,8 @@ private:
   float bullets;
   int enemyOneCoolDown;
   int m_lives;
+  int m_damage;
+  float m_damageDelay;
 
   float m_invinsibleTime;
   bool m_isInvinsible;

@@ -105,7 +105,7 @@ void City::Update(float frameTime)
     else if (chooseEnemy == 1)
     {
       EnemyShip* pEnemyShip = new EnemyShip;
-      pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer);
+      pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
       Game::instance.m_objects.AddItem(pEnemyShip, true);
 
     }
@@ -705,7 +705,7 @@ void Bullet::Update(float frametime)
 
 void Bullet::ProcessCollision(GameObject& other)
 {
-  if (other.GetType() != SPACESHIP)
+  if (other.GetType() != SPACESHIP && other.GetPosition().YValue < 440 || other.GetType() == ENEMY)
   {
 
     Particles* pParticles = new Particles;
@@ -714,6 +714,7 @@ void Bullet::ProcessCollision(GameObject& other)
     Deactivate();
   }
   
+
 
 
 

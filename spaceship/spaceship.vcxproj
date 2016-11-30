@@ -228,6 +228,9 @@
     <Image Include="particles8.png" />
     <Image Include="particles9.png" />
     <Image Include="ship.png" />
+    <Image Include="ship2.png" />
+    <Image Include="ship3.png" />
+    <Image Include="ship4.png" />
     <Image Include="SpinEnemy.png" />
     <Image Include="UIbullets1.png" />
     <Image Include="UIbullets2.png" />

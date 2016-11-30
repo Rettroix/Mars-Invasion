@@ -4,7 +4,7 @@
 #include "mysoundengine.h"
 #include "GameObject.h"
 #include "Spaceship.h"
-
+#include "entities.h"
 class EnemyShip : public GameObject
 {
 private:
@@ -22,7 +22,7 @@ private:
   float rotationToPlayer;
   float m_friction;
   float m_acceleration;
-
+  City *m_pCity;
   float m_frameTime;
 
   Vector2D sensorPosition;
@@ -30,7 +30,7 @@ private:
 
 public:
 
-  void Initialise(Vector2D startPosition, Spaceship *player);
+  void Initialise(Vector2D startPosition, Spaceship *player, City *city);
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();

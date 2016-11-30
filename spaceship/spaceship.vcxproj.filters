@@ -535,5 +535,14 @@
     <Image Include="flyer.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="ship2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ship3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ship4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
