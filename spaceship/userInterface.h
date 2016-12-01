@@ -4,10 +4,16 @@
 #include "mysoundengine.h"
 #include "GameObject.h"
 #include "Spaceship.h"
+// writing on a text file
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
 
 class userInterface : public GameObject
 {
 private:
+  string score[3];
   Vector2D m_velocity;
   float m_time;
   Circle2D m_circle;

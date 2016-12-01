@@ -32,6 +32,7 @@ void userInterface::Update(float frameTime)
 {
 
 
+
 }
 
 IShape2D& userInterface::GetCollisionShape()
@@ -49,7 +50,12 @@ void userInterface::Draw()
     MyDrawEngine::GetInstance()->WriteInt(1250, 0, m_pPlayer->getScore(), MyDrawEngine::WHITE);
     //MyDrawEngine::GetInstance()->WriteDouble(350, 400, m_pPlayer->getAngle(), MyDrawEngine::WHITE);
 
-
+    ofstream myfile("scores.sav");
+    if (myfile.is_open())
+    {
+      myfile << m_pPlayer->getScore() << "\n";
+      myfile.close();
+    }
   }
 
   if (m_pPlayer->isGameOver() == true)
