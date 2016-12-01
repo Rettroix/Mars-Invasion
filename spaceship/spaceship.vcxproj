@@ -86,6 +86,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildingBackground.cpp" />
     <ClCompile Include="BuildingForeground.cpp" />
+    <ClCompile Include="BulletFlyer.cpp" />
     <ClCompile Include="BulletUI.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="collisionShaper.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="BuildingBackground.h" />
     <ClInclude Include="BuildingForeground.h" />
     <ClInclude Include="BuildingTypes.h" />
+    <ClInclude Include="BulletFlyer.h" />
     <ClInclude Include="BulletUI.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="collisionShaper.h" />
@@ -261,6 +263,16 @@
     <Image Include="UIhealth7.png" />
     <Image Include="UIhealth8.png" />
     <Image Include="UIhealth9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="bgm.wav" />
+    <Media Include="bomb.wav" />
+    <Media Include="explosion.wav" />
+    <Media Include="hit.wav" />
+    <Media Include="recharge.wav" />
+    <Media Include="shoot.wav" />
+    <Media Include="thrusting.wav" />
+    <Media Include="whoosh.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

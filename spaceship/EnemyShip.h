@@ -28,6 +28,11 @@ private:
   Vector2D sensorPosition;
   Segment2D sensor;
 
+  //sound
+  MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
+
+  SoundIndex explosion = pSoundEngine->LoadWav(L"explosion.wav");
+
 public:
 
   void Initialise(Vector2D startPosition, Spaceship *player, City *city);

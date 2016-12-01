@@ -16,9 +16,10 @@ void EnemyBullet::Initialise(Vector2D position, Vector2D velocity, float angl)
   m_animationSpeed = 0;
   m_currentAnimation = 0.0f;
   LoadImage(L"enemy_missile.png");
+  m_imageScale = 64 / 16;
 
   m_drawDepth = 6;
-  m_angle = angl - 1.4;
+  m_angle = angl - 3.2f;
 }
 
 void EnemyBullet::Update(float frametime)
@@ -50,7 +51,7 @@ IShape2D& EnemyBullet::GetCollisionShape()
 
 void EnemyBullet::ProcessCollision(GameObject& other)
 {
-  if (other.GetType() != SPACESHIP && other.GetPosition().YValue < 440 || other.GetType() == ENEMY)
+  if (other.GetType() != ENEMY )
   {
 
     Particles* pParticles = new Particles;

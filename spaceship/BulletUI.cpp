@@ -6,7 +6,6 @@
 /////////////////////////////////////////////
 void BulletUI::Initialise(Spaceship *player, int startingFrame, int selected, int selectUI)
 {
-  ////CHECK POINTERS NULL
   m_drawDepth = 11;
   uiType = selectUI;
   m_pPlayer = player;

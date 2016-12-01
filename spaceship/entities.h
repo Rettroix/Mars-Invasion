@@ -65,6 +65,7 @@ private:
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
 
+  bool m_musicPlaying;
 public:
   
   void Initialise(Spaceship *player);
@@ -102,6 +103,9 @@ private:
   float m_animationSpeed;   // Frames of animation per second
   float m_currentAnimation; // Current animation frame
 
+  //sound
+  MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
+  SoundIndex hit = pSoundEngine->LoadWav(L"hit.wav");
 public:
   Bullet();
   void Initialise(Vector2D position, Vector2D velocity, float angl);

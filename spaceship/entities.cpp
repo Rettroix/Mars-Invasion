@@ -8,7 +8,10 @@
 #include "EnemyOne.h"
 #include "Particles.h"
 #include "EnemyShip.h"
+#include "BulletFlyer.h"
 
+
+////CHECK POINTERS NULL!!!!!!!!!
 
 const float BULLETSPEED = 800.0f;
 const float TURNSPEED = 3.0f;     // Radians per second
@@ -17,7 +20,7 @@ const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
-const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
+const Vector2D GRAVITY = Vector2D(0.0f, 1000.0f);
 const int CHANGEDELAY = 25;
 
 
@@ -32,6 +35,18 @@ const int CHANGEDELAY = 25;
 
 void City::Initialise(Spaceship *player)
 {
+
+  m_musicPlaying = false; //Check if the music is playing
+
+  if (m_musicPlaying == false) //if it's not
+  {
+    MySoundEngine* pSoundEngine = MySoundEngine::GetInstance(); //Calling a pointer to an instance of sound engine
+    SoundIndex BGM = pSoundEngine->LoadWav(L"BGM.wav"); //Loading Background Music
+    pSoundEngine->Play(BGM, true);  //Play Background Music
+    m_musicPlaying = true;
+  }
+
+
   enemyOneCoolDown = 0;
   enemyAmmount = 0;
   maxEnemyAmmount = 1;
@@ -84,10 +99,15 @@ void City::Update(float frameTime)
     maxEnemyAmmount = 6;
   }
 
+  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 20000)
+  {
+    maxEnemyAmmount = 20;
+  }
+
   if (enemyOneCoolDown < 0 && rand() % 100 == 7 && enemyAmmount < maxEnemyAmmount)
   {
     int chooseEnemy;
-    chooseEnemy = rand() % 2;
+    chooseEnemy = rand() % 3;
     enemyAmmount++;
     enemyOneCoolDown = 100;
     if (chooseEnemy == 0)
@@ -105,10 +125,19 @@ void City::Update(float frameTime)
     else if (chooseEnemy == 1)
     {
       EnemyShip* pEnemyShip = new EnemyShip;
-      pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
+      pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, rand() % 1000), m_pPlayer, this);
       Game::instance.m_objects.AddItem(pEnemyShip, true);
 
     }
+
+    else if (chooseEnemy == 2)
+    {
+      BulletFlyer* pBulletFlyer = new BulletFlyer;
+      pBulletFlyer->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
+      Game::instance.m_objects.AddItem(pBulletFlyer, true);
+
+    }
+    
 
 
 
@@ -707,7 +736,7 @@ void Bullet::ProcessCollision(GameObject& other)
 {
   if (other.GetType() != SPACESHIP && other.GetPosition().YValue < 440 || other.GetType() == ENEMY)
   {
-
+    pSoundEngine->Play(hit, false);
     Particles* pParticles = new Particles;
     pParticles->Initialise(m_position, Vector2D(0, 0), 4.5f, 2.0f);
     Game::instance.m_objects.AddItem(pParticles, false);

@@ -66,7 +66,7 @@ void EnemyShip::Update(float frameTime)
 
     EnemyBullet* pEnemyBullet = new EnemyBullet;
     pEnemyBullet->Initialise(pos, -vel, m_angle);			// Intialise
-    Game::instance.m_objects.AddItem(pEnemyBullet, false);
+    Game::instance.m_objects.AddItem(pEnemyBullet, true);
 
   }
 
@@ -136,6 +136,8 @@ float EnemyShip::getRotationToPlayer()
 
 void EnemyShip::Explode()
 {
+  pSoundEngine->Play(explosion, false);
+
   //Deactivate();
   m_imageNumber = 1;
   Explosion* pExp = new Explosion;

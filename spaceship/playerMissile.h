@@ -17,7 +17,12 @@ private:
 
   float m_animationSpeed;   // Frames of animation per second
   float m_currentAnimation; // Current animation frame
+  
+  //sound
+  MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
+  SoundIndex recharge = pSoundEngine->LoadWav(L"recharge.wav");
 
+  SoundIndex explosion = pSoundEngine->LoadWav(L"explosion.wav");
 public:
   PlayerMissile();
   void Initialise(Vector2D position, Vector2D velocity, float angl, Spaceship *player);

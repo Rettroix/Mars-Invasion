@@ -61,6 +61,7 @@ void PlayerMissile::Update(float frametime)
     MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue - 2000 > m_position.XValue ||
     m_position.YValue > 2000 || m_position.YValue < -2000)
   {
+    pSoundEngine->Play(explosion, false);
     Explosion* pExp = new Explosion;
 
     pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 40.0f);
@@ -82,6 +83,8 @@ void PlayerMissile::ProcessCollision(GameObject& other)
 {
   if (other.GetType() == ENEMY || other.GetType() == LANDER || other.GetType() == COLLIDER)
   {
+    pSoundEngine->Play(explosion, false);
+
     Explosion* pExp = new Explosion;
 
     pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 40.0f);

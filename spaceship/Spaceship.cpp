@@ -15,7 +15,6 @@ const float TURNSPEED = 3.0f;     // Radians per second
 const float ACCELERATION = 5000.0f; // Units per second^2
 const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.25f;	// Time between each spaceship bullet
-const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
 const float MAXFUEL = 1000;
 const float RESPAWNTIME = 3.0f;
@@ -61,6 +60,9 @@ void Spaceship::Initialise(Vector2D position)
   m_bombCounter = 0;
   m_damage = 0;
   m_damageDelay = 0;
+
+  //sounds
+
 }
 
 
@@ -115,8 +117,9 @@ void Spaceship::Update(float frametime)
   //explode
   if (m_respawnCounting == true)
   {
-    m_invinsibleTime = 3;
     gravity = Vector2D(0.0f, 0.0f);
+
+    m_invinsibleTime = 3;
     m_position = m_position;
     m_respawnTime -= m_frameTime;
   }
@@ -124,7 +127,7 @@ void Spaceship::Update(float frametime)
   //respawning
   if (m_respawnTime < 0 && !gameOver)
   {
-    gravity = Vector2D(0.0f, 100.0f);
+    gravity = Vector2D(0.0f, 1000.0f);
     m_imageNumber = 0;
     m_respawnTime = RESPAWNTIME;
     m_position = Vector2D(m_position.XValue - 600, 400);
@@ -168,6 +171,8 @@ void Spaceship::Update(float frametime)
       isLanded = false;
       if (!m_thrusting)		// If not thrusting last frame
       {
+        pSoundEngine->Play(thrust,true);
+
         // g_soundFX.StartThrust();	// Start the thrust sound
       }
       m_thrusting = true;			// Remember we are thrusting
@@ -190,6 +195,7 @@ void Spaceship::Update(float frametime)
     {
       if (m_thrusting)		// If  thrusting last frame
       {
+        pSoundEngine->Stop(thrust);
         //g_soundFX.StopThrust();	// Stop the thrust sound
       }
       m_acceleration = 2000;
@@ -199,6 +205,10 @@ void Spaceship::Update(float frametime)
     // Handle shooting
     if (pInputs->KeyPressed(DIK_SPACE) && m_shootDelay<0 && bullets > 0)    // Shoot
     {
+      SoundIndex shoot = pSoundEngine->LoadWav(L"shoot.wav");
+
+      pSoundEngine->Play(shoot, false);
+
       bullets--;
       m_shootDelay = SHOOTDELAY;				// Makes it wait before it can shoot again
       Vector2D pos;
@@ -211,12 +221,12 @@ void Spaceship::Update(float frametime)
       Bullet* pBullet = new Bullet;
       pBullet->Initialise(pos, vel, m_angle);			// Intialise
       Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
-      //g_soundFX.PlayZap();					// PLay zap sound effect
     }
 
     if (pInputs->KeyPressed(DIK_X) && m_bombCounter == 5 )    // Shoot
     {
       m_bombCounter = 0;
+      pSoundEngine->Play(whoosh, false);
       Vector2D pos;
       Vector2D vel;
       pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
@@ -367,9 +377,11 @@ void Spaceship::ProcessCollision(GameObject& other)
   //HitObject(other);
 
 
-  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0)
+  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0 || other.GetType() == ENEMYBULLET && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0)
   {
-    
+    SoundIndex hit = pSoundEngine->LoadWav(L"hit.wav");
+
+    pSoundEngine->Play(hit, false);
     m_damage++;
     m_damageDelay = 1.0f;
     Particles* pParticles = new Particles;
@@ -404,6 +416,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
 void Spaceship::Explode()
 {
+  pSoundEngine->Play(explosion, false);
   m_damage = -1;
   health=health-20;
   //Deactivate();
@@ -426,11 +439,14 @@ void Spaceship::Explode()
 
 void Spaceship::Bounce(GameObject &other)
 {
+
   Lander *pOtherBuildingTwo = dynamic_cast<Lander*> (&other);
 
   Vector2D normal = collisionShape.CollisionNormal(pOtherBuildingTwo->GetShape());
   normal = normal.unitVector();
+  SoundIndex hit = pSoundEngine->LoadWav(L"hit.wav");
 
+  pSoundEngine->Play(hit, false);
 
 
   m_velocity = m_velocity - (2*normal*m_velocity)*normal;
@@ -448,6 +464,8 @@ void Spaceship::Land(GameObject &other)
   Lander *pOtherLander = dynamic_cast<Lander*> (&other);
   if (pOtherLander->GetColType() == 1)
   {
+    pSoundEngine->Play(recharge, false);
+
     m_fuel = MAXFUEL;
     bullets = MAXBULLETS;
   }

@@ -12,7 +12,7 @@ void Particles::Initialise(Vector2D position, Vector2D velocity, float animation
 {
   m_drawDepth = 6;
   m_velocity = velocity;
-  m_position = position;
+  m_position = position + Vector2D(0,-50);
   m_animationSpeed = 0;
   m_currentAnimation = 0.0f;
   m_imageScale = scale;       // Part of the superclass

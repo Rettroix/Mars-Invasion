@@ -146,6 +146,7 @@ float Missile::getRotationToPlayer()
 
 void Missile::Explode()
 {
+  pSoundEngine->Play(explosion, false);
   //Deactivate();
   m_imageNumber = 1;
   Explosion* pExp = new Explosion;

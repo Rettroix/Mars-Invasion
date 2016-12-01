@@ -45,9 +45,9 @@ void userInterface::Draw()
 
   if (m_pPlayer->isGameOver() == false)
   {
-    MyDrawEngine::GetInstance()->WriteText(200, 200, L"Score=", MyDrawEngine::WHITE);
-    MyDrawEngine::GetInstance()->WriteInt(550, 200, m_pPlayer->getScore(), MyDrawEngine::WHITE);
-    MyDrawEngine::GetInstance()->WriteDouble(350, 400, m_pPlayer->getSpeed(), MyDrawEngine::WHITE);
+    MyDrawEngine::GetInstance()->WriteText(800, 0, L"Score=", MyDrawEngine::WHITE);
+    MyDrawEngine::GetInstance()->WriteInt(1250, 0, m_pPlayer->getScore(), MyDrawEngine::WHITE);
+    //MyDrawEngine::GetInstance()->WriteDouble(350, 400, m_pPlayer->getAngle(), MyDrawEngine::WHITE);
 
 
   }

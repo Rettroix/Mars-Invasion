@@ -40,6 +40,16 @@ private:
   int thrustTime;
 
   int m_bombCounter;
+
+  //sound
+  MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
+  SoundIndex recharge = pSoundEngine->LoadWav(L"recharge.wav");
+
+  SoundIndex explosion = pSoundEngine->LoadWav(L"explosion.wav");
+  SoundIndex thrust = pSoundEngine->LoadWav(L"thrusting.wav");
+  SoundIndex whoosh = pSoundEngine->LoadWav(L"whoosh.wav");
+
+
 public:
   Spaceship();
   void Initialise(Vector2D position);		// Sets to the starting position
