@@ -158,6 +158,10 @@ void Spaceship::Update(float frametime)
   thrustChange();
   if (m_fuel > 0 && !m_respawnCounting)
   {
+    if (pInputs->KeyPressed(DIK_S))  // Turn left
+    {
+      Explode();
+    }
     if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
     {
       m_angle -= TURNSPEED *frametime;
