@@ -194,23 +194,25 @@ ErrorType Game::PauseMenu()
 
 ErrorType Game::MainMenu()
 {
-  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(0,0));
 
+  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(0,0));  //Camera stays at 0,0 in case it moves
+
+  //Loading the main menu animation
   MyDrawEngine::GetInstance()->LoadPicture(L"menu1.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu2.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu3.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu4.png");
 
+  //Animation Timer
   static float timer = 0.0f;
-  //m_objects.UpdateAll();
-  //m_objects.ProcessCollisions();
-  //m_objects.DrawAll();
+
 	// Code for a basic main menu
 	
 
 	const int NUMOPTIONS = 3;
 	wchar_t options[NUMOPTIONS][15] = {L"Start game", L"Go Fullscreen",L"Exit"};
   
+  //As timer increases so does the animation
   if (timer < 0.5f)
   {
     MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu1.png"), 1.8f, 0.0f, 0.0f);
@@ -231,8 +233,10 @@ ErrorType Game::MainMenu()
   else
   {
     MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu4.png"), 1.8f, 0.0f, 0.0f);
+    //When timer is at the end set it back to 0
     timer = 0.0f;
   }
+  //increment timer by 0.05 each frame
   timer += 0.05f;
 
   MyDrawEngine::GetInstance()->WriteText(450, 220, L"Main menu", MyDrawEngine::WHITE);
@@ -312,11 +316,12 @@ ErrorType Game::StartOfGame()
   incre = 0;
 
 
-
+  //Creates a spaceship player
   Spaceship* pShip = new Spaceship;
   pShip->Initialise(Vector2D(0, 500));
   m_objects.AddItem(pShip, true);
-
+  
+  //Creates the city
   City* pCity = new City;
   pCity->Initialise(pShip);
   m_objects.AddItem(pCity, true);

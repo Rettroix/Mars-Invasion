@@ -9,19 +9,13 @@
 #include "Particles.h"
 #include "EnemyShip.h"
 #include "BulletFlyer.h"
+#include "userInterface.h"
 
 
-////CHECK POINTERS NULL!!!!!!!!!
-
-const float BULLETSPEED = 800.0f;
-const float TURNSPEED = 3.0f;     // Radians per second
-const float ACCELERATION = 1600.0f; // Units per second^2
-const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
 const float SHOOTDELAY = 0.5f;	// Time between each spaceship bullet
 const float BASEASTEROIDSIZE = 100.0f;	// Diameter of the basic asteroid
 const float SHIPSIZE = 64.0f;			// Diameter of the ship
 const Vector2D GRAVITY = Vector2D(0.0f, 1000.0f);
-const int CHANGEDELAY = 25;
 
 
 
@@ -29,42 +23,58 @@ const int CHANGEDELAY = 25;
 
 
 
-///////////////////////////////////////////////////
-//===============City================================
-///////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+//===============City================================//
+///////////////////////////////////////////////////////
 
 void City::Initialise(Spaceship *player)
 {
-
+  gameStarted = true; //The Game has started
   m_musicPlaying = false; //Check if the music is playing
 
   if (m_musicPlaying == false) //if it's not
   {
-    MySoundEngine* pSoundEngine = MySoundEngine::GetInstance(); //Calling a pointer to an instance of sound engine
-    SoundIndex BGM = pSoundEngine->LoadWav(L"BGM.wav"); //Loading Background Music
     pSoundEngine->Play(BGM, true);  //Play Background Music
-    m_musicPlaying = true;
+    m_musicPlaying = true;  //music is plying
   }
 
 
-  enemyOneCoolDown = 0;
-  enemyAmmount = 0;
-  maxEnemyAmmount = 1;
-  srand(time(NULL));
+  enemyOneCoolDown = 0; //Sets it to 0
+  enemyAmmount = 0; //There are no enemies spawned
+  maxEnemyAmmount = 1; //Only one enemy allowed at once
+  srand(time(NULL)); //Seeds random
   //LoadImage(L"BG.png");
-  m_pPlayer = player;
-  m_imageScale = 9;
-  furthestLeft = 0;
-  lastIndex = 0; //Make last index equal the first value at first
-  userInterface* puserInterface = new userInterface;
-  puserInterface->Intialise(m_pPlayer);
-  Game::instance.m_objects.AddItem(puserInterface, true);
-  changeDelay = CHANGEDELAY;
-  spawnBuilding();
 
-  spawnBG();
+  //setting buildings to nullptr
+  for (int i = 0; i < NUMBER_OF_BUILDINGS; i++)
+  {
+     m_pBuildings[i] = nullptr;
+     m_pForegroundBuildings[i] = nullptr;
+     m_pBackgroundBuildings[i] = nullptr;
+     pCollision[i] = nullptr;
+     pCollisionTop[i] = nullptr;
+     pCollisionRight[i] = nullptr;
+     pFuelBox[i] = nullptr;
+  }
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player; //pointer to player
+  }
+  m_imageScale = 9; //setting scale
+  furthestLeft = 0; //set furthest left to 0
+  lastIndex = 0; //set last index to 0
+
+  //Spawn the user interface
+  userInterface* puserInterface = new userInterface;
+  puserInterface->Intialise(m_pPlayer, this);
+  Game::instance.m_objects.AddItem(puserInterface, true);
+
+  
+  spawnBuilding(); //Spawn buildings
+
+  spawnBG();//spawn background buildings
    
-  spawnFG();
+  spawnFG(); //spawn foreground buildings
 
 
 
@@ -75,80 +85,25 @@ void City::Initialise(Spaceship *player)
 
 void City::Update(float frameTime)
 {
-  enemyOneCoolDown -= 1;
+  enemyOneCoolDown -= 1; //Every frame the cool down decreases
 
-  changeDelay = changeDelay - 1;
-  updateBuildings();
+  updateBuildings();  //Update the buildings every frame
+  updateBuildingsBG(); //update the background buildings
+  updateBuildingsFG();  //update the foreground buildings
 
-  updateBuildingsBG();
-  updateBuildingsFG();
-  //MyDrawEngine::GetInstance()->theCamera.returnPosition;
-
-  if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 11200)
-  {
-    maxEnemyAmmount = 1;
-
-  }
-  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 12000)
-  {
-    maxEnemyAmmount = 3;
-  }
-
-  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 12500)
-  {
-    maxEnemyAmmount = 6;
-  }
-
-  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 20000)
-  {
-    maxEnemyAmmount = 20;
-  }
-
-  if (enemyOneCoolDown < 0 && rand() % 100 == 7 && enemyAmmount < maxEnemyAmmount)
-  {
-    int chooseEnemy;
-    chooseEnemy = rand() % 3;
-    enemyAmmount++;
-    enemyOneCoolDown = 100;
-    if (chooseEnemy == 0)
-    {
-      Missile* pMissile = new Missile;
-      pMissile->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
-      Game::instance.m_objects.AddItem(pMissile, true);
-
-      EnemyOne* pEnemyOne = new EnemyOne;
-      pEnemyOne->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, pMissile);
-      Game::instance.m_objects.AddItem(pEnemyOne, true);
-
-    }
-
-    else if (chooseEnemy == 1)
-    {
-      EnemyShip* pEnemyShip = new EnemyShip;
-      pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, rand() % 1000), m_pPlayer, this);
-      Game::instance.m_objects.AddItem(pEnemyShip, true);
-
-    }
-
-    else if (chooseEnemy == 2)
-    {
-      BulletFlyer* pBulletFlyer = new BulletFlyer;
-      pBulletFlyer->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
-      Game::instance.m_objects.AddItem(pBulletFlyer, true);
-
-    }
+  spawnEnemies(); //spawn enemies
     
 
 
 
 
-  }
+  
   
 }
 
 IShape2D& City::GetCollisionShape()
 {
-  m_collider.PlaceAt(m_position, 96);
+  m_collider.PlaceAt(m_position, 96); //places collision shape
   return m_collider;
 
 
@@ -157,51 +112,52 @@ IShape2D& City::GetCollisionShape()
 
 void City::ProcessCollision(GameObject& other)
 {
-  //nothing
+  //nothing happens
 
 }
 
-void City::addShipPosition(Vector2D pos)
-{
-  shipsPosition = pos;
-}
+
 
 void City::spawnBuilding()
 {
-  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
+  //The  for loops runs the ammount of buildings available spanning from the minus's
+  for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++) 
   {
-    selectedBuilding = static_cast<BuildingType>(rand() % 6 + 1);
+    selectedBuilding = static_cast<BuildingType>(rand() % 6 + 1); // the selected building is chosen
+                                                                  //at random
 
-    if (selectedBuilding == BuildingType::BUILDING1)
+
+    if (selectedBuilding == BuildingType::BUILDING1)  //if selected building is building one
     {
-      //building1
-      //Missile* pMissile = new Missile;
-      //pMissile->Initialise(Vector2D(i * 700, -470), m_pPlayer);
-      //Game::instance.m_objects.AddItem(pMissile, true);
 
-      //
-      //EnemyOne* pEnemyOne = new EnemyOne;
-      //pEnemyOne->Initialise(Vector2D(i * 700, -470), m_pPlayer, pMissile);
-      //Game::instance.m_objects.AddItem(pEnemyOne, true);
+      spawnBuildingBlock(i);
 
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
-      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
+      if (pCollision[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
+      {
+        //colision left side
+        pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+        pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -500, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
+        Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      }
 
-      //colision left side
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -500, 0,CollisionPosition::LEFT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
 
-      //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, 0, CollisionPosition::TOP, CollisionType::LANDER);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      if (pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
+      {
+        //colision top
+        pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+        pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, 0, CollisionPosition::TOP, CollisionType::LANDER);
+        Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      }
 
-      //colision right
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -500, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+
+      if (pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
+      {
+        //colision right
+        pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+        pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -500, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
+        Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      }
+
     }
     else if (selectedBuilding == BuildingType::BUILDING2)
     {
@@ -309,11 +265,6 @@ void City::spawnBuilding()
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
       m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
       Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-
-      ////fuel box
-      //pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)] = new FuelBox;
-      //pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700, -470) + Vector2D(0, -10));
-      //Game::instance.m_objects.AddItem(pFuelBox[i + (NUMBER_OF_BUILDINGS / 2)], false);
 
 
       //colision left side
@@ -657,9 +608,101 @@ void City::updateBuildingsFG()
 
 }
 
+void City::spawnEnemies()
+{
+  if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 11200)
+  {
+    maxEnemyAmmount = 1;
+
+  }
+  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 12000)
+  {
+    maxEnemyAmmount = 3;
+  }
+
+  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 12500)
+  {
+    maxEnemyAmmount = 6;
+  }
+
+  else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 20000)
+  {
+    maxEnemyAmmount = 20;
+  }
+
+  if (enemyOneCoolDown < 0 && rand() % 100 == 7 && enemyAmmount < maxEnemyAmmount)
+  {
+    int chooseEnemy;
+    chooseEnemy = rand() % 3;
+    enemyAmmount++;
+    enemyOneCoolDown = 100;
+    if (chooseEnemy == 0)
+    {
+      Missile* pMissile = new Missile;
+      pMissile->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
+      Game::instance.m_objects.AddItem(pMissile, true);
+
+      EnemyOne* pEnemyOne = new EnemyOne;
+      pEnemyOne->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, pMissile);
+      Game::instance.m_objects.AddItem(pEnemyOne, true);
+
+    }
+
+    else if (chooseEnemy == 1)
+    {
+      EnemyShip* pEnemyShip = new EnemyShip;
+      pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, rand() % 1000), m_pPlayer, this);
+      Game::instance.m_objects.AddItem(pEnemyShip, true);
+
+    }
+
+    else if (chooseEnemy == 2)
+    {
+      BulletFlyer* pBulletFlyer = new BulletFlyer;
+      pBulletFlyer->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
+      Game::instance.m_objects.AddItem(pBulletFlyer, true);
+
+    }
+  }
+}
+
+void City::spawnBuildingBlock(int interation)
+{
+  if (m_pBuildings[interation + (NUMBER_OF_BUILDINGS / 2)] == nullptr) //if it's null pointer
+  {
+    m_pBuildings[interation + (NUMBER_OF_BUILDINGS / 2)] = new Building; //set building to building 
+    //initialise with random start position, it's building type and a pointer to the player
+    m_pBuildings[interation + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(interation * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
+
+    Game::instance.m_objects.AddItem(m_pBuildings[interation + (NUMBER_OF_BUILDINGS / 2)], false);
+  }
+}
+
+void City::spawnCollisionBlockLeft()
+{
+
+}
+void City::spawnCollisionBlockRight()
+{
+
+}
+void City::spawnCollisionBlockTop()
+{
+
+}
 void City::deincrementEnemyAmmount()
 {
   enemyAmmount--;
+}
+
+int City::getMiddlePosition()
+{
+  return middle;
+}
+
+void City::StopMusic()
+{ 
+  pSoundEngine->Stop(BGM);
 }
 
 City::City() :GameObject(LEVEL)

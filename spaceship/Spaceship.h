@@ -79,5 +79,7 @@ public:
   void addScore(int ammount);
   void incrementBombCounter();
   int getBombCounter();
+  void doDamage();
+  void teleport(Vector2D  pos);
   Vector2D& getPosition();
 };

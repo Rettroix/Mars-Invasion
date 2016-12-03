@@ -69,6 +69,8 @@ void Spaceship::Initialise(Vector2D position)
 void Spaceship::Update(float frametime)
 {
 
+
+
   m_damageDelay -= frametime;
   if (m_angle >= 6.3)
   {
@@ -118,6 +120,7 @@ void Spaceship::Update(float frametime)
   if (m_respawnCounting == true)
   {
     gravity = Vector2D(0.0f, 0.0f);
+    pSoundEngine->Stop(thrust);
 
     m_invinsibleTime = 3;
     m_position = m_position;
@@ -130,7 +133,7 @@ void Spaceship::Update(float frametime)
     gravity = Vector2D(0.0f, 1000.0f);
     m_imageNumber = 0;
     m_respawnTime = RESPAWNTIME;
-    m_position = Vector2D(m_position.XValue - 600, 400);
+    m_position = Vector2D(m_position.XValue + 600, 400);
     m_fuel = MAXFUEL;
     bullets = MAXBULLETS;
     m_respawnCounting = false;
@@ -557,7 +560,15 @@ void Spaceship::fuelManagement()
 
 
 }
+void Spaceship::doDamage()
+{
+  m_damage++;
+}
 
+void Spaceship::teleport(Vector2D pos)
+{
+  m_position = pos;
+}
 void Spaceship::thrustChange()
 {
   if (!m_thrusting || isLanded)

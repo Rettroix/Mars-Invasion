@@ -8,13 +8,12 @@
 //////////////////////////////////////////////
 /////////UserInterface///////////////////////
 /////////////////////////////////////////////
-void userInterface::Intialise(Spaceship *player)
-{
-
+void userInterface::Intialise(Spaceship *player, City *city)
+{ 
   scoreAdded = false;
   m_drawDepth = 20;
   m_pPlayer = player;
-
+  m_pCity = city;
   ifstream myfile("scores.sav");
   if (myfile.is_open())
   {
@@ -64,12 +63,25 @@ IShape2D& userInterface::GetCollisionShape()
 
 void userInterface::Draw()
 {
+  MyDrawEngine::GetInstance()->LoadPicture(L"gameover.png");
+
 
 
   if (m_pPlayer->isGameOver() == false)
   {
     MyDrawEngine::GetInstance()->WriteText(800, 0, L"Score=", MyDrawEngine::WHITE);
     MyDrawEngine::GetInstance()->WriteInt(1250, 0, m_pPlayer->getScore(), MyDrawEngine::WHITE);
+
+    if (m_pPlayer->GetPosition().XValue < m_pCity->getMiddlePosition() - 2000)
+    {
+      MyDrawEngine::GetInstance()->WriteText(500, 200, L"WARNING TURN AROUND", MyDrawEngine::RED);
+    }
+    if (m_pPlayer->GetPosition().XValue < m_pCity->getMiddlePosition() - 5000)
+    {
+      m_pPlayer->Explode();
+      m_pPlayer->teleport(Vector2D(m_pPlayer->GetPosition()+ Vector2D(5000,0)));
+    }
+
   }
 
 
@@ -82,6 +94,8 @@ void userInterface::Draw()
 
     if (m_pPlayer->isGameOver() == true)
     {
+      m_pCity->StopMusic();
+
       if (scoreAdded == false)
       {
         bool inserted = false;
@@ -103,14 +117,18 @@ void userInterface::Draw()
         remove("scores.txt");
 
       }
+      MyDrawEngine::GetInstance()->DrawAt(m_pPlayer->GetPosition(), MyDrawEngine::GetInstance()->FindPicture(L"gameover.png"), 1.0f, 0.0f, 0.0f);
 
-      MyDrawEngine::GetInstance()->WriteText(800, 500, L"Game Over", MyDrawEngine::WHITE);
+      //MyDrawEngine::GetInstance()->WriteText(800, 900, L"Game Over", MyDrawEngine::WHITE);
       //MyDrawEngine::GetInstance()->WriteInt(800, 600, m_pPlayer->getScore(), MyDrawEngine::WHITE);
-      MyDrawEngine::GetInstance()->WriteInt(800, 300, scores[0], MyDrawEngine::WHITE);
-      MyDrawEngine::GetInstance()->WriteInt(800, 400, scores[1], MyDrawEngine::WHITE);
-      MyDrawEngine::GetInstance()->WriteInt(800, 600, scores[2], MyDrawEngine::WHITE);
-      MyDrawEngine::GetInstance()->WriteInt(800, 700, scores[3], MyDrawEngine::WHITE);
-      MyDrawEngine::GetInstance()->WriteInt(800, 800, scores[4], MyDrawEngine::WHITE);
+      MyDrawEngine::GetInstance()->WriteInt(1000, 110, scores[0], MyDrawEngine::WHITE);
+      MyDrawEngine::GetInstance()->WriteInt(1000, 210, scores[1], MyDrawEngine::WHITE);
+      MyDrawEngine::GetInstance()->WriteInt(1000, 310, scores[2], MyDrawEngine::WHITE);
+      MyDrawEngine::GetInstance()->WriteInt(1000, 410, scores[3], MyDrawEngine::WHITE);
+      MyDrawEngine::GetInstance()->WriteInt(1000, 510, scores[4], MyDrawEngine::WHITE);
+      MyDrawEngine::GetInstance()->WriteText(800, 600, L"You Scored", MyDrawEngine::BLUE);
+
+      MyDrawEngine::GetInstance()->WriteInt(1000, 700, m_pPlayer->getScore(), MyDrawEngine::BLUE);
 
       ofstream outFile("scores.sav");
       if (outFile.is_open())

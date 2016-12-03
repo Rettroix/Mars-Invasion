@@ -190,6 +190,7 @@
     <Image Include="explosion8.bmp" />
     <Image Include="flyer.png" />
     <Image Include="fuelbuilding.png" />
+    <Image Include="gameover.png" />
     <Image Include="ground.png" />
     <Image Include="house.png" />
     <Image Include="invisible.png" />

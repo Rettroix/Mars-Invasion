@@ -5,7 +5,7 @@
 #include "mysoundengine.h"
 #include "Spaceship.h"
 #include "Building.h"
-#include "userInterface.h"
+
 #include "BuildingForeground.h"
 #include "BuildingBackground.h"
 #include "BuildingTypes.h"
@@ -24,8 +24,10 @@ const int NUMBER_OF_BUILDINGS = 20;
 class City : public GameObject
 {
 private:   
-  int changeDelay;
+  MySoundEngine* pSoundEngine = MySoundEngine::GetInstance(); //Calling a pointer to an instance of sound engine
+  SoundIndex BGM = pSoundEngine->LoadWav(L"BGM.wav"); //Loading Background Music
 
+  bool gameStarted; //is the game started
   Circle2D m_circle;
   Circle2D m_collider;
   float incrementFrame;
@@ -33,7 +35,7 @@ private:
   Vector2D shipsPosition;
   int shipXValue;
   float fship;
-  Spaceship *m_pPlayer;
+  Spaceship *m_pPlayer = nullptr;
   Building *m_pBuildings[NUMBER_OF_BUILDINGS];
   BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];
   BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];
@@ -45,7 +47,7 @@ private:
   
   int furthestLeft; //Building furthest to the left
   int furthestRight; //Building furthest to the right
-  int middle;
+  int middle; //middle building
   int lastIndex;
 
   int furthestLeftBG; //Building furthest to the left BG
@@ -58,9 +60,9 @@ private:
   int middleFG;
   int lastIndexFG;
 
-  int enemyOneCoolDown;
-  int enemyAmmount;
-  int maxEnemyAmmount;
+  int enemyOneCoolDown;   //Enemies can't spawn when this is above 0
+  int enemyAmmount;   //how many enemies are spawned
+  int maxEnemyAmmount;  //The max ammount of ennemies allowed
 
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
@@ -69,21 +71,23 @@ private:
 public:
   
   void Initialise(Spaceship *player);
-  void spawnBuilding();
-  void spawnBG();
-  void spawnFG();
-
-  void updateBuildings();
-  void updateBuildingsBG();
-  void updateBuildingsFG();
-
   void Update(float frameTime);
-  IShape2D& GetCollisionShape();
-
-  void ProcessCollision(GameObject& other);
-  void addShipPosition(Vector2D pos);
-
+  void spawnBuilding(); //spawn buildings
+  void spawnBG(); //spawn background buildings
+  void spawnFG(); //spawn foreground buildings
+  void spawnEnemies();  //Spawn enemies
+  void updateBuildings(); //Update Buildings
+  void updateBuildingsBG(); //Update background buildings
+  void updateBuildingsFG(); //Update foreground buildings
+  void StopMusic(); //Stop the backgroud music
+  IShape2D& GetCollisionShape();  //Get collision shape
+  void ProcessCollision(GameObject& other); //Process collisions
+  int getMiddlePosition();
   void deincrementEnemyAmmount();
+  void spawnBuildingBlock(int interation);
+  void spawnCollisionBlockLeft();
+  void spawnCollisionBlockRight();
+  void spawnCollisionBlockTop();
   City();
 };
 

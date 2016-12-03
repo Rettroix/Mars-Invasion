@@ -556,6 +556,9 @@
     <Image Include="ship4.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="gameover.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="bgm.wav">

@@ -10,11 +10,14 @@ using namespace std;
 #include "mysoundengine.h"
 #include "GameObject.h"
 #include "Spaceship.h"
+#include "entities.h"
 
 
 class userInterface : public GameObject
 {
 private:
+  int *middleValue;
+
   int newestScore;
   bool scoreAdded;
   vector<int> scores;
@@ -25,10 +28,10 @@ private:
   Circle2D m_collider;
   float m_fuel;
   Spaceship *m_pPlayer;
-
+  City *m_pCity;
 public:
 
-  void Intialise(Spaceship *player);
+  void Intialise(Spaceship *player, City *city);
 
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
