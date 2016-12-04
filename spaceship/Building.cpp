@@ -153,7 +153,7 @@ void Building::changeBuilding(BuildingType spawnBuilding)
     break;
   case BuildingType::FUELBUILDING:
     m_imageNumber = 5;
-    m_position = positionStart + Vector2D(0, -300);
+    m_position = positionStart + Vector2D(rand()%300, -300);
     m_objectSize = Vector2D(167, 150)*m_imageScale;
     break;
   case BuildingType::HOUSE:
