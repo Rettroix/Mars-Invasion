@@ -4,7 +4,8 @@
 #include "windows.h"
 #include "ObjectManager.h"
 #include "event.h"
-
+#include "Spaceship.h"
+#include "mysoundengine.h"
 // For reading keyboard
 #define KEYPRESSED(vk_code) ((GetAsyncKeyState(vk_code) & 0x8000) ? 1 : 0)
 
@@ -14,6 +15,8 @@
 class Game
 {
 private:
+  Spaceship *m_pShip = nullptr;
+  bool m_musicPlaying = false;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;
 	void ChangeState(GameState newState);
@@ -27,7 +30,7 @@ public:
 	ErrorType Setup(bool bFullScreen, HWND hwnd, HINSTANCE hinstance);
 	void Shutdown();
 	ErrorType Main();
-
+  void ChangeToMenu();
 	ErrorType PauseMenu();
 	ErrorType MainMenu();
 	ErrorType StartOfGame();

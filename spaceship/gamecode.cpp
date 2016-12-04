@@ -10,7 +10,6 @@
 
 #include "gamecode.h"
 #include "mydrawengine.h"
-#include "mysoundengine.h"
 #include "myinputs.h"
 #include <time.h>
 #include "gametimer.h"
@@ -19,7 +18,6 @@
 #include "shapes.h"
 #include "ObjectManager.h"
 #include "entities.h"
-#include "Spaceship.h"
 
 int incre;
 
@@ -139,7 +137,42 @@ void Game::Shutdown()
 ErrorType Game::PauseMenu()
 {
 	// Code for a basic pause menu
+  MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(0, 0));  //Camera stays at 0,0 in case it moves
 
+  //Loading the main menu animation
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu1.png");
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu2.png");
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu3.png");
+  MyDrawEngine::GetInstance()->LoadPicture(L"menu4.png");
+
+  //Animation Timer
+  static float timer = 0.0f;
+  //As timer increases so does the animation
+  if (timer < 0.5f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu1.png"), 1.8f, 0.0f, 0.0f);
+  }
+  else if (timer < 1.0f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu2.png"), 1.8f, 0.0f, 0.0f);
+  }
+  else if (timer < 1.5f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu3.png"), 1.8f, 0.0f, 0.0f);
+  }
+  else if (timer < 2.0f)
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu4.png"), 1.8f, 0.0f, 0.0f);
+
+  }
+  else
+  {
+    MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), MyDrawEngine::GetInstance()->FindPicture(L"menu4.png"), 1.8f, 0.0f, 0.0f);
+    //When timer is at the end set it back to 0
+    timer = 0.0f;
+  }
+  //increment timer by 0.05 each frame
+  timer += 0.05f;
 	MyDrawEngine::GetInstance()->WriteText(450,220, L"Paused", MyDrawEngine::WHITE);
 
 	const int NUMOPTIONS = 2;
@@ -156,6 +189,7 @@ ErrorType Game::PauseMenu()
 	}
 
 	MyInputs* pInputs = MyInputs::GetInstance();
+
 
 	pInputs->SampleKeyboard();
 	if(pInputs->NewKeyPressed(DIK_UP))
@@ -195,6 +229,15 @@ ErrorType Game::PauseMenu()
 ErrorType Game::MainMenu()
 {
 
+  if (m_musicPlaying == false) //if it's not
+  {
+    MySoundEngine* pSoundEngine = MySoundEngine::GetInstance(); //Calling a pointer to an instance of sound engine
+
+    SoundIndex BGM = pSoundEngine->LoadWav(L"BGM.wav"); //Loading Background Music
+
+    pSoundEngine->Play(BGM, true);  //Play Background Music
+    m_musicPlaying = true;  //music is plying
+  }
   MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(0,0));  //Camera stays at 0,0 in case it moves
 
   //Loading the main menu animation
@@ -321,6 +364,10 @@ ErrorType Game::StartOfGame()
   pShip->Initialise(Vector2D(0, 500));
   m_objects.AddItem(pShip, true);
   
+  if (m_pShip == nullptr)
+  {
+    m_pShip = pShip;
+  }
   //Creates the city
   City* pCity = new City;
   pCity->Initialise(pShip);
@@ -357,7 +404,14 @@ ErrorType Game::Update()
 	// but try to do this within a game object if possible
 
   /////////////////////
-
+  if (m_pShip->isGameOver() == true)
+  {
+    if (KEYPRESSED(VK_SPACE))
+    {
+      EndOfGame();
+      ChangeState(MENU);
+    }
+  }
   
   
 	return SUCCESS;
@@ -379,6 +433,11 @@ ErrorType Game::EndOfGame()
 	m_objects.DeleteAllObjects();
 
 	return SUCCESS;
+}
+
+void Game::ChangeToMenu()
+{
+  ChangeState(MENU);
 }
 
 Game::Game()

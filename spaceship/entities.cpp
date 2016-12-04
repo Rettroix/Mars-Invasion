@@ -30,13 +30,7 @@ const Vector2D GRAVITY = Vector2D(0.0f, 1000.0f);
 void City::Initialise(Spaceship *player)
 {
   gameStarted = true; //The Game has started
-  m_musicPlaying = false; //Check if the music is playing
 
-  if (m_musicPlaying == false) //if it's not
-  {
-    pSoundEngine->Play(BGM, true);  //Play Background Music
-    m_musicPlaying = true;  //music is plying
-  }
 
 
   enemyOneCoolDown = 0; //Sets it to 0
@@ -667,7 +661,7 @@ int City::getMiddlePosition()
 void City::StopMusic()
 { 
   //stop the background music
-  pSoundEngine->Stop(BGM);
+  //pSoundEngine->Stop(BGM);
 }
 
 //object type is level since this just sets out the level
@@ -706,16 +700,13 @@ void Bullet::Initialise(Vector2D position, Vector2D velocity, float angl)
 
 void Bullet::Update(float frametime)
 {
-  /*Vector2D acc;
-  acc.setBearing(m_angle, m_acceleration);
-  m_velocity = m_velocity + acc*frametime;*/
+
   m_velocity = m_velocity + Vector2D(0, -20);
 
   m_animationSpeed = m_animationSpeed + 0.15;
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;
   
-  //m_position = m_position + Vector2D(0, -20);
   if (m_animationSpeed >= 5)
   {
     m_animationSpeed = 5;
@@ -728,7 +719,7 @@ void Bullet::Update(float frametime)
 
   if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue + 2000 < m_position.XValue ||
     MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue - 2000 > m_position.XValue ||
-    m_position.YValue > 2000)
+    m_position.YValue > 5000)
   {
     Deactivate();
   }

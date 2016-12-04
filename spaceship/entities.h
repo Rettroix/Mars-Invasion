@@ -11,8 +11,8 @@
 #include "BuildingTypes.h"
 #include "collisionShaper.h"
 #include "FuelBox.h"
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
+#include <stdlib.h>     
+#include <time.h>       
 
 // Create your game entity classes here
 const int NUMBER_OF_BUILDINGS = 20;
@@ -25,7 +25,6 @@ class City : public GameObject
 {
 private:   
   MySoundEngine* pSoundEngine = MySoundEngine::GetInstance(); //Calling a pointer to an instance of sound engine
-  SoundIndex BGM = pSoundEngine->LoadWav(L"BGM.wav"); //Loading Background Music
 
   bool gameStarted; //is the game started
   Circle2D m_circle;
