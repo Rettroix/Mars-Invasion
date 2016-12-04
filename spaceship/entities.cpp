@@ -129,158 +129,77 @@ void City::spawnBuilding()
 
     if (selectedBuilding == BuildingType::BUILDING1)  //if selected building is building one
     {
-
+      //spawn that particular building
       spawnBuildingBlock(i);
-
-      if (pCollision[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
-      {
-        //colision left side
-        pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-        pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -500, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
-        Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
-      }
-
-
-      if (pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
-      {
-        //colision top
-        pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-        pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -500, -260, -500, 0, CollisionPosition::TOP, CollisionType::LANDER);
-        Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
-      }
-
-
-      if (pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
-      {
-        //colision right
-        pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-        pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -500, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
-        Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
-      }
-
+      //spawn it's left wall collisions
+      spawnCollisionBlockLeft(i, 260, 500, 260, -500, 0);
+      //spawn it's top wall collisions
+      spawnCollisionBlockTop(i, 260, -500, -260, -500, 0);
+      //spawn it's right wall collisions
+      spawnCollisionBlockRight(i, -260, 500, -260, -500, 0);
     }
     else if (selectedBuilding == BuildingType::BUILDING2)
     {
-      //building2
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
-      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-
-      //colision left side
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -200, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -200, -260, -500, 0, CollisionPosition::TOP, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision right
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -500, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-
+      //spawn that particular building
+      spawnBuildingBlock(i);
+      //spawn it's left wall collisions
+      spawnCollisionBlockLeft(i, 260, 500, 260, -200, 0);
+      //spawn it's top wall collisions
+      spawnCollisionBlockTop(i, 260, -200, -260, -500, 0);
+      //spawn it's right wall collisions
+      spawnCollisionBlockRight(i, -260, 500, -260, -500, 0);
     }
 
     else if (selectedBuilding == BuildingType::BUILDING3)
     {
-      //building3
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
-      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-
-      //colision left side
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -230, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -230, -260, -230, 0, CollisionPosition::TOP, CollisionType::LANDER);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision right
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -230, 0,CollisionPosition::RIGHT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
+      //spawn that particular building
+      spawnBuildingBlock(i);
+      //spawn it's left wall collisions
+      spawnCollisionBlockLeft(i, 260, 500, 260, -230, 0);
+      //spawn it's top wall collisions
+      spawnCollisionBlockTop(i, 260, -230, -260, -230, 0);
+      //spawn it's right wall collisions
+      spawnCollisionBlockRight(i, -260, 500, -260, -230, 0);
 
     }
 
     else if (selectedBuilding == BuildingType::BUILDING4)
     {
-      //building4
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
-      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-
-      //colision left side
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -450, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -450, -260, -300, 0, CollisionPosition::TOP, CollisionType::LANDER);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision right
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -300, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      //spawn that particular building
+      spawnBuildingBlock(i);
+      //spawn it's left wall collisions
+      spawnCollisionBlockLeft(i, 260, 500, 260, -450, 0);
+      //spawn it's top wall collisions
+      spawnCollisionBlockTop(i, 260, -450, -260, -300, 0);
+      //spawn it's right wall collisions
+      spawnCollisionBlockRight(i, -260, 500, -260, -300, 0);
 
 
     }
 
     else if (selectedBuilding == BuildingType::HOUSE)
     {
-      //HOUSE
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
-      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-
-      //colision left side
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -100, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, 0, CollisionPosition::TOP, CollisionType::LANDER);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision right
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -100, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
+      //spawn that particular building
+      spawnBuildingBlock(i);
+      //spawn it's left wall collisions
+      spawnCollisionBlockLeft(i, 260, 500, 260, -100, 0);
+      //spawn it's top wall collisions
+      spawnCollisionBlockTop(i, 260, -100, -260, -100, 0);
+      //spawn it's right wall collisions
+      spawnCollisionBlockRight(i,-260, 500, -260, -100, 0);
 
     }
 
     else if (selectedBuilding == BuildingType::FUELBUILDING)
     {
-      //HOUSE
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new Building;
-      m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 700 + rand() % 300, -470), selectedBuilding, m_pPlayer);
-      Game::instance.m_objects.AddItem(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], false);
-
-
-      //colision left side
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollision[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, 500, 260, -100, 0, CollisionPosition::LEFT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollision[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision top
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], 260, -100, -260, -100, 1, CollisionPosition::TOP, CollisionType::LANDER);
-      Game::instance.m_objects.AddItem(pCollisionTop[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-      //colision right
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
-      pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)], -260, 500, -260, -100, 0, CollisionPosition::RIGHT, CollisionType::BOUNCE);
-      Game::instance.m_objects.AddItem(pCollisionRight[i + (NUMBER_OF_BUILDINGS / 2)], true);
+      //spawn that particular building
+      spawnBuildingBlock(i);
+      //spawn it's left wall collisions
+      spawnCollisionBlockLeft(i, 260, 500, 260, -100, 0);
+      //spawn it's top wall collisions
+      spawnCollisionBlockTop(i, 260, -100, -260, -100, 1);
+      //spawn it's right wall collisions
+      spawnCollisionBlockRight(i, -260, 500, -260, -100, 0);
 
 
     }
@@ -295,13 +214,14 @@ void City::spawnBuilding()
     // If the last indexed building is further left than current building
     if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getPosition().XValue) 
     {
+      //and if the last indexed building is further left than the current furthest left building
       if (m_pBuildings[lastIndex]->getPosition().XValue <= m_pBuildings[furthestLeft]->getPosition().XValue)
       {
         furthestLeft = lastIndex; //Then the last index building is further left
       }
       else
       {
-        furthestLeft = furthestLeft;
+        furthestLeft = furthestLeft; //else furthest left is the same
       }
 
     }
@@ -312,14 +232,14 @@ void City::spawnBuilding()
 
     }
 
-    if (furthestLeft == 0)
+    if (furthestLeft == 0) //when furthest left building is 0 it is set to 20
     {
       furthestRight = 20;
     }
 
     else
     {
-      furthestRight = furthestLeft - 1;
+      furthestRight = furthestLeft - 1; //otherwise furthest left is itself minus one
     }
 
 
@@ -332,24 +252,28 @@ void City::spawnBG()
 {
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-    
-    
-    m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingBackground;
-    m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, 0), m_pPlayer);
-    Game::instance.m_objects.AddItem(m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-    
-
-
-    if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) //If the last indexed building is further left than current building
+    //spawn the background buildings
+    if (m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
     {
+      m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingBackground;
+      m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, 0), m_pPlayer);
+      Game::instance.m_objects.AddItem(m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
+    }
+
+
+    
+
+    //If the last indexed building is further left than current building
+    if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) 
+    {
+      //and if the last indexed building is further left than the current furthest left building
       if (m_pBackgroundBuildings[lastIndexBG]->getInitialPosition().XValue <= m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue)
       {
         furthestLeftBG = lastIndexBG; //Then the last index building is further left 
       }
       else
       {
-        furthestLeftBG = furthestLeftBG;
+        furthestLeftBG = furthestLeftBG;//else furthest left is the same
       }
 
     }
@@ -360,14 +284,14 @@ void City::spawnBG()
 
     }
 
-    if (furthestLeftBG == 0)
+    if (furthestLeftBG == 0) //when furthest left building is 0 it is set to 20
     {
       furthestRightBG = 20;
     }
 
     else
     {
-      furthestRightBG = furthestLeftBG - 1;
+      furthestRightBG = furthestLeftBG - 1; // otherwise furthest left is itself minus one
     }
 
 
@@ -380,25 +304,25 @@ void City::spawnFG()
 {
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
-
-
-    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
-    m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
-
-    Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
-
-
-
-
-    if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue <= m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) //If the last indexed building is further left than current building
+    //if it's null pointer spawn the buildings
+    if (m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
     {
+      m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)] = new BuildingForeground;
+      m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->Initialise(Vector2D(i * 4000, -470), m_pPlayer);
+
+      Game::instance.m_objects.AddItem(m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)], true);
+    }
+
+    //If the last indexed building is further left than current building
+    if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue <= m_pForegroundBuildings[i + (NUMBER_OF_BUILDINGS / 2)]->getInitialPosition().XValue) 
+    {//and if the last indexed building is further left than the current furthest left building
       if (m_pForegroundBuildings[lastIndexFG]->getInitialPosition().XValue <= m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().XValue)
       {
         furthestLeftFG = lastIndexFG; //Then the last index building is further left 
       }
       else
       {
-        furthestLeftFG = furthestLeftFG;
+        furthestLeftFG = furthestLeftFG; //else furthest left is the same
       }
 
     }
@@ -409,14 +333,14 @@ void City::spawnFG()
 
     }
 
-    if (furthestLeftFG == 0)
+    if (furthestLeftFG == 0) //when furthest left building is 0 it is set to 20
     {
       furthestRightFG = 20;
     }
 
     else
     {
-      furthestRightFG = furthestLeftFG - 1;
+      furthestRightFG = furthestLeftFG - 1; //otherwise furthest left is itself minus one
     }
 
 
@@ -427,9 +351,9 @@ void City::spawnFG()
 
 void City::updateBuildings()
 {
-  selectedBuilding = static_cast<BuildingType>(rand() % 6 + 1);
-  lastIndex = 0;
-  furthestLeft = 0;
+  selectedBuilding = static_cast<BuildingType>(rand() % 6 + 1); //randomize building again
+  lastIndex = 0; //set last index back to 0
+  furthestLeft = 0; //set furthest left back to 0
 
   for (int i = -(NUMBER_OF_BUILDINGS / 2); i < (NUMBER_OF_BUILDINGS / 2); i++)
   {
@@ -468,27 +392,31 @@ void City::updateBuildings()
     furthestRight = furthestLeft - 1;
   }
 
+  //works out where the middle of the building array is
   middle = (m_pBuildings[furthestLeft]->getPosition().XValue + m_pBuildings[furthestRight]->getPosition().XValue) / 2;
 
-  //if time is ready furthest left building changes
 
-
+  //if the players position is bigger than the middle
   if (m_pPlayer->getPosition().XValue > middle)
   {
+    //then change the furthest left building to the position of the furthest right building
     m_pBuildings[furthestLeft]->changePosition(Vector2D((m_pBuildings[furthestRight]->getPosition().XValue + rand()%300), (m_pBuildings[furthestLeft]->getPosition().YValue)) + Vector2D(700, 0));
-    //m_pBuildings[furthestLeft]->changeBuilding(selectedBuilding);
+
   }
 
+  //if the players position is smaller than middle
   if (m_pPlayer->getPosition().XValue < middle)
   {
+    //then change the furthest right building to furthest left
     m_pBuildings[furthestRight]->changePosition(Vector2D((m_pBuildings[furthestLeft]->getPosition().XValue + rand() % 300), (m_pBuildings[furthestRight]->getPosition().YValue)) - Vector2D(700, 0));
+    //change the new furthest right building's building type
     m_pBuildings[furthestRight]->changeBuilding(selectedBuilding);
   }
 
 
 
 
-  MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
+  //MyDrawEngine::GetInstance()->WriteInt(700, 220, furthestLeft, MyDrawEngine::WHITE);
 
 }
 
@@ -610,34 +538,44 @@ void City::updateBuildingsFG()
 
 void City::spawnEnemies()
 {
+  //if the camera is less than this specified position
   if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 11200)
   {
+    //then there is only allowed to be 1 enemy at a time
     maxEnemyAmmount = 1;
 
   }
+  //only 3 below this value
   else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 12000)
   {
     maxEnemyAmmount = 3;
   }
-
+  //6 below this value
   else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 12500)
   {
     maxEnemyAmmount = 6;
   }
-
+  //20 below this value
   else if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue < 20000)
   {
     maxEnemyAmmount = 20;
   }
 
+  //if the enemy cool down is below 0 and the random number generator hits a 7
+  //and the enemy ammount on screen is less than the maximum allowed
   if (enemyOneCoolDown < 0 && rand() % 100 == 7 && enemyAmmount < maxEnemyAmmount)
   {
+    //choose a random enemy out of three numbers
     int chooseEnemy;
     chooseEnemy = rand() % 3;
+    //increase the enemy count on screen
     enemyAmmount++;
+    //sets the cool down to 100
     enemyOneCoolDown = 100;
+    //if the chosen enemy is 0
     if (chooseEnemy == 0)
     {
+      //we spawn the enemy which follows you around
       Missile* pMissile = new Missile;
       pMissile->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
       Game::instance.m_objects.AddItem(pMissile, true);
@@ -648,16 +586,20 @@ void City::spawnEnemies()
 
     }
 
+    //if chosen enemy is 1
     else if (chooseEnemy == 1)
     {
+      //then we spawn the spinning enemy that spins in place
       EnemyShip* pEnemyShip = new EnemyShip;
       pEnemyShip->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, rand() % 1000), m_pPlayer, this);
       Game::instance.m_objects.AddItem(pEnemyShip, true);
 
     }
 
+    //if we choose enemy 2
     else if (chooseEnemy == 2)
     {
+      //then we spawn the enemy which flies left while aiming and shooting at the player
       BulletFlyer* pBulletFlyer = new BulletFlyer;
       pBulletFlyer->Initialise(m_pPlayer->GetPosition() + Vector2D(2000, 0), m_pPlayer, this);
       Game::instance.m_objects.AddItem(pBulletFlyer, true);
@@ -678,33 +620,57 @@ void City::spawnBuildingBlock(int interation)
   }
 }
 
-void City::spawnCollisionBlockLeft()
+void City::spawnCollisionBlockLeft(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype)
 {
+  if (pCollision[iteration + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
+  {
+    //spawns the collision for the left side of the building
+    pCollision[iteration + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+    pCollision[iteration + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[iteration + (NUMBER_OF_BUILDINGS / 2)], pos1, pos2, pos3, -pos4, coltype, CollisionPosition::LEFT, CollisionType::BOUNCE);
+    Game::instance.m_objects.AddItem(pCollision[iteration + (NUMBER_OF_BUILDINGS / 2)], true);
+  }
+}
+void City::spawnCollisionBlockRight(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype)
+{
+  if (pCollisionRight[iteration + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
+  {
+    //spawns the collision for the right side of the building
+    pCollisionRight[iteration + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+    pCollisionRight[iteration + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[iteration + (NUMBER_OF_BUILDINGS / 2)], pos1, pos2, pos3, pos4, coltype, CollisionPosition::RIGHT, CollisionType::BOUNCE);
+    Game::instance.m_objects.AddItem(pCollisionRight[iteration + (NUMBER_OF_BUILDINGS / 2)], true);
+  }
 
 }
-void City::spawnCollisionBlockRight()
+void City::spawnCollisionBlockTop(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype)
 {
-
-}
-void City::spawnCollisionBlockTop()
-{
+  if (pCollisionTop[iteration + (NUMBER_OF_BUILDINGS / 2)] == nullptr)
+  {
+    //spawns the collision for the top  of the building
+    pCollisionTop[iteration + (NUMBER_OF_BUILDINGS / 2)] = new Lander;
+    pCollisionTop[iteration + (NUMBER_OF_BUILDINGS / 2)]->Initialise(m_pBuildings[iteration + (NUMBER_OF_BUILDINGS / 2)], pos1, pos2, pos3, pos4, coltype, CollisionPosition::TOP, CollisionType::LANDER);
+    Game::instance.m_objects.AddItem(pCollisionTop[iteration + (NUMBER_OF_BUILDINGS / 2)], true);
+  }
 
 }
 void City::deincrementEnemyAmmount()
 {
+  //deincrement the ammount of enemies on screen
   enemyAmmount--;
 }
 
 int City::getMiddlePosition()
 {
+  //returns the middle of the building array
   return middle;
 }
 
 void City::StopMusic()
 { 
+  //stop the background music
   pSoundEngine->Stop(BGM);
 }
 
+//object type is level since this just sets out the level
 City::City() :GameObject(LEVEL)
 {
 

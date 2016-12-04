@@ -13,7 +13,7 @@ void Lander::Initialise(Building *pBuilding, float pos1, float pos2, float pos3,
   position2 = pos2;
   position3 = pos3;
   position4 = pos4;
-  selectedType = coltype;
+  selectedType = coltype; //Gives you fuel or not
   m_drawDepth = 2;
   collisionShape.PlaceAt(Vector2D(m_pBuilding->getPosition().XValue - position1, m_pBuilding->getPosition().YValue - position2), Vector2D(m_pBuilding->getPosition().XValue - position3, m_pBuilding->getPosition().YValue - position4));
 

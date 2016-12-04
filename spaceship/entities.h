@@ -48,17 +48,17 @@ private:
   int furthestLeft; //Building furthest to the left
   int furthestRight; //Building furthest to the right
   int middle; //middle building
-  int lastIndex;
+  int lastIndex; //The previously indexed building in the loop
 
   int furthestLeftBG; //Building furthest to the left BG
   int furthestRightBG; //Building furthest to the right BG
-  int middleBG;
-  int lastIndexBG;
+  int middleBG; //middle building
+  int lastIndexBG; //The previously indexed building in the loop
 
   int furthestLeftFG; //Building furthest to the left FG
   int furthestRightFG; //Building furthest to the right FG
-  int middleFG;
-  int lastIndexFG;
+  int middleFG; //middle building
+  int lastIndexFG; //The previously indexed building in the loop
 
   int enemyOneCoolDown;   //Enemies can't spawn when this is above 0
   int enemyAmmount;   //how many enemies are spawned
@@ -67,7 +67,7 @@ private:
   BuildingType selectedBuilding = BuildingType::BUILDING0;
   int randomBuilding;
 
-  bool m_musicPlaying;
+  bool m_musicPlaying; //is music playing
 public:
   
   void Initialise(Spaceship *player);
@@ -82,12 +82,12 @@ public:
   void StopMusic(); //Stop the backgroud music
   IShape2D& GetCollisionShape();  //Get collision shape
   void ProcessCollision(GameObject& other); //Process collisions
-  int getMiddlePosition();
-  void deincrementEnemyAmmount();
-  void spawnBuildingBlock(int interation);
-  void spawnCollisionBlockLeft();
-  void spawnCollisionBlockRight();
-  void spawnCollisionBlockTop();
+  int getMiddlePosition();  //get the middle position of the building array
+  void deincrementEnemyAmmount();   //deincrement the ammount of enemies on screen
+  void spawnBuildingBlock(int interation); //spawn a building
+  void spawnCollisionBlockLeft(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype);     //spawns the collision for the left side of the building
+  void spawnCollisionBlockRight(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype);  //spawns the collision for the right side of the building
+  void spawnCollisionBlockTop(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype);  //spawns the collision for the top side of the building
   City();
 };
 

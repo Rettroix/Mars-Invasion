@@ -159,12 +159,20 @@ void Spaceship::Update(float frametime)
   pInputs->SampleKeyboard();
   //global.shipAngle = m_angle;
   thrustChange();
+  if (pInputs->KeyPressed(DIK_S))  // Turn left
+  {
+    Explode();
+  }
+
+  if (m_fuel < 0)
+  {
+    pSoundEngine->Stop(thrust);
+
+  }
+
   if (m_fuel > 0 && !m_respawnCounting)
   {
-    if (pInputs->KeyPressed(DIK_S))  // Turn left
-    {
-      Explode();
-    }
+
     if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
     {
       m_angle -= TURNSPEED *frametime;
@@ -351,7 +359,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
     if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER &&!m_respawnCounting)
     {
-      if (getSpeed() >= 500)
+      if (getSpeed() >= 520)
       {
         m_damageDelay = 1.0f;
         m_damage++;

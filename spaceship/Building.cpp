@@ -3,8 +3,8 @@
 #include "EnemyOne.h"
 #include "Missile.h"
 #include "gamecode.h"
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
+#include <stdlib.h>     
+#include <time.h>       
 //Buildings are the main objects which you can land atop of
 
 
@@ -12,7 +12,7 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Sp
 {
 
   m_pPlayer = player; //Stores a pointer to the player
-  positionStart = startPosition;
+  positionStart = startPosition;  //position start is the
   currentBuilding = spawnBuilding;
   m_drawDepth = 8;
   LoadImage(L"building.png");
