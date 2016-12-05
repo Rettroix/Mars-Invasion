@@ -547,6 +547,12 @@
     <Image Include="gameover.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="credits.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Title.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="bgm.wav">

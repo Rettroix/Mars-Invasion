@@ -49,7 +49,7 @@ void BulletUI::Initialise(Spaceship *player, int startingFrame, int selected, in
 
 
   //If the UI type is 2 it means we are using the fuel user
-  //fuel 
+  //interface 
   if (m_uiType == 2)
   {
     //max fuel is set to the players max fuel

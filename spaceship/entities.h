@@ -1,3 +1,9 @@
+//Title     : entities.cpp
+//Purpose   : Entites only includes two entities, city - which manages buildings and such,
+//            and the player bullets.
+//Author    : Elliot Anderson
+//Date      : 5/12/16
+
 #pragma once
 
 #include "Lander.h"
@@ -13,7 +19,6 @@
 #include <stdlib.h>     
 #include <time.h>       
 
-// Create your game entity classes here
 const int NUMBER_OF_BUILDINGS = 20;
 
 
@@ -33,10 +38,10 @@ private:
   Vector2D shipsPosition;
   int shipXValue;
   float fship;
-  Spaceship *m_pPlayer;
-  Building *m_pBuildings[NUMBER_OF_BUILDINGS];
-  BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];
-  BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];
+  Spaceship *m_pPlayer; //pointer to player
+  Building *m_pBuildings[NUMBER_OF_BUILDINGS];  //pointers to buildings
+  BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];  //pointer to foreground buildings
+  BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];   //pointer to background buildings
   Lander *pCollision[NUMBER_OF_BUILDINGS];
   Lander *pCollisionTop[NUMBER_OF_BUILDINGS];
   Lander *pCollisionRight[NUMBER_OF_BUILDINGS];
@@ -100,7 +105,6 @@ private:
   Circle2D collisionShape;
   float m_acceleration;
   float m_timer;  // Lifetime
-  Spaceship *m_pPlayer;
 
   float m_animationSpeed;   // Frames of animation per second
   float m_currentAnimation; // Current animation frame

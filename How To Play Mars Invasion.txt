@@ -1,0 +1,36 @@
+___  ___                 _____                    _             
+|  \/  |                |_   _|                  (_)            
+| .  . | __ _ _ __ ___    | | _ ____   ____ _ ___ _  ___  _ __  
+| |\/| |/ _` | '__/ __|   | || '_ \ \ / / _` / __| |/ _ \| '_ \ 
+| |  | | (_| | |  \__ \  _| || | | \ V / (_| \__ \ | (_) | | | |
+\_|  |_/\__,_|_|  |___/  \___/_| |_|\_/ \__,_|___/_|\___/|_| |_|
+
+===================================================================
+===================================================================
+How to Play
+===================================================================
+In Mars Invasion, you play an alien spaceship on a mission to retake
+Mars from the human colonials. You must traverse the mars skyline 
+dodgeing and shooting as many human forces as possible all the while
+making sure your fuel does not run out. 
+
+-To control the ship use the left and right buttons and up to thrust.
+
+-Use space bar to shoot.
+
+-When you have filled up the bomb counter by destroying enemies
+you can press the x button to launch bombs.
+
+-The three circular UI elements have diffrent colours which mean
+diffrent things. Red is health, blue is fuel and green is ammo.
+
+-There may be times in which you are out of fuel and  are left
+stranded. You can press s to explode.
+
+-Land on fuel buildings carefully to refuel fuel and ammo.
+
+-To gain points you must Destroy enemy forces.
+
+-As you gain damage from bumping too hard into obstacles, or being
+shot at, your ship will visibly get more and more damaged untill you
+explode and lose a life. Try stay alive as long as possible.

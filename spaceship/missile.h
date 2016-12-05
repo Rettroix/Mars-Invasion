@@ -14,26 +14,21 @@
 class Missile : public GameObject
 {
 private:
-  Circle2D collisionShape;
-  Vector2D m_velocity;
+  Circle2D collisionShape;  //collision shape
+  Vector2D m_velocity;  //the velocity
   void Draw();
-  float m_time;
-  Circle2D m_circle;
-  Circle2D m_collider;
-  float incrementFrame;
-  Vector2D initialPosition;
-  Spaceship *m_pPlayer;
-  City *m_pCity;
-  float rotationToPlayer;
-  float m_friction;
-  float m_acceleration;
+  Spaceship *m_pPlayer; //ship pointer
+  City *m_pCity;  //city pointer
+  float rotationToPlayer; 
+  float m_friction; //friction
+  float m_acceleration; //acceleration
 
-  float m_frameTime;
+  float m_frameTime;  //member frame time
 
-  Vector2D sensorPosition;
-  Segment2D sensor;
+  Vector2D sensorPosition;  //position of the end of the sensor
+  Segment2D sensor; //sensor segment
 
-  //sound
+  //loading sound
   MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
 
   SoundIndex explosion = pSoundEngine->LoadWav(L"explosion.wav");
@@ -41,13 +36,10 @@ private:
 public:
 
   void Initialise(Vector2D startPosition, Spaceship *player, City *city);
-
   void Update(float frameTime);
   IShape2D& GetCollisionShape();
-  Vector2D getInitialPosition();
   void ProcessCollision(GameObject& other);
   Vector2D getPosition();
-  void changeInitialPosition(Vector2D pos);
   float getAngle();
   void Explode();
   float getRotationToPlayer();

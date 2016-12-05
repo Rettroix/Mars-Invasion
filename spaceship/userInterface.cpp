@@ -93,8 +93,9 @@ void userInterface::Draw()
     }
     if (m_pPlayer->GetPosition().XValue < m_pCity->getMiddlePosition() - 5000)
     {
-      m_pPlayer->Explode();
       m_pPlayer->teleport(Vector2D(m_pPlayer->GetPosition()+ Vector2D(5000,0)));
+      m_pPlayer->Explode();
+
     }
 
   }

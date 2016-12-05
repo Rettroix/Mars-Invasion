@@ -144,6 +144,9 @@ ErrorType Game::PauseMenu()
   MyDrawEngine::GetInstance()->LoadPicture(L"menu2.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu3.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu4.png");
+  
+  MyDrawEngine::GetInstance()->LoadPicture(L"Title.png");
+
 
   //Animation Timer
   static float timer = 0.0f;
@@ -171,6 +174,8 @@ ErrorType Game::PauseMenu()
     //When timer is at the end set it back to 0
     timer = 0.0f;
   }
+  MyDrawEngine::GetInstance()->DrawAt(Vector2D(-500, 700), MyDrawEngine::GetInstance()->FindPicture(L"Title.png"), 4.0f, 0.0f, 0.0f);
+
   //increment timer by 0.05 each frame
   timer += 0.05f;
 	MyDrawEngine::GetInstance()->WriteText(450,220, L"Paused", MyDrawEngine::WHITE);
@@ -240,6 +245,12 @@ ErrorType Game::MainMenu()
   }
   MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(0,0));  //Camera stays at 0,0 in case it moves
 
+  //credits
+  MyDrawEngine::GetInstance()->LoadPicture(L"credits.png");
+
+  MyDrawEngine::GetInstance()->LoadPicture(L"Title.png");
+
+
   //Loading the main menu animation
   MyDrawEngine::GetInstance()->LoadPicture(L"menu1.png");
   MyDrawEngine::GetInstance()->LoadPicture(L"menu2.png");
@@ -281,6 +292,10 @@ ErrorType Game::MainMenu()
   }
   //increment timer by 0.05 each frame
   timer += 0.05f;
+
+  MyDrawEngine::GetInstance()->DrawAt(Vector2D(-500, 700), MyDrawEngine::GetInstance()->FindPicture(L"Title.png"), 4.0f, 0.0f, 0.0f);
+
+  MyDrawEngine::GetInstance()->DrawAt(Vector2D(-1000, -500), MyDrawEngine::GetInstance()->FindPicture(L"credits.png"), 1.8f, 0.0f, 0.0f);
 
   MyDrawEngine::GetInstance()->WriteText(450, 220, L"Main menu", MyDrawEngine::WHITE);
   //Spaceship* pShip = new Spaceship;

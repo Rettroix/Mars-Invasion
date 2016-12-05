@@ -26,26 +26,30 @@ void Missile::Initialise(Vector2D startPosition, Spaceship *player, City *city)
   //set velocity
   m_velocity.set(0, 0);
 
+  //set city pointer
   if (m_pCity == nullptr)
   {
     m_pCity = city;
   }
-
+  //set player pointer
   if (m_pPlayer == nullptr)
   {
     m_pPlayer = player;
   }
-
+  //set draw depth
   m_drawDepth = 12;
 
+  //load image
   LoadImage(L"enemy_missile.png");
 
+  //the position becomes the start position
   m_position = startPosition;
 
-  incrementFrame = 0;
   
   m_imageScale = 4;
+  //set the end position of the sensor
   sensorPosition = (m_position + Vector2D(0, 2000));
+  //Places the sensor as a segment with start at the ship and further up
   sensor.PlaceAt(m_position,sensorPosition);
 }
 
@@ -84,7 +88,6 @@ void Missile::Update(float frameTime)
     m_velocity = m_velocity + acc*m_frameTime;
 
     rotationToPlayer = m_angle;
-    // Process movement
 
 
   }
@@ -117,17 +120,6 @@ Vector2D Missile::getPosition()
   return m_position;
 }
 
-Vector2D Missile::getInitialPosition()
-{
-  return initialPosition;
-
-
-}
-
-void Missile::changeInitialPosition(Vector2D pos)
-{
-  initialPosition = pos;
-}
 
 
 void Missile::ProcessCollision(GameObject& other)
@@ -165,7 +157,6 @@ float Missile::getRotationToPlayer()
 void Missile::Explode()
 {
   pSoundEngine->Play(explosion, false);
-  //Deactivate();
   m_imageNumber = 1;
   Explosion* pExp = new Explosion;
 
@@ -175,7 +166,6 @@ void Missile::Explode()
 
   
 
-  // g_soundFX.StopThrust();			// In case it is playing
 }
 
 Missile::Missile() :GameObject(ENEMY)

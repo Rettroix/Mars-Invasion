@@ -1,3 +1,9 @@
+//Title     : entities.cpp
+//Purpose   : Entites only includes two entities, city - which manages buildings and such,
+//            and the player bullets.
+//Author    : Elliot Anderson
+//Date      : 5/12/16
+
 #include "entities.h"
 #include "gamecode.h"
 #include "myinputs.h"
@@ -26,6 +32,7 @@ const Vector2D GRAVITY = Vector2D(0.0f, 1000.0f);
 ///////////////////////////////////////////////////////
 //===============City================================//
 ///////////////////////////////////////////////////////
+//A class which manages the level such as enemies and buildings
 
 void City::Initialise(Spaceship *player)
 {
@@ -38,7 +45,6 @@ void City::Initialise(Spaceship *player)
   enemyAmmount = 0; //There are no enemies spawned
   maxEnemyAmmount = 1; //Only one enemy allowed at once
   srand((unsigned int)time(NULL)); //Seeds random
-  //LoadImage(L"BG.png");
 
   //setting buildings to nullptr
   for (int i = 0; i < NUMBER_OF_BUILDINGS; i++)
@@ -662,6 +668,8 @@ int City::getMiddlePosition()
 
 void City::LoadParticles()
 {
+  //load particles so it doesn't lag
+  //first time particles spawn
   LoadImage(L"particles1.png");
   LoadImage(L"particles2.png");
   LoadImage(L"particles3.png");

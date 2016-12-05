@@ -1,3 +1,7 @@
+//Title     : Spaceship.cpp
+//Purpose   : The player spaceship
+//Author    : Elliot Anderson
+//Date      : 5/12/16
 #include "Spaceship.h"
 #include "entities.h"
 #include "gamecode.h"
@@ -11,11 +15,11 @@
 const float MAXBULLETS = 50;
 const float MAXHEALTH = 100;
 const float BULLETSPEED = 2000.0f;
-const float TURNSPEED = 3.0f;     // Radians per second
-const float ACCELERATION = 5000.0f; // Units per second^2
-const float FRICTION = 1.5f;    // Fraction of speed to lose per deltaT
-const float SHOOTDELAY = 0.25f;	// Time between each spaceship bullet
-const float SHIPSIZE = 64.0f;			// Diameter of the ship
+const float TURNSPEED = 3.0f;     
+const float ACCELERATION = 5000.0f; 
+const float FRICTION = 1.5f;    
+const float SHOOTDELAY = 0.25f;	
+const float SHIPSIZE = 64.0f;			
 const float MAXFUEL = 1000;
 const float RESPAWNTIME = 3.0f;
 //const Vector2D GRAVITY = Vector2D(0.0f, 400.0f);
@@ -38,7 +42,7 @@ void Spaceship::Initialise(Vector2D position)
   
   m_isInvinsible = false;
   gameOver = false;
-  srand(time(NULL));
+  srand((unsigned)time(NULL));
   score = 0;
   bullets = MAXBULLETS;
   m_respawnTime = RESPAWNTIME;
@@ -100,7 +104,7 @@ void Spaceship::Update(float frametime)
   m_frameTime = frametime;
  
 
-  //when in the middle of respawning
+  //when counting to the repawn
   if (m_respawnCounting == true)
   {
     //gravity is turned off
@@ -110,37 +114,54 @@ void Spaceship::Update(float frametime)
     //ammount of time to be invinsible set to 3
     m_invinsibleTime = 3;
     m_position = m_position;
-    m_respawnTime -= m_frameTime;
+    //every update repawn time is deincremented untill it is 0 in which case the ship respawns
+    m_respawnTime -= m_frameTime; 
   }
 
-  //respawning
+  //It's time to respawn when smaller than 0 and when it isn't game over
   if (m_respawnTime < 0 && !gameOver)
   {
+    //Make the ship effected by gravity again
     gravity = Vector2D(0.0f, 1000.0f);
+    //back to first image
     m_imageNumber = 0;
+    //reset the respawn time
     m_respawnTime = RESPAWNTIME;
+    //respawn the player at that new position
     m_position = Vector2D(m_position.XValue + 600, 400);
+    //set fuel back to max fuel
     m_fuel = MAXFUEL;
+    //set bullets back to max bullets
     bullets = MAXBULLETS;
+    //no longer counting to respawn
     m_respawnCounting = false;
+    //is now invinsible
     m_isInvinsible = true;
   }
 
+  //when invinsible time and invinsible is set true
   if (m_invinsibleTime > 0 && m_isInvinsible == true)
   {
+    //count down to not being invinisible anymore
     m_invinsibleTime -= m_frameTime;
+    //when you are invinsible you are slightly transparent
     m_transparency = 0.5;
 
   }
+  //when invinsible time runs out
   else if (m_invinsibleTime < 0)
   {
+    //transparency is returned to normal
     m_transparency = 0;
+    //is invinsible becomes false
     m_isInvinsible = false;
+    //the invinsible time is reset for next time
     m_invinsibleTime = 3;
+    //damage is reset
     m_damage = 0;
   }
 
-
+  //sample the keyboard
   MyInputs* pInputs = MyInputs::GetInstance();
   pInputs->SampleKeyboard();
   thrustChange();
@@ -179,8 +200,7 @@ void Spaceship::Update(float frametime)
 void Spaceship::Draw()
 {
   GameObject::Draw();
-  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  //pTheDrawEngine->FillCircle(m_position, collisionShape.GetRadius(), 65525);
+
 
 }
 
@@ -255,7 +275,8 @@ void Spaceship::ProcessCollision(GameObject& other)
   //HitObject(other);
 
 
-  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0 || other.GetType() == ENEMYBULLET && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0)
+  if (other.GetType() == ENEMY && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0 || 
+    other.GetType() == ENEMYBULLET && !m_respawnCounting && m_isInvinsible == false && m_damageDelay <= 0)
   {
     SoundIndex hit = pSoundEngine->LoadWav(L"hit.wav");
 
@@ -288,8 +309,7 @@ void Spaceship::ProcessCollision(GameObject& other)
     m_angle = 0;
     
   }
-  //if (other.GetType() == ASTEROID)
-  //  Explode();
+
 }
 
 void Spaceship::Explode()
@@ -297,10 +317,8 @@ void Spaceship::Explode()
   pSoundEngine->Play(explosion, false);
   m_damage = -1;
   health=health-20;
-  //Deactivate();
   m_imageNumber = 1;
   Explosion* pExp = new Explosion;
-  //  g_soundFX.PlayExplosion();
 
   pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
 
@@ -312,7 +330,6 @@ void Spaceship::Explode()
 
   m_respawnCounting = true;
 
-  // g_soundFX.StopThrust();			// In case it is playing
 }
 
 void Spaceship::Bounce(GameObject &other)
@@ -331,8 +348,6 @@ void Spaceship::Bounce(GameObject &other)
   m_health--;
 
 
-  //m_position = m_position + m_velocity*globalframetime;
-  //m_position = m_position - GRAVITY *globalframetime;
 
 
 }

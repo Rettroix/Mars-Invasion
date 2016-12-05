@@ -1,3 +1,8 @@
+//Title     : Spaceship.h
+//Purpose   : The player spaceship
+//Author    : Elliot Anderson
+//Date      : 5/12/16
+
 #pragma once
 
 #include "GameObject.h"
@@ -10,21 +15,19 @@ class Spaceship : public GameObject
 private:
   int damageDelay;
   int score;
-  Circle2D collisionShape;
+  Circle2D collisionShape;  //used for collision
   Vector2D m_velocity;		// Velocity of the ship
-  Circle2D m_collider;		// Used for collision
   float m_shootDelay;       // Time delay when the player can shoot
   bool m_thrusting;			// Whether ship is currently thrusting
   float m_fuel;         //The ship's fuel
   bool m_landed;        //has ship landed
   float m_health;       //ships health
   Vector2D gravity = Vector2D(0.0f, 1000.0f); //gravity of the ship
-  bool isLanded;
-  float m_friction;
-  float m_acceleration;
-  bool gameOver;
-  float bullets;
-  int enemyOneCoolDown;
+  bool isLanded;  //is ship landed
+  float m_friction; //friction of the ship
+  float m_acceleration; //acceleration of the ship
+  bool gameOver;  //is it game over
+  float bullets;  //bullet ammount
   int m_lives;
   int m_damage;
   float m_damageDelay;
@@ -32,9 +35,9 @@ private:
   float m_invinsibleTime;
   bool m_isInvinsible;
 
-  float m_respawnTime;
-  bool m_respawnCounting;
-  float m_frameTime;
+  float m_respawnTime;  //Time to respawn when smaller than 0
+  bool m_respawnCounting; //counting untill it respawns again
+  float m_frameTime;  //member variable version of frame time
 
   float health;
   int thrustTime;
