@@ -84,13 +84,7 @@
     <ClCompile Include="entities.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="collisionShaper.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="lander.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="FuelBox.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="EnemyShip.cpp">
@@ -194,13 +188,7 @@
     <ClInclude Include="BuildingTypes.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="collisionShaper.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="lander.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="FuelBox.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="EnemyShip.h">

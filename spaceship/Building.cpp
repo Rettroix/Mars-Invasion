@@ -5,15 +5,19 @@
 #include "gamecode.h"
 #include <stdlib.h>     
 #include <time.h>       
-//Buildings are the main objects which you can land atop of
 
 
 void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Spaceship *player)
 {
+  m_pPlayer = nullptr;
 
-  m_pPlayer = player; //Stores a pointer to the player
-  positionStart = startPosition;  //position start is the
-  currentBuilding = spawnBuilding;
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player; //Stores a pointer to the player
+  }
+
+  positionStart = startPosition;  //the initial position of the building
+  currentBuilding = spawnBuilding;  //The type of building it is
   m_drawDepth = 8;
   LoadImage(L"building.png");
   LoadImage(L"building1.png");
@@ -32,12 +36,12 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Sp
     break;
   case BuildingType::BUILDING1:
     m_imageNumber = 1;
-    m_position = startPosition;
+    m_position = startPosition + Vector2D(0, -100);
     m_objectSize = Vector2D(167, 284)*m_imageScale;
     break;
   case BuildingType::BUILDING2: 
     m_imageNumber = 2;
-    m_position = startPosition;
+    m_position = startPosition + Vector2D(0, -100);
     m_objectSize = Vector2D(167, 342)*m_imageScale;
     break;
   case BuildingType::BUILDING3:
@@ -47,7 +51,7 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Sp
    break;
   case BuildingType::BUILDING4:
     m_imageNumber = 4;
-    m_position = startPosition + Vector2D(0, 0);
+    m_position = startPosition + Vector2D(0, -200);
     m_objectSize = Vector2D(167, 284)*m_imageScale;
     break;
   case BuildingType::FUELBUILDING:
@@ -57,13 +61,12 @@ void Building::Initialise(Vector2D startPosition, BuildingType spawnBuilding, Sp
     break;
   case BuildingType::HOUSE:
     m_imageNumber = 6;
-    m_position = startPosition + Vector2D(0, -280);
+    m_position = startPosition + Vector2D(0, -300);
     m_objectSize = Vector2D(167, 284)*m_imageScale;
    break;
   }
 
 
-  incrementFrame = 0;
 
   m_imageScale = 2;
 
@@ -120,25 +123,25 @@ Vector2D Building::getPosition()
 
 void Building::changeBuilding(BuildingType spawnBuilding)
 {
-  currentBuilding = spawnBuilding;
+  currentBuilding = spawnBuilding;  //current building becomes new type
 
-
+  //switch statement changes the building type
   switch (currentBuilding)
   {
   case BuildingType::BUILDING0:
     m_imageNumber = 0;
-    m_position = positionStart;
+    m_position = positionStart + Vector2D(0, 0);
     m_objectSize = Vector2D(128, 414)*m_imageScale;
     break;
   case BuildingType::BUILDING1:
     m_imageNumber = 1;
-    m_position = positionStart;
+    m_position = positionStart + Vector2D(0, -100);
     m_objectSize = Vector2D(167, 284)*m_imageScale;
     //spawnEnemyOne();
     break;
   case BuildingType::BUILDING2:
     m_imageNumber = 2;
-    m_position = positionStart;
+    m_position = positionStart +Vector2D(0, -100);
     m_objectSize = Vector2D(167, 342)*m_imageScale;
     break;
   case BuildingType::BUILDING3:
@@ -148,26 +151,21 @@ void Building::changeBuilding(BuildingType spawnBuilding)
     break;
   case BuildingType::BUILDING4:
     m_imageNumber = 4;
-    m_position = positionStart + Vector2D(0, 0);
+    m_position = positionStart + Vector2D(0, -200);
     m_objectSize = Vector2D(167, 284)*m_imageScale;
     break;
   case BuildingType::FUELBUILDING:
     m_imageNumber = 5;
-    m_position = positionStart + Vector2D(rand()%300, -300);
+    m_position = positionStart + Vector2D(0, -300);
     m_objectSize = Vector2D(167, 150)*m_imageScale;
     break;
   case BuildingType::HOUSE:
     m_imageNumber = 6;
-    m_position = positionStart + Vector2D(0, -280);
+    m_position = positionStart + Vector2D(0, -300);
     m_objectSize = Vector2D(167, 284)*m_imageScale;
     break;
   }
 
-
-}
-
-void Building::spawnEnemyOne()
-{
 
 }
 

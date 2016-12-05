@@ -11,14 +11,14 @@ PlayerMissile::PlayerMissile() : GameObject(BULLET)
 
 }
 
-void PlayerMissile::Initialise(Vector2D position, Vector2D velocity, float angl, Spaceship *m_pPlayer)
+void PlayerMissile::Initialise(Vector2D position, Vector2D velocity, float angl)
 {
+
   m_acceleration = 700;
   m_position = position;
   m_velocity = velocity;
-  m_timer = 0.0f;
   m_animationSpeed = 0;
-  m_currentAnimation = 0.0f;
+  m_currentTime = 0.0f;
   LoadImage(L"missileBlue.png");
 
   m_imageScale = SHIPSIZE / 16;
@@ -33,10 +33,10 @@ void PlayerMissile::Update(float frametime)
   m_velocity = m_velocity + acc*frametime;*/
   m_velocity = m_velocity + Vector2D(0, -20);
 
-  m_currentAnimation += 1;
+  m_currentTime += 1;
   m_position = m_position + m_velocity*frametime;
 
-  if (m_currentAnimation >= 13)
+  if (m_currentTime >= 13)
   {
     Explosion* pExp = new Explosion;
 

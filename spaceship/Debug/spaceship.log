@@ -1,7 +1,34 @@
-﻿Build started 04/12/2016 13:33:47.
+﻿Build started 05/12/2016 00:59:52.
      1>Project "C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\spaceship\spaceship.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Building.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BombUI.cpp Building.cpp BuildingBackground.cpp BuildingForeground.cpp BulletFlyer.cpp BulletUI.cpp EnemyBullet.cpp EnemyOne.cpp EnemyShip.cpp Spaceship.cpp entities.cpp gamecode.cpp missile.cpp playerMissile.cpp userInterface.cpp
+         EnemyBullet.cpp
+         BulletUI.cpp
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(78): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(96): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(97): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(98): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(101): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(106): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bulletui.cpp(111): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         BulletFlyer.cpp
+         BuildingForeground.cpp
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\buildingforeground.cpp(31): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+         BuildingBackground.cpp
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\buildingbackground.cpp(31): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\buildingbackground.cpp(32): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+         BombUI.cpp
+     1>c:\users\elliot anderson\documents\github\spacegame\spaceship\bombui.cpp(19): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         userInterface.cpp
+         playerMissile.cpp
+         missile.cpp
+         gamecode.cpp
+         entities.cpp
+         Spaceship.cpp
+         EnemyShip.cpp
+         EnemyOne.cpp
          Building.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Elliot Anderson\Documents\GitHub\SpaceGame\Debug\spaceship.lib" /MACHINE:X86 Debug\BombUI.obj
@@ -11,14 +38,12 @@
          Debug\BulletFlyer.obj
          Debug\BulletUI.obj
          Debug\camera.obj
-         Debug\collisionShaper.obj
          Debug\EnemyBullet.obj
          Debug\EnemyOne.obj
          Debug\EnemyShip.obj
          Debug\entities.obj
          Debug\ErrorLogger.obj
          Debug\Explosion.obj
-         Debug\FuelBox.obj
          Debug\gamecode.obj
          Debug\GameObject.obj
          Debug\gametimer.obj
@@ -42,4 +67,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.51
+Time Elapsed 00:00:03.31

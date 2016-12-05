@@ -13,11 +13,17 @@ const float BULLETSPEED = 2000.0f;
 
 void BulletFlyer::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 {
+  m_pCity = nullptr;
   m_friction = 1.5f;
   m_acceleration = 4000.0f;
   m_velocity.set(0, 0);
   m_shootDelay = 0.0f;
-  m_pCity = city;
+
+  if (m_pCity == nullptr)
+  {
+    m_pCity = city;
+
+  }
 
   m_pPlayer = player;
   m_drawDepth = 12;

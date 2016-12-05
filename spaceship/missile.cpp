@@ -9,12 +9,24 @@
 
 void Missile::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 {
+
+  m_pCity = nullptr;
+  m_pPlayer = nullptr;
+
   m_friction = 1.5f;
   m_acceleration = 4000.0f;
   m_velocity.set(0, 0);
 
-  m_pCity = city;
-  m_pPlayer = player;
+  if (m_pCity == nullptr)
+  {
+    m_pCity = city;
+  }
+
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
+
   m_drawDepth = 12;
 
   LoadImage(L"enemy_missile.png");

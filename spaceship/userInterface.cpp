@@ -10,10 +10,23 @@
 /////////////////////////////////////////////
 void userInterface::Intialise(Spaceship *player, City *city)
 { 
+  m_pPlayer = nullptr;
+  m_pCity = nullptr;
+
   scoreAdded = false;
   m_drawDepth = 20;
-  m_pPlayer = player;
-  m_pCity = city;
+
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
+
+  if (m_pCity == nullptr)
+  {
+    m_pCity = city;
+  }
+
+  //get scores from file
   ifstream myfile("scores.sav");
   if (myfile.is_open())
   {
@@ -21,12 +34,14 @@ void userInterface::Intialise(Spaceship *player, City *city)
     myfile.close();
   }
 
+  //push scores onto vector 
   for (int i = 0; i < 5; i++)
   {
  
     scores.push_back(std::stoi(score[i]));
   }
   
+  //initialise the ui elements
   BulletUI* pBulletUI = new BulletUI;
   pBulletUI->Initialise(m_pPlayer, 0, -1500, 0);
   Game::instance.m_objects.AddItem(pBulletUI, true);
@@ -138,9 +153,7 @@ void userInterface::Draw()
         outFile.close();
       }
     }
-    //MyDrawEngine::GetInstance()->WriteDouble(1000, 200, m_pPlayer->getPosition().XValue, MyDrawEngine::WHITE);
-    //MyDrawEngine::GetInstance()->WriteText(700, 200, L"Lives:", MyDrawEngine::WHITE);
-    /*MyDrawEngine::GetInstance()->WriteDouble(700, 220, global.value[0], MyDrawEngine::WHITE);*/
+
 
   
 }

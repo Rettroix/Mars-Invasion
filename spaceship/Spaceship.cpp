@@ -68,10 +68,10 @@ void Spaceship::Initialise(Vector2D position)
 
 void Spaceship::Update(float frametime)
 {
-
-
-
   m_damageDelay -= frametime;
+
+  UpdateDamage();
+
   if (m_angle >= 6.3)
   {
     m_angle = 0;
@@ -83,29 +83,7 @@ void Spaceship::Update(float frametime)
     m_angle = 0;
   }
 
-  if (m_damage == 0)
-  {
-    m_imageNumber = 0;
-  }
-  else if (m_damage == 1)
-  {
-    m_imageNumber = 2;
-  }
-  else if (m_damage == 2)
-  {
-    m_imageNumber = 3;
-  }
-  else if (m_damage == 3)
-  {
-    m_imageNumber = 4;
-  }
-
-  if (m_damage >= 4)
-  {
-    m_damage = 0;
-
-    Explode();
-  }
+  
 
   if (health <= 0)
   {
@@ -114,7 +92,6 @@ void Spaceship::Update(float frametime)
     
   m_frameTime = frametime;
  
-  m_position.XValue;
 
   //explode
   if (m_respawnCounting == true)
@@ -154,136 +131,12 @@ void Spaceship::Update(float frametime)
     m_damage = 0;
   }
 
-  // Get input and set acceleration
+
   MyInputs* pInputs = MyInputs::GetInstance();
   pInputs->SampleKeyboard();
-  //global.shipAngle = m_angle;
   thrustChange();
-  if (pInputs->KeyPressed(DIK_S))  // Turn left
-  {
-    Explode();
-  }
 
-  if (m_fuel < 0)
-  {
-    pSoundEngine->Stop(thrust);
-
-  }
-
-  if (m_fuel > 0 && !m_respawnCounting)
-  {
-
-    if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
-    {
-      m_angle -= TURNSPEED *frametime;
-    }
-    if (pInputs->KeyPressed(DIK_RIGHT)) // Turn right
-    {
-      m_angle += TURNSPEED *frametime;
-    }
-    if (pInputs->KeyPressed(DIK_UP) && m_position.YValue < 1200)    // Thrust
-    {
-      isLanded = false;
-      if (!m_thrusting)		// If not thrusting last frame
-      {
-        pSoundEngine->Play(thrust,true);
-
-        // g_soundFX.StartThrust();	// Start the thrust sound
-      }
-      m_thrusting = true;			// Remember we are thrusting
-      Vector2D acc;
-      acc.setBearing(m_angle, m_acceleration);
-      m_velocity = m_velocity + acc*frametime;
-      m_fuel--;
-      
-
-      // Add a fire trail for thrust effect
-      Explosion* pExp = new Explosion;
-      Vector2D flameDirection;      // The flames move
-      flameDirection.setBearing(m_angle + 3.141f, 600);  // Out of the back of the ship
-      pExp->Initialise(m_position, flameDirection, 68.0f, 1.0f);
-      Game::instance.m_objects.AddItem(pExp, false);		// Add to the engine
-
-
-    }
-    else	// Not thrusting
-    {
-      if (m_thrusting)		// If  thrusting last frame
-      {
-        pSoundEngine->Stop(thrust);
-        //g_soundFX.StopThrust();	// Stop the thrust sound
-      }
-      m_acceleration = 2000;
-      m_thrusting = false;			// Remember we are thrusting hahg gay
-    }
-
-    // Handle shooting
-    if (pInputs->KeyPressed(DIK_SPACE) && m_shootDelay<0 && bullets > 0)    // Shoot
-    {
-      SoundIndex shoot = pSoundEngine->LoadWav(L"shoot.wav");
-
-      pSoundEngine->Play(shoot, false);
-
-      bullets--;
-      m_shootDelay = SHOOTDELAY;				// Makes it wait before it can shoot again
-      Vector2D pos;
-      Vector2D vel;
-      pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
-      pos = pos + m_position;
-      vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
-      vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
-
-      Bullet* pBullet = new Bullet;
-      pBullet->Initialise(pos, vel, m_angle);			// Intialise
-      Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
-    }
-
-    if (pInputs->KeyPressed(DIK_X) && m_bombCounter == 5 )    // Shoot
-    {
-      m_bombCounter = 0;
-      pSoundEngine->Play(whoosh, false);
-      Vector2D pos;
-      Vector2D vel;
-      pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
-      pos = pos + m_position;
-      vel.setBearing(0, BULLETSPEED);	// Set the velocity
-      vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
-
-      PlayerMissile* pPlayerMissile = new PlayerMissile;
-      pPlayerMissile->Initialise(pos, vel, 0.0f, this);			// Intialise
-      Game::instance.m_objects.AddItem(pPlayerMissile, true);	// Add to the engine
-
-      Vector2D velTwo;
-      velTwo.setBearing(1.5f, BULLETSPEED);	// Set the velocity
-      velTwo = velTwo + Vector2D(m_velocity);					// Include the launching platform's velocity
-
-      PlayerMissile* pPlayerMissileTwo = new PlayerMissile;
-      pPlayerMissileTwo->Initialise(pos, velTwo, 1.5f, this);			// Intialise
-      Game::instance.m_objects.AddItem(pPlayerMissileTwo, true);	// Add to the engine
-
-      Vector2D velThree;
-      velThree.setBearing(3.1f, BULLETSPEED);	// Set the velocity
-      velThree = velThree + Vector2D(m_velocity);					// Include the launching platform's velocity
-
-      PlayerMissile* pPlayerMissileThree = new PlayerMissile;
-      pPlayerMissileThree->Initialise(pos, velThree, 3.1f, this);			// Intialise
-      Game::instance.m_objects.AddItem(pPlayerMissileThree, true);	// Add to the engine
-
-      Vector2D velFour;
-      velFour.setBearing(4.7f, BULLETSPEED);	// Set the velocity
-      velFour = velFour + Vector2D(m_velocity);					// Include the launching platform's velocity
-
-      PlayerMissile* pPlayerMissileFour = new PlayerMissile;
-      pPlayerMissileFour->Initialise(pos, velFour, 4.7f, this);			// Intialise
-      Game::instance.m_objects.AddItem(pPlayerMissileFour, true);	// Add to the engine
-    }
-    m_shootDelay -= frametime;					// Cool down the gun so it can shoot again.
-
-
-
-
-  }
-
+  HandleControl(frametime);
   //for landing
 
   if (!isLanded)
@@ -306,6 +159,7 @@ void Spaceship::Update(float frametime)
   m_velocity = m_velocity - m_friction*frametime*m_velocity;
   m_position = m_position + m_velocity*frametime;
 
+  //Moves camera on player
   MyDrawEngine::GetInstance()->theCamera.PlaceAt(Vector2D(m_position.XValue - 300,0 - m_position.YValue + 20));
 
 
@@ -359,7 +213,7 @@ void Spaceship::ProcessCollision(GameObject& other)
 
     if (pOtherBuilding->getCollisionReaction() == CollisionType::LANDER &&!m_respawnCounting)
     {
-      if (getSpeed() >= 520)
+      if (getSpeed() >= 500)
       {
         m_damageDelay = 1.0f;
         m_damage++;
@@ -634,7 +488,172 @@ void Spaceship::RotateTo(float angle)
 void Spaceship::addScore(int ammount)
 {
   score = score + ammount;
-  
+}
+
+void Spaceship::UpdateDamage()
+{
+  if (m_damage == 0)
+  {
+    m_imageNumber = 0;
+  }
+  else if (m_damage == 1)
+  {
+    m_imageNumber = 2;
+  }
+  else if (m_damage == 2)
+  {
+    m_imageNumber = 3;
+  }
+  else if (m_damage == 3)
+  {
+    m_imageNumber = 4;
+  }
+
+  if (m_damage >= 4)
+  {
+    m_damage = 0;
+
+    Explode();
+  }
+}
+
+void Spaceship::ShootBombs()
+{
+  m_bombCounter = 0;
+  pSoundEngine->Play(whoosh, false);
+  Vector2D pos;
+  Vector2D vel;
+  pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
+  pos = pos + m_position;
+  vel.setBearing(0, BULLETSPEED);	// Set the velocity
+  vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+  PlayerMissile* pPlayerMissile = new PlayerMissile;
+  pPlayerMissile->Initialise(pos, vel, 0.0f);			// Intialise
+  Game::instance.m_objects.AddItem(pPlayerMissile, true);	// Add to the engine
+
+  Vector2D velTwo;
+  velTwo.setBearing(1.5f, BULLETSPEED);	// Set the velocity
+  velTwo = velTwo + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+  PlayerMissile* pPlayerMissileTwo = new PlayerMissile;
+  pPlayerMissileTwo->Initialise(pos, velTwo, 1.5f);			// Intialise
+  Game::instance.m_objects.AddItem(pPlayerMissileTwo, true);	// Add to the engine
+
+  Vector2D velThree;
+  velThree.setBearing(3.1f, BULLETSPEED);	// Set the velocity
+  velThree = velThree + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+  PlayerMissile* pPlayerMissileThree = new PlayerMissile;
+  pPlayerMissileThree->Initialise(pos, velThree, 3.1f);			// Intialise
+  Game::instance.m_objects.AddItem(pPlayerMissileThree, true);	// Add to the engine
+
+  Vector2D velFour;
+  velFour.setBearing(4.7f, BULLETSPEED);	// Set the velocity
+  velFour = velFour + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+  PlayerMissile* pPlayerMissileFour = new PlayerMissile;
+  pPlayerMissileFour->Initialise(pos, velFour, 4.7f);			// Intialise
+  Game::instance.m_objects.AddItem(pPlayerMissileFour, true);	// Add to the engine
+
+}
+
+void Spaceship::ShootBullets()
+{
+  SoundIndex shoot = pSoundEngine->LoadWav(L"shoot.wav");
+
+  pSoundEngine->Play(shoot, false);
+
+  bullets--;
+  m_shootDelay = SHOOTDELAY;				// Makes it wait before it can shoot again
+  Vector2D pos;
+  Vector2D vel;
+  pos.setBearing(m_angle, SHIPSIZE / 2);	// Offset the starting location to the front of the ship
+  pos = pos + m_position;
+  vel.setBearing(m_angle, BULLETSPEED);	// Set the velocity
+  vel = vel + Vector2D(m_velocity);					// Include the launching platform's velocity
+
+  Bullet* pBullet = new Bullet;
+  pBullet->Initialise(pos, vel, m_angle);			// Intialise
+  Game::instance.m_objects.AddItem(pBullet, true);	// Add to the engine
+}
+
+void Spaceship::HandleControl(float frametime)
+{
+  MyInputs* pInputs = MyInputs::GetInstance();
+  pInputs->SampleKeyboard();
+  if (pInputs->KeyPressed(DIK_S) && !m_respawnCounting)  // Turn left
+  {
+    Explode();
+  }
+
+  if (m_fuel < 0)
+  {
+    pSoundEngine->Stop(thrust);
+
+  }
+
+  if (m_fuel > 0 && !m_respawnCounting)
+  {
+
+    if (pInputs->KeyPressed(DIK_LEFT))  // Turn left
+    {
+      m_angle -= TURNSPEED *frametime;
+    }
+    if (pInputs->KeyPressed(DIK_RIGHT)) // Turn right
+    {
+      m_angle += TURNSPEED *frametime;
+    }
+    if (pInputs->KeyPressed(DIK_UP) && m_position.YValue < 1200)    // Thrust
+    {
+      isLanded = false;
+      if (!m_thrusting)		// If not thrusting last frame
+      {
+        pSoundEngine->Play(thrust, true);
+
+      }
+      m_thrusting = true;			// turn thrusting on
+      Vector2D acc;
+      acc.setBearing(m_angle, m_acceleration);
+      m_velocity = m_velocity + acc*frametime;
+      m_fuel--;
+
+
+      // Trail to the end of ship
+      Explosion* pExp = new Explosion;
+      Vector2D flameDirection;      // direction of flames
+      flameDirection.setBearing(m_angle + 3.141f, 600);  // sets bearing behind the ship
+      pExp->Initialise(m_position, flameDirection, 68.0f, 1.0f);
+      Game::instance.m_objects.AddItem(pExp, false);
+
+
+    }
+
+    else	// Not thrusting
+    {
+      if (m_thrusting)		// If  thrusting last frame
+      {
+        pSoundEngine->Stop(thrust);
+        //g_soundFX.StopThrust();	// Stop the thrust sound
+      }
+      m_acceleration = 2000;
+      m_thrusting = false;			// turns thrusting off
+    }
+
+    // Handle shooting
+    if (pInputs->KeyPressed(DIK_SPACE) && m_shootDelay<0 && bullets > 0)    // Shoot
+    {
+      ShootBullets();
+    }
+
+    if (pInputs->KeyPressed(DIK_X) && m_bombCounter == 5)    // Shoot
+    {
+      ShootBombs();
+    }
+    m_shootDelay -= frametime;					// Cool down the gun so it can shoot again.
+
+
+  }
 
 }
 

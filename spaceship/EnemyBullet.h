@@ -11,7 +11,6 @@ private:
   Circle2D collisionShape;
   float m_acceleration;
   float m_timer;  // Lifetime
-  Spaceship *m_pPlayer;
 
   float m_animationSpeed;   // Frames of animation per second
   float m_currentAnimation; // Current animation frame

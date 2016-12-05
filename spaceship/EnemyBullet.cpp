@@ -24,15 +24,11 @@ void EnemyBullet::Initialise(Vector2D position, Vector2D velocity, float angl)
 
 void EnemyBullet::Update(float frametime)
 {
-  /*Vector2D acc;
-  acc.setBearing(m_angle, m_acceleration);
-  m_velocity = m_velocity + acc*frametime;*/
+
   m_velocity = m_velocity + Vector2D(0, -20);
 
   m_timer -= frametime;
   m_position = m_position + m_velocity*frametime;
-
-  //m_position = m_position + Vector2D(0, -20);
 
   if (MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue + 2000 < m_position.XValue ||
     MyDrawEngine::GetInstance()->theCamera.returnPosition().XValue - 2000 > m_position.XValue ||

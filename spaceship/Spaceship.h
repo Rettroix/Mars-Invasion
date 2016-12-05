@@ -4,7 +4,7 @@
 #include "mysoundengine.h"
 #include "GameObject.h"
 
-// Class to handle the spaceship
+// class makes the player spaceship
 class Spaceship : public GameObject
 {
 private:
@@ -13,12 +13,12 @@ private:
   Circle2D collisionShape;
   Vector2D m_velocity;		// Velocity of the ship
   Circle2D m_collider;		// Used for collision
-  float m_shootDelay;       // Time in seconds before ship can shoot again
+  float m_shootDelay;       // Time delay when the player can shoot
   bool m_thrusting;			// Whether ship is currently thrusting
   float m_fuel;         //The ship's fuel
-  bool m_landed;
-  float m_health;
-  Vector2D gravity = Vector2D(0.0f, 1000.0f);
+  bool m_landed;        //has ship landed
+  float m_health;       //ships health
+  Vector2D gravity = Vector2D(0.0f, 1000.0f); //gravity of the ship
   bool isLanded;
   float m_friction;
   float m_acceleration;
@@ -67,7 +67,7 @@ public:
   float getAngle();
   Vector2D getVelocity();
   float getAcceleration();
-  void thrustChange();
+  void thrustChange();  //increases thrust speed
   void RotateTo(float angle);
   float getMaxBullets();
   float getBullets();
@@ -78,8 +78,12 @@ public:
   bool isGameOver();
   void addScore(int ammount);
   void incrementBombCounter();
-  int getBombCounter();
-  void doDamage();
-  void teleport(Vector2D  pos);
+  int getBombCounter(); //returns bomb counter
+  void doDamage();  //deal damage to the player
+  void teleport(Vector2D  pos); //moves spaceship to specified position
+  void UpdateDamage();  //update damage effects
+  void ShootBombs();  //shoot bombs
+  void ShootBullets();  //shoots bullets
+  void HandleControl(float frametime);  //move spaceship around with keyboard
   Vector2D& getPosition();
 };

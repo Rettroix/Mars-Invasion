@@ -6,9 +6,14 @@
 /////////////////////////////////////////////
 void BombUI::Initialise(Spaceship *player, int offset)
 {
-  ////CHECK POINTERS NULL
+  m_pPlayer = nullptr;
+
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
+
   m_drawDepth = 11;
-  m_pPlayer = player;
   m_imageNumber = 0;
   m_position = Vector2D(0, 0);
   positionAlong = offset;

@@ -10,7 +10,6 @@
 #include "BuildingBackground.h"
 #include "BuildingTypes.h"
 #include "collisionShaper.h"
-#include "FuelBox.h"
 #include <stdlib.h>     
 #include <time.h>       
 
@@ -20,7 +19,7 @@ const int NUMBER_OF_BUILDINGS = 20;
 
 
 
-
+//A class which manages the level such as enemies and buildings
 class City : public GameObject
 {
 private:   
@@ -34,7 +33,7 @@ private:
   Vector2D shipsPosition;
   int shipXValue;
   float fship;
-  Spaceship *m_pPlayer = nullptr;
+  Spaceship *m_pPlayer;
   Building *m_pBuildings[NUMBER_OF_BUILDINGS];
   BuildingForeground *m_pForegroundBuildings[NUMBER_OF_BUILDINGS];
   BuildingBackground *m_pBackgroundBuildings[NUMBER_OF_BUILDINGS];
@@ -42,7 +41,6 @@ private:
   Lander *pCollisionTop[NUMBER_OF_BUILDINGS];
   Lander *pCollisionRight[NUMBER_OF_BUILDINGS];
 
-  FuelBox *pFuelBox[NUMBER_OF_BUILDINGS];
   
   int furthestLeft; //Building furthest to the left
   int furthestRight; //Building furthest to the right
@@ -93,7 +91,7 @@ public:
 
 
 
-
+//A bullet shot by the player
 class Bullet : public GameObject
 {
 private:

@@ -1,5 +1,4 @@
 #pragma once
-// writing on a text file
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -16,8 +15,6 @@ using namespace std;
 class userInterface : public GameObject
 {
 private:
-  int *middleValue;
-
   int newestScore;
   bool scoreAdded;
   vector<int> scores;

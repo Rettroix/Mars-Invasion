@@ -1,14 +1,19 @@
 #include "lander.h"
 
-//////////////////////////////////////////////////////
-//////////////Collision Shaper////////////////////////////////
-//////////////////////////////////////////////////////
+
 
 void Lander::Initialise(Building *pBuilding, float pos1, float pos2, float pos3, float pos4, int coltype, CollisionPosition colpos, CollisionType colTyp)
 {
-  collisionReaction = colTyp;
-  currentPosition = colpos;
-  m_pBuilding = pBuilding;
+  collisionReaction = colTyp; //sets whether bounce or land 
+  currentPosition = colpos;   //sets which side the wall is
+
+  m_pBuilding = nullptr;
+  if (m_pBuilding == nullptr)
+  {
+    m_pBuilding = pBuilding;
+
+  }
+  //set segment positions
   position1 = pos1;
   position2 = pos2;
   position3 = pos3;
@@ -21,9 +26,10 @@ void Lander::Initialise(Building *pBuilding, float pos1, float pos2, float pos3,
 
 void Lander::Update(float frameTime)
 {
-  becomeBuilding();
-  m_position = Vector2D(0, collisionShape.GetEnd().YValue);
+  becomeBuilding(); //updates the collision shape positions based on the building
+  m_position = Vector2D(0, collisionShape.GetEnd().YValue); //
 
+  //sets the collision shape based on current positions
   collisionShape.PlaceAt(Vector2D(m_pBuilding->getPosition().XValue - position1, m_pBuilding->getPosition().YValue - position2), Vector2D(m_pBuilding->getPosition().XValue - position3, m_pBuilding->getPosition().YValue - position4));
 
 }
@@ -37,9 +43,6 @@ IShape2D& Lander::GetCollisionShape()
 void Lander::Draw()
 {
 
-  //GameObject::Draw();
-  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  //pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
 
 }
 

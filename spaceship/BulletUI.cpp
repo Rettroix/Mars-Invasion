@@ -6,9 +6,14 @@
 /////////////////////////////////////////////
 void BulletUI::Initialise(Spaceship *player, int startingFrame, int selected, int selectUI)
 {
+  m_pPlayer = nullptr;
+
   m_drawDepth = 11;
   uiType = selectUI;
-  m_pPlayer = player;
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
   m_imageNumber = startingFrame;
   m_position = Vector2D(0, 0);
 

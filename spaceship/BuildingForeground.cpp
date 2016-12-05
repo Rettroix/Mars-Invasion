@@ -6,7 +6,12 @@
 
 void BuildingForeground::Initialise(Vector2D startPosition, Spaceship *player)
 {
-  m_pPlayer = player;
+  m_pPlayer = nullptr;
+
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
   m_drawDepth = 12;
 
   LoadImage(L"ground.png");

@@ -7,9 +7,19 @@
 
 void EnemyOne::Initialise(Vector2D startPosition, Spaceship *player, Missile *missile)
 {
+  m_pMissile = nullptr;
+  m_pPlayer = nullptr;
 
-  m_pMissile = missile;
-  m_pPlayer = player;
+  if (m_pMissile == nullptr)
+  {
+    m_pMissile = missile;
+  }
+
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
+
 
   m_drawDepth = 12;
 

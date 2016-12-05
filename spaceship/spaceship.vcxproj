@@ -89,14 +89,12 @@
     <ClCompile Include="BulletFlyer.cpp" />
     <ClCompile Include="BulletUI.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="collisionShaper.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyOne.cpp" />
     <ClCompile Include="EnemyShip.cpp" />
     <ClCompile Include="entities.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
     <ClCompile Include="Explosion.cpp" />
-    <ClCompile Include="FuelBox.cpp" />
     <ClCompile Include="gamecode.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
@@ -125,7 +123,6 @@
     <ClInclude Include="BulletFlyer.h" />
     <ClInclude Include="BulletUI.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="collisionShaper.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyOne.h" />
     <ClInclude Include="EnemyShip.h" />
@@ -134,7 +131,6 @@
     <ClInclude Include="errortype.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="Explosion.h" />
-    <ClInclude Include="FuelBox.h" />
     <ClInclude Include="gamecode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamepadClass.h" />

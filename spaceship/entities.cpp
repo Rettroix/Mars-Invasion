@@ -31,12 +31,12 @@ void City::Initialise(Spaceship *player)
 {
   gameStarted = true; //The Game has started
 
-
+  m_pPlayer = nullptr;
 
   enemyOneCoolDown = 0; //Sets it to 0
   enemyAmmount = 0; //There are no enemies spawned
   maxEnemyAmmount = 1; //Only one enemy allowed at once
-  srand(time(NULL)); //Seeds random
+  srand((unsigned int)time(NULL)); //Seeds random
   //LoadImage(L"BG.png");
 
   //setting buildings to nullptr
@@ -48,7 +48,6 @@ void City::Initialise(Spaceship *player)
      pCollision[i] = nullptr;
      pCollisionTop[i] = nullptr;
      pCollisionRight[i] = nullptr;
-     pFuelBox[i] = nullptr;
   }
   if (m_pPlayer == nullptr)
   {
@@ -394,7 +393,7 @@ void City::updateBuildings()
   if (m_pPlayer->getPosition().XValue > middle)
   {
     //then change the furthest left building to the position of the furthest right building
-    m_pBuildings[furthestLeft]->changePosition(Vector2D((m_pBuildings[furthestRight]->getPosition().XValue + rand()%300), (m_pBuildings[furthestLeft]->getPosition().YValue)) + Vector2D(700, 0));
+    m_pBuildings[furthestLeft]->changePosition(Vector2D((m_pBuildings[furthestRight]->getPosition().XValue + (rand()%600) - 300), (m_pBuildings[furthestLeft]->getPosition().YValue)) + Vector2D(700, 0));
 
   }
 
