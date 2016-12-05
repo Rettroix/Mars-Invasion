@@ -15,7 +15,6 @@
 class Game
 {
 private:
-  Spaceship *m_pShip = nullptr;
   bool m_musicPlaying = false;
 	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
 	GameState m_currentState;

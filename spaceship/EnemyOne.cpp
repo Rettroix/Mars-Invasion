@@ -106,26 +106,7 @@ void EnemyOne::ProcessCollision(GameObject& other)
 }
 
 
-void EnemyOne::RotateTo(float angle)
-{
-  // Rotate to the given angle
 
-  if (abs(m_angle) - abs(angle) < 0.05 && abs(m_angle) - abs(angle) > -0.05)
-  {
-    m_angle = angle;
-  }
-  else
-  {
-    if (m_angle > angle)
-    {
-      m_angle -= 0.1f;
-    }
-    else if (m_angle < angle)
-    {
-      m_angle += 0.1f;
-    }
-  }
-}
 
 float EnemyOne::getAngle()
 {

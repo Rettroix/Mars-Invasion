@@ -85,6 +85,7 @@ public:
   void spawnCollisionBlockLeft(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype);     //spawns the collision for the left side of the building
   void spawnCollisionBlockRight(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype);  //spawns the collision for the right side of the building
   void spawnCollisionBlockTop(int iteration, int pos1, int pos2, int pos3, int pos4, int coltype);  //spawns the collision for the top side of the building
+  void LoadParticles();
   City();
 };
 

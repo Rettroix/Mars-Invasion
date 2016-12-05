@@ -1,3 +1,8 @@
+//Title     : Missile.h
+//Purpose   : Missile is a sensor which spins around and
+//            follows the player when they are in sight
+//Author    : Elliot Anderson
+//Date      : 5/12/16
 #pragma once
 
 #include "GameObject.h"

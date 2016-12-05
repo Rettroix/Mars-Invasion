@@ -1,3 +1,7 @@
+//Title     : Building.h
+//Purpose   : Creates a specific building and can change the building type
+//Author    : Elliot Anderson
+//Date      : 5/12/16
 #pragma once
 
 #include "GameObject.h"
@@ -5,7 +9,6 @@
 #include "GameObject.h"
 #include "Spaceship.h"
 #include "BuildingTypes.h"
-//Creates a specific building and can change the building type
 
 class Building : public GameObject
 {

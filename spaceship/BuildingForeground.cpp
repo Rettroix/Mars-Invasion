@@ -44,8 +44,6 @@ void BuildingForeground::Draw()
 {
 
   GameObject::Draw();
-  //MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  //pTheDrawEngine->DrawLine(collisionShape.GetStart(), collisionShape.GetEnd(), 65525);
 
 }
 

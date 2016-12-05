@@ -14,7 +14,7 @@ const float BULLETSPEED = 2000.0f;
 void BulletFlyer::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 {
   m_pCity = nullptr;
-  m_friction = 1.5f;
+  m_pPlayer = nullptr;
   m_acceleration = 4000.0f;
   m_velocity.set(0, 0);
   m_shootDelay = 0.0f;
@@ -25,30 +25,38 @@ void BulletFlyer::Initialise(Vector2D startPosition, Spaceship *player, City *ci
 
   }
 
-  m_pPlayer = player;
+  if (m_pPlayer == nullptr)
+  {
+    m_pPlayer = player;
+  }
+
   m_drawDepth = 12;
 
   LoadImage(L"flyer.png");
 
   m_position = startPosition;
 
-  incrementFrame = 0;
+
 
   m_imageScale = 4;
-  sensorPosition = (m_position + Vector2D(0, 2000));
-  sensor.PlaceAt(m_position, sensorPosition);
+
 }
 
 void BulletFlyer::Update(float frameTime)
 {
+  //stops object from going too low
   if (m_position.YValue < 440)
   {
     m_position += Vector2D(0, 50);
   }
+
+  //makes it fly to the left
   m_position += Vector2D(-20, 0);
+
   m_frameTime = frameTime;
   m_shootDelay -= m_frameTime;
 
+  //destroys the enemy if too far off screen
   if (m_position.XValue < m_pPlayer->GetPosition().XValue - 3000)
   {
     Deactivate();
@@ -56,7 +64,9 @@ void BulletFlyer::Update(float frameTime)
 
   m_imageNumber = 0;
 
+  //stores players position in a vector2d
   Vector2D playerpos = m_pPlayer->getPosition();
+  //Get the vector between ship
   Vector2D vToShip = m_position - playerpos;
   m_angle = vToShip.angle();
 
@@ -93,7 +103,6 @@ void BulletFlyer::Draw()
 
   GameObject::Draw();
   MyDrawEngine* pTheDrawEngine = MyDrawEngine::GetInstance();
-  /*pTheDrawEngine->DrawLine(sensor.GetStart(), sensor.GetEnd(), 65525);*/
 
 }
 
@@ -102,25 +111,17 @@ Vector2D BulletFlyer::getPosition()
   return m_position;
 }
 
-Vector2D BulletFlyer::getInitialPosition()
-{
-  return initialPosition;
-
-
-}
-
-void BulletFlyer::changeInitialPosition(Vector2D pos)
-{
-  initialPosition = pos;
-}
 
 
 void BulletFlyer::ProcessCollision(GameObject& other)
 {
   if (other.GetType() == BULLET)
   {
+    //adds score to player
     m_pPlayer->addScore(5);
+    //increments counter to bombs
     m_pPlayer->incrementBombCounter();
+    //deincrements the enemy ammount
     m_pCity->deincrementEnemyAmmount();
 
     Explode();
@@ -135,10 +136,6 @@ float BulletFlyer::getAngle()
   return m_angle;
 }
 
-float BulletFlyer::getRotationToPlayer()
-{
-  return rotationToPlayer;
-}
 
 void BulletFlyer::Explode()
 {

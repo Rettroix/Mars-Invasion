@@ -26,12 +26,16 @@ const float RESPAWNTIME = 3.0f;
 // Set the object's type
 Spaceship::Spaceship() : GameObject(SPACESHIP)
 {
+  // Loading a sequence of images for animation
+
+
   m_drawDepth = 6;
 }
 
 // Starting position and load the image
 void Spaceship::Initialise(Vector2D position)
 {
+  
   m_isInvinsible = false;
   gameOver = false;
   srand(time(NULL));
@@ -72,33 +76,38 @@ void Spaceship::Update(float frametime)
 
   UpdateDamage();
 
+  //resets the angle
   if (m_angle >= 6.3)
   {
     m_angle = 0;
 
   }
 
+  //resets the angle
   if (m_angle <= -6.3)
   {
     m_angle = 0;
   }
 
   
-
+  //game over if health is 0
   if (health <= 0)
   {
     gameOver = true;
   }
-    
+   
+  //make member frame time equal to frame time
   m_frameTime = frametime;
  
 
-  //explode
+  //when in the middle of respawning
   if (m_respawnCounting == true)
   {
+    //gravity is turned off
     gravity = Vector2D(0.0f, 0.0f);
+    //thrust sound is stopped
     pSoundEngine->Stop(thrust);
-
+    //ammount of time to be invinsible set to 3
     m_invinsibleTime = 3;
     m_position = m_position;
     m_respawnTime -= m_frameTime;
@@ -454,11 +463,15 @@ void Spaceship::thrustChange()
 
   if (thrustTime > 200)
   {
+    pSoundEngine->SetVolume(thrust, -1000);
+
     m_acceleration = 1000.0f * (thrustTime / 100);
   }
 
   if (thrustTime > 500)
   {
+    pSoundEngine->SetVolume(thrust, 0);
+
     m_acceleration = 5000.0f;
   }
 
@@ -610,6 +623,7 @@ void Spaceship::HandleControl(float frametime)
       if (!m_thrusting)		// If not thrusting last frame
       {
         pSoundEngine->Play(thrust, true);
+        pSoundEngine->SetVolume(thrust, -5000);
 
       }
       m_thrusting = true;			// turn thrusting on

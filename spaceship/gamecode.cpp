@@ -364,10 +364,7 @@ ErrorType Game::StartOfGame()
   pShip->Initialise(Vector2D(0, 500));
   m_objects.AddItem(pShip, true);
   
-  if (m_pShip == nullptr)
-  {
-    m_pShip = pShip;
-  }
+
   //Creates the city
   City* pCity = new City;
   pCity->Initialise(pShip);
@@ -403,15 +400,7 @@ ErrorType Game::Update()
 	// Any code here to run the game,
 	// but try to do this within a game object if possible
 
-  /////////////////////
-  if (m_pShip->isGameOver() == true)
-  {
-    if (KEYPRESSED(VK_SPACE))
-    {
-      EndOfGame();
-      ChangeState(MENU);
-    }
-  }
+
   
   
 	return SUCCESS;
@@ -437,6 +426,7 @@ ErrorType Game::EndOfGame()
 
 void Game::ChangeToMenu()
 {
+  m_objects.DeactivateAll();
   ChangeState(MENU);
 }
 

@@ -1,9 +1,16 @@
+//Title     : BuildingForeground.h
+//Purpose   : Creates the foreground layer.
+//Author    : Elliot Anderson
+//Date      : 5/12/16
+
+
 #pragma once
 
 #include "GameObject.h"
 #include "mysoundengine.h"
 #include "GameObject.h"
 #include "Spaceship.h"
+
 
 class BuildingForeground : public GameObject
 {

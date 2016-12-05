@@ -109,8 +109,11 @@ void userInterface::Draw()
 
     if (m_pPlayer->isGameOver() == true)
     {
-      m_pCity->StopMusic();
-
+      //return to menu when space is pressed
+        if (KEYPRESSED(VK_SPACE))
+        {
+          Game::instance.ChangeToMenu();
+        }
       if (scoreAdded == false)
       {
         bool inserted = false;

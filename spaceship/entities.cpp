@@ -29,6 +29,7 @@ const Vector2D GRAVITY = Vector2D(0.0f, 1000.0f);
 
 void City::Initialise(Spaceship *player)
 {
+  LoadParticles();
   gameStarted = true; //The Game has started
 
   m_pPlayer = nullptr;
@@ -458,11 +459,12 @@ void City::updateBuildingsBG()
 
   middleBG = (m_pBackgroundBuildings[furthestLeftBG]->getPosition().XValue + m_pBackgroundBuildings[furthestRightBG]->getPosition().XValue) / 2;
 
+  //Changes the intital position for scrolling
   if (m_pPlayer->getPosition().XValue > middleBG)
   {
     m_pBackgroundBuildings[furthestLeftBG]->changeInitialPosition(Vector2D((m_pBackgroundBuildings[furthestRightBG]->getInitialPosition().XValue), (m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().YValue)) + Vector2D(4000, 0));
   }
-
+  //Changes the intital position for scrolling
   if (m_pPlayer->getPosition().XValue < middleBG)
   {
     m_pBackgroundBuildings[furthestRightBG]->changeInitialPosition(Vector2D((m_pBackgroundBuildings[furthestLeftBG]->getInitialPosition().XValue), (m_pBackgroundBuildings[furthestRightBG]->getInitialPosition().YValue)) - Vector2D(4000, 0));
@@ -516,11 +518,12 @@ void City::updateBuildingsFG()
 
   middleFG = (m_pForegroundBuildings[furthestLeftFG]->getPosition().XValue + m_pForegroundBuildings[furthestRightFG]->getPosition().XValue) / 2;
 
+  //Changes the intital position for scrolling
   if (m_pPlayer->getPosition().XValue > middleFG)
   {
     m_pForegroundBuildings[furthestLeftFG]->changeInitialPosition(Vector2D((m_pForegroundBuildings[furthestRightFG]->getInitialPosition().XValue), (m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().YValue)) + Vector2D(4000, 0));
   }
-
+  //Changes the intital position for scrolling
   if (m_pPlayer->getPosition().XValue < middleFG)
   {
     m_pForegroundBuildings[furthestRightFG]->changeInitialPosition(Vector2D((m_pForegroundBuildings[furthestLeftFG]->getInitialPosition().XValue), (m_pForegroundBuildings[furthestRightFG]->getInitialPosition().YValue)) - Vector2D(4000, 0));
@@ -655,6 +658,37 @@ int City::getMiddlePosition()
 {
   //returns the middle of the building array
   return middle;
+}
+
+void City::LoadParticles()
+{
+  LoadImage(L"particles1.png");
+  LoadImage(L"particles2.png");
+  LoadImage(L"particles3.png");
+  LoadImage(L"particles4.png");
+  LoadImage(L"particles5.png");
+  LoadImage(L"particles6.png");
+  LoadImage(L"particles7.png");
+  LoadImage(L"particles8.png");
+  LoadImage(L"particles9.png");
+  LoadImage(L"particles10.png");
+  LoadImage(L"particles11.png");
+  LoadImage(L"particles12.png");
+  LoadImage(L"particles13.png");
+  LoadImage(L"particles14.png");
+  LoadImage(L"particles15.png");
+  LoadImage(L"particles16.png");
+  LoadImage(L"particles17.png");
+  LoadImage(L"particles18.png");
+  LoadImage(L"particles19.png");
+  LoadImage(L"particles20.png");
+  LoadImage(L"particles21.png");
+  LoadImage(L"particles22.png");
+  LoadImage(L"particles23.png");
+  LoadImage(L"particles24.png");
+  LoadImage(L"particles25.png");
+  LoadImage(L"particles26.png");
+  LoadImage(L"particles27.png");
 }
 
 void City::StopMusic()

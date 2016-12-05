@@ -2,7 +2,7 @@
 #include "gamecode.h"
 
 //////////////////////////////////////////////
-/////////BombUI///////////////////////
+////////////////BombUI///////////////////////
 /////////////////////////////////////////////
 void BombUI::Initialise(Spaceship *player, int offset)
 {
@@ -13,10 +13,10 @@ void BombUI::Initialise(Spaceship *player, int offset)
     m_pPlayer = player;
   }
 
-  m_drawDepth = 11;
+  m_drawDepth = 11;   
   m_imageNumber = 0;
   m_position = Vector2D(0, 0);
-  positionAlong = offset;
+  positionAlong = offset; //where the ui element is places relative to the player
 
 
   //m_objectSize = Vector2D(64, 64) * 100;
@@ -36,8 +36,11 @@ void BombUI::Initialise(Spaceship *player, int offset)
 
 void BombUI::Update(float frameTime)
 {
+  //updates position relative to player position
   m_position = m_pPlayer->GetPosition() + Vector2D(positionAlong, 900);
 
+
+  //Set's the image number based on the players bomb counter
   if (m_pPlayer->getBombCounter() == 0)
   {
     m_imageNumber = 0;
@@ -93,10 +96,7 @@ void BombUI::ProcessCollision(GameObject& other)
   //nothing
 }
 
-void BombUI::frameIncrementer(int ammount, int a)
-{
 
-}
 
 BombUI::BombUI() :GameObject(UI)
 {

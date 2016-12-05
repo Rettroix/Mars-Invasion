@@ -1,3 +1,9 @@
+//Title     : Missile.cpp
+//Purpose   : Missile is a sensor which spins around and
+//            follows the player when they are in sight
+//Author    : Elliot Anderson
+//Date      : 5/12/16
+
 #include "missile.h"
 #include "Explosion.h"
 #include "gamecode.h"
@@ -9,12 +15,15 @@
 
 void Missile::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 {
-
+  //set pointers to null pointer
   m_pCity = nullptr;
   m_pPlayer = nullptr;
 
+  //set friction
   m_friction = 1.5f;
+  //set acceleration
   m_acceleration = 4000.0f;
+  //set velocity
   m_velocity.set(0, 0);
 
   if (m_pCity == nullptr)
@@ -43,11 +52,10 @@ void Missile::Initialise(Vector2D startPosition, Spaceship *player, City *city)
 void Missile::Update(float frameTime)
 {
   m_frameTime = frameTime;
-  //if (m_position.YValue < 440)
-  //{
-  //  m_position += Vector2D(0, 50);
-  //}
 
+
+  //if the enemy is too far off screen then destroy the player
+  //and deincrement enemy ammount
   if (m_position.XValue < m_pPlayer->GetPosition().XValue - 3000)
   {
     m_pCity->deincrementEnemyAmmount();
@@ -56,21 +64,19 @@ void Missile::Update(float frameTime)
   }
   
   m_imageNumber = 0;
+  //Set's the bearing of the sensor position to facing out the front
   sensorPosition.setBearing(m_angle, -m_angle*10);
+  //place the sensor at the missile
   sensor.PlaceAt(m_position, sensorPosition);
-
+  //if the sensor is not intersecting with the player
+  //make the sensor spin
   if (!sensor.Intersects(m_pPlayer->GetCollisionShape()))
   {
     m_angle -= 8000*m_frameTime;
   }
  
-
-  //if (sensor.GetStart().XValue < m_pPlayer->GetPosition().XValue &&
-  //  !sensor.Intersects(m_pPlayer->GetCollisionShape()))
-  //{
-  //  m_angle += 8000 * m_frameTime;
-  //}
-
+  //if the sensor is intersecting with the player
+  //then move the missile foward towards the player
   if (sensor.Intersects(m_pPlayer->GetCollisionShape()))
   {
     Vector2D acc;
@@ -83,7 +89,7 @@ void Missile::Update(float frameTime)
 
   }
   
-
+  //process the movement
   m_velocity = m_velocity - m_friction*m_frameTime*m_velocity;
   m_position = m_position + m_velocity*m_frameTime;
 
@@ -162,7 +168,6 @@ void Missile::Explode()
   //Deactivate();
   m_imageNumber = 1;
   Explosion* pExp = new Explosion;
-  //  g_soundFX.PlayExplosion();
 
   pExp->Initialise(m_position, Vector2D(0, 0), 4.5f, 4.5f);
 
